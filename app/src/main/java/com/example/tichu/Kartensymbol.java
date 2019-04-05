@@ -2,6 +2,7 @@
 Änderung: Anlegen des Enum Kartensymbol
 Datum: 04.04.2019
 Autor: Wagner
+test
  */
 package com.example.tichu;
 
