@@ -6,7 +6,7 @@ Autor: Wagner
 
 package com.example.tichu;
 
-public class Spielkarte {
+public class Spielkarte implements Comparable<Spielkarte>{
     Kartenwert wert;
     Kartensymbol symbol;
     int punkte;
@@ -15,5 +15,10 @@ public class Spielkarte {
         this.wert = wert;
         this.symbol = symbol;
         this.punkte = punkte;
+    }
+
+    @Override
+    public int compareTo(Spielkarte o) {
+        return wert.compareTo(o.wert);
     }
 }

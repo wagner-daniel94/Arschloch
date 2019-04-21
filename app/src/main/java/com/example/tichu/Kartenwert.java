@@ -23,6 +23,4 @@ public enum Kartenwert {
     Hund,
     Phoenix,
     Drache
-
-
 }
