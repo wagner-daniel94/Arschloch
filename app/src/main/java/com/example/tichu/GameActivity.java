@@ -4,17 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 
 /*
@@ -29,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
     Collection<Spielkarte> kartenSp2;
     Collection<Spielkarte> kartenSp3;
     Collection<Spielkarte> kartenSp4;
-    Collection<Spielkarte> ausgeteilte_Sielkarten;
+    Collection<Spielkarte> ausgeteilte_Spielkarten;
 
 
     TextView spieler1TV;
@@ -62,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
         int zufall_wert;
         int zufall_symbol;
         Spielkarte ausgewaehlte_spielkarte;
-        ausgeteilte_Sielkarten = new ArrayList<Spielkarte>();
+        ausgeteilte_Spielkarten = new ArrayList<Spielkarte>();
         List<Spielkarte> kartenSp1 = new ArrayList<Spielkarte>();
         Collection<Spielkarte> kartenSp2 = new ArrayList<Spielkarte>();
         Collection<Spielkarte> kartenSp3 = new ArrayList<Spielkarte>();
@@ -78,7 +74,7 @@ public class GameActivity extends AppCompatActivity {
 
             ausgewaehlte_spielkarte = new Spielkarte(Kartenwert.values()[zufall_wert],Kartensymbol.values()[zufall_symbol],0);
             if(!check_Karte_schon_ausgeteilt(ausgewaehlte_spielkarte)) {
-                ausgeteilte_Sielkarten.add(ausgewaehlte_spielkarte);
+                ausgeteilte_Spielkarten.add(ausgewaehlte_spielkarte);
 
                 switch (i) {
                     case 0:
@@ -99,7 +95,7 @@ public class GameActivity extends AppCompatActivity {
                 else
                     i++;
             }
-            if(ausgeteilte_Sielkarten.size() >=56)
+            if(ausgeteilte_Spielkarten.size() >=56)
                 break;
         }
         String st;
@@ -118,7 +114,7 @@ public class GameActivity extends AppCompatActivity {
             return false;
     }
     private boolean check_Karte_schon_ausgeteilt(Spielkarte sk){
-        for(Spielkarte k: ausgeteilte_Sielkarten){
+        for(Spielkarte k: ausgeteilte_Spielkarten){
             if(k.wert == sk.wert && k.symbol == sk.symbol){
                 return true;
             }
