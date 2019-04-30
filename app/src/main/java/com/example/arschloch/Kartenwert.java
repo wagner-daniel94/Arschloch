@@ -3,10 +3,9 @@
 Datum: 04.04.2019
 Autor: Wagner
  */
-package com.example.tichu;
+package com.example.arschloch;
 
 public enum Kartenwert {
-    Mah_Jong,
     Zwei,
     Drei,
     Vier,
@@ -19,8 +18,5 @@ public enum Kartenwert {
     Bube,
     Dame,
     Koenig,
-    Ass,
-    Hund,
-    Phoenix,
-    Drache
+    Ass
 }

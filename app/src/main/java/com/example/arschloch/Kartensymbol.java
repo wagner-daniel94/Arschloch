@@ -3,12 +3,11 @@
 Datum: 04.04.2019
 Autor: Wagner
  */
-package com.example.tichu;
+package com.example.arschloch;
 
 public enum Kartensymbol {
     Symbol1,
     Symbol2,
     Symbol3,
-    Symbol4,
-    Sonderkarte
+    Symbol4
 }

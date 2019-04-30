@@ -4,17 +4,16 @@ Datum: 04.04.2019
 Autor: Wagner
  */
 
-package com.example.tichu;
+package com.example.arschloch;
 
 public class Spielkarte implements Comparable<Spielkarte>{
     Kartenwert wert;
     Kartensymbol symbol;
-    int punkte;
 
-    public Spielkarte(Kartenwert wert,Kartensymbol symbol,int punkte){
+
+    public Spielkarte(Kartenwert wert,Kartensymbol symbol){
         this.wert = wert;
         this.symbol = symbol;
-        this.punkte = punkte;
     }
 
     @Override

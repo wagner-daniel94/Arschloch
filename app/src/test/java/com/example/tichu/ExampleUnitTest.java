@@ -1,4 +1,4 @@
-package com.example.tichu;
+package com.example.arschloch;
 
 import org.junit.Test;
 
