@@ -2,17 +2,17 @@ package com.example.arschloch;
 
 import java.util.List;
 
-public class Spieler {
+public class Player {
     private boolean arschloch;
     private  boolean winner;
-    private List<Spielkarte> spielkarten;
-    private int punkte;
+    private List<Card> cards;
+    private int points;
 
-    public  Spieler(List<Spielkarte> spielkarten){
+    public Player(List<Card> cards){
         this.arschloch = false;
         this.winner = false;
-        this.spielkarten = spielkarten;
-        this.punkte = 0;
+        this.cards = cards;
+        this.points = 0;
     }
 
 
@@ -24,12 +24,12 @@ public class Spieler {
         return winner;
     }
 
-    public List<Spielkarte> getSpielkarten() {
-        return spielkarten;
+    public List<Card> getCards() {
+        return cards;
     }
 
-    public int getPunkte() {
-        return punkte;
+    public int getPoints() {
+        return points;
     }
 
     public void setArschloch(boolean arschloch) {
@@ -40,11 +40,11 @@ public class Spieler {
         this.winner = winner;
     }
 
-    public void setSpielkarten(List<Spielkarte> spielkarten) {
-        this.spielkarten = spielkarten;
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 
-    public void setPunkte(int punkte) {
-        this.punkte = punkte;
+    public void setPoints(int punkte) {
+        this.points = punkte;
     }
 }

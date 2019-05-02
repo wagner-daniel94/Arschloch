@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 
 /*
@@ -20,12 +21,13 @@ Autor: Wagner
 
 public class GameActivity extends AppCompatActivity {
 
-    Spieler spieler1;
-    Spieler spieler2;
-    Spieler spieler3;
-    Spieler spieler4;
-    Collection<Spielkarte> ausgeteilte_Spielkarten;
+    Player player1;
+    Player player2;
+    Player player3;
+    Player player4;
+    Collection<Card> distributed_cards;
     int playersTurn;
+    int amountCardsPlayed = 0;
 
     TextView spieler1TV;
 
@@ -37,52 +39,60 @@ public class GameActivity extends AppCompatActivity {
         Button austeilenBtn =(Button) findViewById(R.id.austeilenBtn);
         spieler1TV = (TextView)findViewById(R.id.spieler1TV);
 
-        karten_austeilen();
+        cards_distributing();
         austeilenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 spieler1TV.setText("");
 
-                karten_austeilen();
+                cards_distributing();
                 playersTurn = get_firstPlayer();
+                Card c1 = new Card(Card_value.four,Card_symbol.symbol1);
+                Card c2 = new Card(Card_value.four,Card_symbol.symbol1);
+                Card c3 = new Card(Card_value.five,Card_symbol.symbol1);
+                List<Card> examples = new ArrayList<Card>();
+                examples.add(c1);
+                examples.add(c2);
+                examples.add(c3);
 
+                check_combination(examples);
             }
         });
 
     }
 
-    private void karten_austeilen(){
+    private void cards_distributing(){
         int i = 0;
-        int zufall_wert;
-        int zufall_symbol;
-        Spielkarte ausgewaehlte_spielkarte;
-        ausgeteilte_Spielkarten = new ArrayList<Spielkarte>();
-        spieler1 = new Spieler(new ArrayList<Spielkarte>());
-        spieler2 = new Spieler(new ArrayList<Spielkarte>());
-        spieler3 = new Spieler(new ArrayList<Spielkarte>());
-        spieler4 = new Spieler(new ArrayList<Spielkarte>());
+        int random_value;
+        int random_symbol;
+        Card choosen_card;
+        distributed_cards = new ArrayList<Card>();
+        player1 = new Player(new ArrayList<Card>());
+        player2 = new Player(new ArrayList<Card>());
+        player3 = new Player(new ArrayList<Card>());
+        player4 = new Player(new ArrayList<Card>());
         while(true)
         {
 
-            zufall_wert = (int)(Math.random()*13);
-            zufall_symbol = (int)(Math.random()*4);
+            random_value = (int)(Math.random()*13);
+            random_symbol = (int)(Math.random()*4);
 
-            ausgewaehlte_spielkarte = new Spielkarte(Kartenwert.values()[zufall_wert],Kartensymbol.values()[zufall_symbol]);
-            if(!check_Karte_schon_ausgeteilt(ausgewaehlte_spielkarte)) {
-                ausgeteilte_Spielkarten.add(ausgewaehlte_spielkarte);
-
+            choosen_card = new Card(Card_value.values()[random_value], Card_symbol.values()[random_symbol]);
+            if(!check_card_already_distributed(choosen_card));
+            {
+                distributed_cards.add(choosen_card);
                 switch (i) {
                     case 0:
-                        spieler1.getSpielkarten().add(ausgewaehlte_spielkarte);
+                        player1.getCards().add(choosen_card);
                         break;
                     case 1:
-                        spieler2.getSpielkarten().add(ausgewaehlte_spielkarte);
+                        player2.getCards().add(choosen_card);
                         break;
                     case 2:
-                        spieler3.getSpielkarten().add(ausgewaehlte_spielkarte);
+                        player3.getCards().add(choosen_card);
                         break;
                     case 3:
-                        spieler4.getSpielkarten().add(ausgewaehlte_spielkarte);
+                        player4.getCards().add(choosen_card);
                        break;
                 }
                 if(i==3)
@@ -90,21 +100,21 @@ public class GameActivity extends AppCompatActivity {
                 else
                     i++;
             }
-            if(ausgeteilte_Spielkarten.size() >=52)
+            if(distributed_cards.size() >=52)
                 break;
         }
         String st;
-        Collections.sort(spieler1.getSpielkarten());
-        for(Spielkarte sk:spieler1.getSpielkarten()){
-            st = spieler1TV.getText().toString() + sk.wert + " " + sk.symbol + "\n";
+        Collections.sort(player1.getCards());
+        for(Card c:player1.getCards()){
+            st = spieler1TV.getText().toString() + c.getValue() + " " + c.getSymbol() + "\n";
             spieler1TV.setText(st);
         }
 
     }
 
-    private boolean check_Karte_schon_ausgeteilt(Spielkarte sk){
-        for(Spielkarte k: ausgeteilte_Spielkarten){
-            if(k.wert == sk.wert && k.symbol == sk.symbol){
+    private boolean check_card_already_distributed(Card card){
+        for(Card c: distributed_cards){
+            if(c.getValue() == card.getValue() && c.getSymbol() == card.getSymbol()){
                 return true;
             }
         }
@@ -112,15 +122,27 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private int get_firstPlayer(){
-        if(spieler1.isArschloch())
+        if(player1.isArschloch())
             return 1;
-        else if(spieler2.isArschloch())
+        else if(player2.isArschloch())
             return  2;
-        else if(spieler3.isArschloch())
+        else if(player3.isArschloch())
             return  3;
-        else if(spieler4.isArschloch())
+        else if(player4.isArschloch())
             return  4;
         else
             return (int)(Math.random()*4)+1;
+    }
+
+    private boolean check_combination(List<Card> choosen_cards){
+        boolean value_statement =true;
+        for(int i = 0; i < choosen_cards.size()-1;i++){
+            if(choosen_cards.get(i).getValue() != choosen_cards.get(i+1).getValue())
+                value_statement = false;
+        }
+        if((choosen_cards.size() == amountCardsPlayed || amountCardsPlayed == 0) && value_statement == true)
+            return true;
+        else
+            return false;
     }
 }
