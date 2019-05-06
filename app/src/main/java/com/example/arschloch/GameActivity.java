@@ -85,7 +85,7 @@ public class GameActivity extends AppCompatActivity {
 
         for(int k= 0;k<=12;k++){
             for(int l = 0;l<=3;l++){
-                create_card = new Card(Card_value.values()[k], Card_symbol.values()[l]);
+                create_card = new Card(Card_value.values()[k], Card_symbol.values()[l]);//weil sich der Konstruktor geändert hat
                 card_deck.add(create_card);
             }
         }
