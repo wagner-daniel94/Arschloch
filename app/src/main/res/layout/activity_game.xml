@@ -9,11 +9,13 @@
 
     <Button
         android:id="@+id/austeilenBtn"
-        android:layout_width="205dp"
+        android:layout_width="181dp"
         android:layout_height="37dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/buttonborder"
         android:text="austeilen"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,11 +32,13 @@
 
     <Button
         android:id="@+id/playBtn"
-        android:layout_width="164dp"
+        android:layout_width="189dp"
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/buttonborder"
         android:text="play"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/austeilenBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
