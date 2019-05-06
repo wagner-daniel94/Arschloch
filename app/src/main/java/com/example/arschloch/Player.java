@@ -1,5 +1,6 @@
 package com.example.arschloch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -8,10 +9,10 @@ public class Player {
     private List<Card> cards;
     private int points;
 
-    public Player(List<Card> cards){
+    public Player(){
         this.arschloch = false;
         this.winner = false;
-        this.cards = cards;
+        this.cards = new ArrayList<Card>();
         this.points = 0;
     }
 
