@@ -25,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
     Player player2;
     Player player3;
     Player player4;
-    Collection<Card> distributed_cards;
+
     List<Card> card_deck;
     int playersTurn;
     int amountCardsPlayed = 0;
@@ -67,10 +67,13 @@ public class GameActivity extends AppCompatActivity {
 * Das austeielen der Karten
 * */
     private void cards_distributing(){
+        //Zähler für Spieler 1-4 (0-3)
         int i = 0;
+        //Zähler für ausgeteilte Karten
         int c = 0;
+        //Variable um eine Karte zu erstellen
         Card create_card;
-        distributed_cards = new ArrayList<Card>();
+
         card_deck = new ArrayList<Card>();
         player1 = new Player();
         player2 = new Player();
@@ -135,17 +138,6 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-/*
-* Überprüfun ob erzeugte Karte schon ausgeteilt wurde
-* */
-    private boolean check_card_already_distributed(Card card){
-        for(Card c: distributed_cards){
-            if(c.getValue() == card.getValue() && c.getSymbol() == card.getSymbol()){
-                return true;
-            }
-        }
-        return false;
-    }
 
 /*
 * Festlegung des ersten Spielers
