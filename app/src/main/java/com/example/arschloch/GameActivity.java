@@ -30,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
 
     List<Card> card_deck;
     int playersTurn;
+    int turnCount = 1;
     int amountCardsPlayed = 0;
     Card_value cardValuePlayed;
 
@@ -149,8 +150,9 @@ public class GameActivity extends AppCompatActivity {
 * */
     private int get_firstPlayer(){
         //Wenn Spieler Arschloch in der Runde zuvor war beginnt er das Spiel. Wenn es die erste Runde ist entscheidet der Zufall
-        if(player1.isArschloch())
-            return 1;
+        if(player1.isArschloch()){
+
+            return 1;}
         else if(player2.isArschloch())
             return  2;
         else if(player3.isArschloch())
@@ -164,14 +166,27 @@ public class GameActivity extends AppCompatActivity {
 
 
     private Player get_winner(){
-        if(player1.isWinner())
-            return player1;
-        else if(player2.isWinner())
-            return player2;
-        else if(player3.isWinner())
-            return player3;
-        else if(player4.isWinner())
-            return player4;
+        int points =0;
+        if(player1.isWinner()){
+            points = player1.getPoints();
+            points++;
+            player1.setPoints(points);
+            return player1;}
+        else if(player2.isWinner()){
+            points = player2.getPoints();
+            points++;
+            player2.setPoints(points);
+            return player2;}
+        else if(player3.isWinner()){
+            points = player3.getPoints();
+            points++;
+            player3.setPoints(points);
+            return player3;}
+        else if(player4.isWinner()){
+            points = player4.getPoints();
+            points++;
+            player4.setPoints(points);
+            return player4;}
         else
         return null;
     }
@@ -222,4 +237,25 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+    //Zählen von Zügen
+    private int turnCount (){
+        if (playersTurn==0) {
+            turnCount++;}
+            return turnCount;
+
+    }
+    //Zählen des Spielers der an der Reihe ist
+    private int playerPlayer (){
+        if(playersTurn==3)
+
+            return 0;
+        else
+            return playersTurn++;
+
+    }
+
+
+
+
+
 }
