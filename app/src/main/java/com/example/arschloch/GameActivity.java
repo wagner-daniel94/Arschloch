@@ -156,6 +156,24 @@ public class GameActivity extends AppCompatActivity {
             return (int)(Math.random()*4)+1;
     }
 
+
+
+    private Player get_winner(){
+        if(player1.isWinner())
+            return player1;
+        else if(player2.isWinner())
+            return player2;
+        else if(player3.isWinner())
+            return player3;
+        else if(player4.isWinner())
+            return player4;
+        else
+        return null;
+    }
+
+
+
+
 /*
 * Überprüfung ob es eine gültige Kombintion ist
 * */
