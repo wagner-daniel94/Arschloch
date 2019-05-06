@@ -6,8 +6,8 @@ Autor: Wagner
 package com.example.arschloch;
 
 public enum Card_symbol {
-    symbol1,
-    symbol2,
-    symbol3,
-    symbol4
+    heart,
+    karo,
+    pik,
+    cross
 }
