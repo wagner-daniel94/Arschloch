@@ -1,6 +1,7 @@
 package com.example.arschloch;
 
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -53,8 +54,6 @@ public class GameActivity extends AppCompatActivity {
 
                 cards_distributing();
                 playersTurn = get_firstPlayer();
-
-
             }
         });
         playBtn.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +126,7 @@ public class GameActivity extends AppCompatActivity {
         Collections.sort(player3.getCards());
         Collections.sort(player4.getCards());
         show_players_cards();
+        set_card_imageView();
 
     }
 
@@ -140,6 +140,16 @@ public class GameActivity extends AppCompatActivity {
             st = spieler1TV.getText().toString() + c.getValue() + " " + c.getSymbol() + "\n";
             spieler1TV.setText(st);
         }
+    }
+
+
+    /*
+    Karte einem ImageView zur Laufzeit zuweisen
+     */
+
+    public void set_card_imageView(){
+        ImageView iv = findViewById(R.id.card1);
+        iv.setImageResource(player1.getCards().get(0).getResourceId());
     }
 
 
