@@ -26,6 +26,7 @@ public class GameActivity extends AppCompatActivity {
     Player player3;
     Player player4;
     Collection<Card> distributed_cards;
+    List<Card> card_deck;
     int playersTurn;
     int amountCardsPlayed = 0;
     Card_value cardValuePlayed;
@@ -49,15 +50,7 @@ public class GameActivity extends AppCompatActivity {
 
                 cards_distributing();
                 playersTurn = get_firstPlayer();
-                Card c1 = new Card(Card_value.four,Card_symbol.symbol1);
-                Card c2 = new Card(Card_value.four,Card_symbol.symbol1);
-                Card c3 = new Card(Card_value.five,Card_symbol.symbol1);
-                List<Card> examples = new ArrayList<Card>();
-                examples.add(c1);
-                examples.add(c2);
-                examples.add(c3);
 
-                check_combination(examples);
 
             }
         });
@@ -75,48 +68,52 @@ public class GameActivity extends AppCompatActivity {
 * */
     private void cards_distributing(){
         int i = 0;
-        int random_value;
-        int random_symbol;
-        Card choosen_card;
+        int c = 0;
+        Card create_card;
         distributed_cards = new ArrayList<Card>();
+        card_deck = new ArrayList<Card>();
         player1 = new Player();
         player2 = new Player();
         player3 = new Player();
         player4 = new Player();
+
+        for(int k= 0;k<=12;k++){
+            for(int l = 0;l<=3;l++){
+                create_card = new Card(Card_value.values()[k], Card_symbol.values()[l]);
+                card_deck.add(create_card);
+            }
+        }
+        Collections.shuffle(card_deck);
         while(true)
         {
-            //Zufallszahl für Kartenwert
-            random_value = (int)(Math.random()*13);
-            //Zufallszahl für Kartensymbol
-            random_symbol = (int)(Math.random()*4);
 
-            choosen_card = new Card(Card_value.values()[random_value], Card_symbol.values()[random_symbol]);
-            if(!check_card_already_distributed(choosen_card));
-            {
-                distributed_cards.add(choosen_card);
+
                 switch (i) {
                     case 0:
-                        player1.getCards().add(choosen_card);
+                        player1.getCards().add(card_deck.get(c));
                         break;
                     case 1:
-                        player2.getCards().add(choosen_card);
+                        player2.getCards().add(card_deck.get(c));
                         break;
                     case 2:
-                        player3.getCards().add(choosen_card);
+                        player3.getCards().add(card_deck.get(c));
                         break;
                     case 3:
-                        player4.getCards().add(choosen_card);
+                        player4.getCards().add(card_deck.get(c));
                        break;
                 }
+                if(c!=card_deck.size()-1)
+                c++;
+                else
+                    break;
+
                 //Auswahl des nächsten Spielers, der eine Karte erhält. Nach Spieler4(i==3) ist Spieler1 wieder an der Reihe
                 if(i==3)
                     i=0;
                 else
                     i++;
             }
-            if(distributed_cards.size() >=52)
-                break;
-        }
+
         //Sortieren der Kartendecks
         Collections.sort(player1.getCards());
         Collections.sort(player2.getCards());
