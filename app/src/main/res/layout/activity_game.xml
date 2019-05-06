@@ -38,4 +38,14 @@
         app:layout_constraintStart_toEndOf="@+id/austeilenBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/card1"
+        android:layout_width="218dp"
+        android:layout_height="323dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
 </android.support.constraint.ConstraintLayout>
