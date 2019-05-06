@@ -1,5 +1,6 @@
 package com.example.arschloch;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
@@ -148,8 +149,28 @@ public class GameActivity extends AppCompatActivity {
      */
 
     public void set_card_imageView(){
-        ImageView iv = findViewById(R.id.card1);
-        iv.setImageResource(player1.getCards().get(0).getResourceId());
+        List<ImageView> handCardsImageViews = new ArrayList<ImageView>();
+
+
+        handCardsImageViews.add((ImageView)findViewById(R.id.card1));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card2));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card3));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card4));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card5));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card6));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card7));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card8));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card9));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card10));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card11));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card12));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card13));
+
+
+        for(int i = 0; i < player1.getCards().size();i++){
+            handCardsImageViews.get(i).setImageResource(player1.getCards().get(i).getResourceId());
+        }
+
     }
 
 
