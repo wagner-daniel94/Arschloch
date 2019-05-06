@@ -38,14 +38,106 @@
         app:layout_constraintStart_toEndOf="@+id/austeilenBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/card1"
-        android:layout_width="218dp"
-        android:layout_height="323dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+
+
+        <TableLayout
+            android:layout_width="395dp"
+            android:layout_height="390dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ImageView
+                    android:id="@+id/card1"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card2"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    android:layout_marginLeft="-40dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card3"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    android:layout_marginLeft="-40dp"
+                    app:srcCompat="@drawable/back" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ImageView
+                    android:id="@+id/card4"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card5"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card6"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card7"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card8"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ImageView
+                    android:id="@+id/card9"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card10"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card11"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card12"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+                <ImageView
+                    android:id="@+id/card13"
+                    android:layout_width="79dp"
+                    android:layout_height="130dp"
+                    app:srcCompat="@drawable/back" />
+            </TableRow>
+
+        </TableLayout>
 
 </android.support.constraint.ConstraintLayout>
