@@ -1,16 +1,46 @@
 package com.example.arschloch;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.UserHandle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -134,8 +164,8 @@ public class GameActivity extends AppCompatActivity {
      */
 
     public void set_card_imageView(){
-        List<ImageView> handCardsImageViews = new ArrayList<ImageView>();
 
+        List<ImageView> handCardsImageViews = new ArrayList<ImageView>();
 
         handCardsImageViews.add((ImageView)findViewById(R.id.card1));
         handCardsImageViews.add((ImageView)findViewById(R.id.card2));
@@ -152,13 +182,36 @@ public class GameActivity extends AppCompatActivity {
         handCardsImageViews.add((ImageView)findViewById(R.id.card13));
 
 
+
+
+
         for(int i = 0; i < player1.getCards().size();i++){
             handCardsImageViews.get(i).setImageResource(player1.getCards().get(i).getResourceId());
+            //handCardsImageViews.get(i).setTag(player1.getCards().get(i).getResourceId());
         }
 
     }
 
+    public void test(View v){
+        Toast.makeText(this,v.getTag().toString(), Toast.LENGTH_SHORT).show();
+        System.out.println(v.getTag().toString());
+    }
 
+    /*
+    public void markCard(View v){
+
+        for(Card c: player1.getCards()){
+            if(c.getResourceId() == v.getTag()){
+                c.setClicked(true);
+                System.out.println("Card Marked");
+            }else if(c.isClicked()){
+                c.setClicked(false);
+                System.out.println("Card Demarked");
+            }
+        }
+    }
+
+*/
 
 
 
