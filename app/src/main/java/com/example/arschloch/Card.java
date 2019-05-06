@@ -13,14 +13,14 @@ public class Card implements Comparable<Card>{
     private Card_value value;
     private Card_symbol symbol;
     private String imageString;
-    Drawable drawable;
+    int resourceId;
 
 
 
-    public Card(Card_value value, Card_symbol symbol, Drawable drawable){
+    public Card(Card_value value, Card_symbol symbol, int resourceId){
         this.value = value;
         this.symbol = symbol;
-        this.drawable = drawable;
+        this.resourceId = resourceId;
         //imageString = "@mipmap/" + symbol.toString()+value.toString();
 
     }
