@@ -24,19 +24,20 @@ Autor: Wagner
  */
 
 public class GameActivity extends AppCompatActivity {
-
+    //Spieler
     Player player1;
     Player player2;
     Player player3;
     Player player4;
-
+    //Karten
     Cards card_deck;
+    //Spieler an der Reihe
     int playersTurn;
     int turnCount = 1;
+    //Anzahl der Karten die zuvor gespielt wurden
     int amountCardsPlayed = 0;
+    //Kartenwert der zuvor gespielten KArten
     Card_value cardValuePlayed;
-
-    TextView spieler1TV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +46,11 @@ public class GameActivity extends AppCompatActivity {
 
         Button austeilenBtn =(Button) findViewById(R.id.austeilenBtn);
         Button playBtn = (Button) findViewById(R.id.playBtn);
-        spieler1TV = (TextView)findViewById(R.id.spieler1TV);
 
         cards_distributing();
         austeilenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spieler1TV.setText("");
 
                 cards_distributing();
                 playersTurn = get_firstPlayer();
@@ -61,7 +60,6 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 play_card(player1);
-                show_players_cards();
             }
         });
     }
@@ -126,21 +124,8 @@ public class GameActivity extends AppCompatActivity {
         Collections.sort(player2.getCards());
         Collections.sort(player3.getCards());
         Collections.sort(player4.getCards());
-        show_players_cards();
         set_card_imageView();
 
-    }
-
-/*
-* anzeigen der Karten
-* muss noch auf ImageViews umgestellt werden
-* */
-    private void show_players_cards(){
-        String st;
-        for(Card c:player1.getCards()){
-            st = spieler1TV.getText().toString() + c.getValue() + " " + c.getSymbol() + "\n";
-            spieler1TV.setText(st);
-        }
     }
 
 
