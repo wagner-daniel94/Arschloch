@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 public class Card implements Comparable<Card>{
     private Card_value value;
     private Card_symbol symbol;
+    private boolean isClicked;
 
     int resourceId;
 
@@ -46,4 +47,12 @@ public class Card implements Comparable<Card>{
     }
 
     public int getResourceId(){ return this.resourceId; }
+
+    public boolean isClicked() {
+        return isClicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        isClicked = clicked;
+    }
 }
