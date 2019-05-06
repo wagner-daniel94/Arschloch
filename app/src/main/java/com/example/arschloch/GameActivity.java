@@ -28,7 +28,7 @@ public class GameActivity extends AppCompatActivity {
     Player player3;
     Player player4;
 
-    List<Card> card_deck;
+    Cards card_deck;
     int playersTurn;
     int turnCount = 1;
     int amountCardsPlayed = 0;
@@ -77,38 +77,39 @@ public class GameActivity extends AppCompatActivity {
         //Variable um eine Karte zu erstellen
         Card create_card;
 
-        card_deck = new ArrayList<Card>();
         player1 = new Player();
         player2 = new Player();
         player3 = new Player();
         player4 = new Player();
 
+        Collections.shuffle(card_deck.getCards());
+
+        /* Karten erzeugen
         for(int k= 0;k<=12;k++){
             for(int l = 0;l<=3;l++){
                 create_card = new Card(Card_value.values()[k], Card_symbol.values()[l]);//weil sich der Konstruktor geändert hat
                 card_deck.add(create_card);
             }
         }
-        Collections.shuffle(card_deck);
+        */
+
         while(true)
         {
-
-
                 switch (i) {
                     case 0:
-                        player1.getCards().add(card_deck.get(c));
+                        player1.getCards().add(card_deck.getCards().get(c));
                         break;
                     case 1:
-                        player2.getCards().add(card_deck.get(c));
+                        player2.getCards().add(card_deck.getCards().get(c));
                         break;
                     case 2:
-                        player3.getCards().add(card_deck.get(c));
+                        player3.getCards().add(card_deck.getCards().get(c));
                         break;
                     case 3:
-                        player4.getCards().add(card_deck.get(c));
+                        player4.getCards().add(card_deck.getCards().get(c));
                        break;
                 }
-                if(c!=card_deck.size()-1)
+                if(c!=card_deck.getCards().size()-1)
                 c++;
                 else
                     break;
@@ -245,17 +246,12 @@ public class GameActivity extends AppCompatActivity {
 
     }
     //Zählen des Spielers der an der Reihe ist
-    private int playerPlayer (){
-        if(playersTurn==3)
+    private int playerPlayer () {
+        if (playersTurn == 3)
 
             return 0;
         else
             return playersTurn++;
 
     }
-
-
-
-
-
 }

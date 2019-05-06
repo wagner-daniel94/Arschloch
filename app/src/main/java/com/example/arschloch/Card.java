@@ -12,7 +12,7 @@ import android.graphics.drawable.Drawable;
 public class Card implements Comparable<Card>{
     private Card_value value;
     private Card_symbol symbol;
-    private String imageString;
+
     int resourceId;
 
 
@@ -21,7 +21,6 @@ public class Card implements Comparable<Card>{
         this.value = value;
         this.symbol = symbol;
         this.resourceId = resourceId;
-        //imageString = "@mipmap/" + symbol.toString()+value.toString();
 
     }
 
@@ -46,7 +45,5 @@ public class Card implements Comparable<Card>{
         this.symbol = symbol;
     }
 
-    public String getImageString(){
-        return this.imageString;
-    }
+    public int getResourceId(){ return this.resourceId; }
 }

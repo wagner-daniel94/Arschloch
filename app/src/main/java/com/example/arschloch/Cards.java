@@ -1,11 +1,13 @@
 package com.example.arschloch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cards {
     private List<Card> cards;
 
     public Cards(){
+        cards = new ArrayList<Card>();
         //Hearts fertig
         cards.add(new Card(Card_value.two,Card_symbol.hearts,R.drawable.heartstwo));
         cards.add(new Card(Card_value.three,Card_symbol.hearts,R.drawable.heartsthree));
@@ -66,7 +68,13 @@ public class Cards {
         cards.add(new Card(Card_value.king,Card_symbol.spades,R.drawable.spadesking));
         cards.add(new Card(Card_value.ace,Card_symbol.spades,R.drawable.spadesace));
 
+    }
 
+    public List<Card> getCards() {
+        return cards;
+    }
 
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }
