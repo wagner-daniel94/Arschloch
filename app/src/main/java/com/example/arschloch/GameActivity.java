@@ -75,7 +75,7 @@ public class GameActivity extends AppCompatActivity {
         //Zähler für ausgeteilte Karten
         int c = 0;
         //Variable um eine Karte zu erstellen
-        Card create_card;
+        card_deck = new Cards();
 
         player1 = new Player();
         player2 = new Player();
