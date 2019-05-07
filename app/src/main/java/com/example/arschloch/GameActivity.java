@@ -30,7 +30,9 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -185,33 +187,62 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-        for(int i = 0; i < player1.getCards().size();i++){
-            handCardsImageViews.get(i).setImageResource(player1.getCards().get(i).getResourceId());
-            //handCardsImageViews.get(i).setTag(player1.getCards().get(i).getResourceId());
+        for(int i = 0; i < handCardsImageViews.size();i++){
+            if(i<=player1.getCards().size()-1) {
+
+                handCardsImageViews.get(i).setVisibility(View.VISIBLE);
+                handCardsImageViews.get(i).setImageResource(player1.getCards().get(i).getResourceId());
+                handCardsImageViews.get(i).setTag(player1.getCards().get(i).getResourceId());
+                if (player1.getCards().get(i).isClicked()) {
+                    handCardsImageViews.get(i).setBackgroundResource(R.drawable.style);
+                    handCardsImageViews.get(i).setPadding(2, 2, 2, 2);
+
+                } else {
+                    //handCardsImageViews.get(i).background
+                    handCardsImageViews.get(i).setPadding(0, 0, 0, 0);
+
+                }
+            }
+            else {
+                handCardsImageViews.get(i).setVisibility(View.GONE);
+            }
+        }
+        TextView tv = (TextView)findViewById(R.id.spieler1TV);
+        tv.setText("");
+        for(Card c:player1.getCards()){
+            if(c.isClicked())
+                tv.setText(tv.getText() + c.getSymbol().toString() + c.getValue().toString() + " ");
         }
 
     }
 
-    public void test(View v){
-        Toast.makeText(this,v.getTag().toString(), Toast.LENGTH_SHORT).show();
-        System.out.println(v.getTag().toString());
-    }
 
-    /*
     public void markCard(View v){
 
         for(Card c: player1.getCards()){
-            if(c.getResourceId() == v.getTag()){
-                c.setClicked(true);
-                System.out.println("Card Marked");
-            }else if(c.isClicked()){
+            if(c.getResourceId() == (int)v.getTag() && !c.isClicked()){
+                List<Card> markedCards = new ArrayList<>();
+                for(Card c1:player1.getCards()){
+                    if(c1.isClicked()){
+                        markedCards.add(c1);
+                    }
+                }
+                if(check_combination(markedCards)) {
+                    c.setClicked(true);
+                    System.out.println("Card Marked");
+                    Toast.makeText(this,"new combination",Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(this,"invalid card selected",Toast.LENGTH_LONG).show();
+            }else if(c.getResourceId() ==(int)v.getTag() && c.isClicked()){
                 c.setClicked(false);
                 System.out.println("Card Demarked");
             }
         }
+        set_card_imageView();
     }
 
-*/
+
 
 
 

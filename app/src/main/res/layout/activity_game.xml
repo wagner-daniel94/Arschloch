@@ -54,7 +54,7 @@
             android:id="@+id/card1"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:onClick="test"
+            android:onClick="markCard"
             android:tag="Card1"
             app:srcCompat="@drawable/back"
             />
@@ -65,7 +65,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card1"
             android:layout_marginLeft="-40dp"
-            android:onClick="test"
+            android:onClick="markCard"
             android:tag="Card2"
             app:srcCompat="@drawable/back" />
         <ImageView
@@ -74,6 +74,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card2"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
             android:id="@+id/card4"
@@ -81,6 +82,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card3"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
             android:id="@+id/card5"
@@ -88,6 +90,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card4"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
             android:id="@+id/card6"
@@ -95,6 +98,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card5"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
             android:id="@+id/card7"
@@ -109,6 +113,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card7"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
             android:id="@+id/card9"
@@ -116,6 +121,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card8"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
             android:id="@+id/card10"
@@ -123,6 +129,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card9"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
             android:id="@+id/card11"
@@ -130,6 +137,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card10"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
             android:id="@+id/card12"
@@ -137,6 +145,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card11"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
         android:id="@+id/card13"
@@ -144,6 +153,7 @@
         android:layout_height="130dp"
         android:layout_toEndOf="@id/card12"
         android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
         app:srcCompat="@drawable/back" />
 
 
