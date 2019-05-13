@@ -34,19 +34,21 @@ public class OpponentPlayer extends Player
         }
     }
 
-
     @Override
-    public void druecken (Player arschloch, Player winner, Card wishCard){
+    public void wuenschen (Player arschloch, Player winner, Card wishCard) {
         //erst ab 2.Runde
-
         if(wishCard != null && arschloch.getCards().contains(wishCard) ){
             winner.getCards().add(wishCard);
             arschloch.getCards().remove(wishCard);
             Collections.sort(arschloch.getCards());
             Collections.sort(winner.getCards());
         }
+    }
 
-        if(wishCard == null){
+    @Override
+    public void tauschen (Player arschloch, Player winner){
+        //erst ab 2.Runde
+
             Card lowestCard1 = winner.getCards().get(0);
             Card highestCard1 = arschloch.getCards().get(arschloch.getCards().size()-1);
         /*
@@ -87,7 +89,7 @@ public class OpponentPlayer extends Player
             winner.getCards().add(highestCard1);
             arschloch.getCards().add(lowestCard1);
             winner.getCards().remove(lowestCard1);
-        }
+
 
         Collections.sort(arschloch.getCards());
         Collections.sort(winner.getCards());

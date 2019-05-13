@@ -47,16 +47,19 @@ public class HumanPlayer extends Player
     }
 
     @Override
-    public void druecken(Player arschloch, Player winner, Card wishCard){
-        //erst ab 2.Runde
+    public void wuenschen(Player arschloch, Player winner, Card wishCard){
+        //winner wählt Karte aus
 
-        //wish Anweisung is gleich
-        if(wishCard != null && arschloch.getCards().contains(wishCard) ){
+        if(arschloch.getCards().contains(wishCard) ){
             winner.getCards().add(wishCard);
             arschloch.getCards().remove(wishCard);
             Collections.sort(arschloch.getCards());
             Collections.sort(winner.getCards());
         }
+    }
+
+    @Override
+    public void tauschen(Player arschloch, Player winner){
         /*
         Card choosenCard1;
 
