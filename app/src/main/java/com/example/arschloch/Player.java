@@ -3,7 +3,7 @@ package com.example.arschloch;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public abstract class Player {
     private boolean arschloch;
     private  boolean winner;
     private List<Card> cards;
@@ -48,4 +48,6 @@ public class Player {
     public void setPoints(int punkte) {
         this.points = punkte;
     }
+
+    public abstract void play_card();
 }
