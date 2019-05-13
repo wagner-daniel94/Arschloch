@@ -34,8 +34,9 @@ public abstract class Player {
             return false;
     }
 
-    public abstract void druecken(Player arschloch, Player winner, Card wishCard);
+    public abstract void wuenschen(Player arschloch, Player winner, Card wishCard);
 
+    public abstract void tauschen(Player arschloch, Player winner);
 
 
     //Getter & Setter
