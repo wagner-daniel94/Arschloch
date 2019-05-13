@@ -3,7 +3,7 @@ package com.example.arschloch;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Opponent extends Player
+public class OpponentPlayer extends Player
 {
     @Override
     public void play_card()

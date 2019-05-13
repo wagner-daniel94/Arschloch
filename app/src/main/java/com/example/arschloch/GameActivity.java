@@ -1,50 +1,15 @@
 package com.example.arschloch;
 
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.IntentSender;
-import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.UserHandle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,10 +22,10 @@ Autor: Wagner
 
 public class GameActivity extends AppCompatActivity {
     //Spieler
-    Player player1;
-    Player player2;
-    Player player3;
-    Player player4;
+    Player humanPlayer;
+    Player opponentPlayer1;
+    Player opponentPlayer2;
+    Player opponentPlayer3;
     //Karten
     Cards card_deck;
     //Spieler an der Reihe
@@ -91,7 +56,7 @@ public class GameActivity extends AppCompatActivity {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                play_cards(player1);
+                play_cards(humanPlayer);
             }
         });
     }
@@ -107,10 +72,10 @@ public class GameActivity extends AppCompatActivity {
         //Variable um eine Karte zu erstellen
         card_deck = new Cards();
 
-        player1 = new Player();
-        player2 = new Player();
-        player3 = new Player();
-        player4 = new Player();
+        humanPlayer = new HumanPlayer();
+        opponentPlayer1 = new OpponentPlayer();
+        opponentPlayer2 = new OpponentPlayer();
+        opponentPlayer3 = new OpponentPlayer();
 
         Collections.shuffle(card_deck.getCards());
 
@@ -127,16 +92,16 @@ public class GameActivity extends AppCompatActivity {
         {
                 switch (i) {
                     case 0:
-                        player1.getCards().add(card_deck.getCards().get(c));
+                        humanPlayer.getCards().add(card_deck.getCards().get(c));
                         break;
                     case 1:
-                        player2.getCards().add(card_deck.getCards().get(c));
+                        opponentPlayer1.getCards().add(card_deck.getCards().get(c));
                         break;
                     case 2:
-                        player3.getCards().add(card_deck.getCards().get(c));
+                        opponentPlayer2.getCards().add(card_deck.getCards().get(c));
                         break;
                     case 3:
-                        player4.getCards().add(card_deck.getCards().get(c));
+                        opponentPlayer3.getCards().add(card_deck.getCards().get(c));
                        break;
                 }
                 if(c!=card_deck.getCards().size()-1)
@@ -152,10 +117,10 @@ public class GameActivity extends AppCompatActivity {
             }
 
         //Sortieren der Kartendecks
-        Collections.sort(player1.getCards());
-        Collections.sort(player2.getCards());
-        Collections.sort(player3.getCards());
-        Collections.sort(player4.getCards());
+        Collections.sort(humanPlayer.getCards());
+        Collections.sort(opponentPlayer1.getCards());
+        Collections.sort(opponentPlayer2.getCards());
+        Collections.sort(opponentPlayer3.getCards());
         set_card_imageView();
 
     }
@@ -188,12 +153,12 @@ public class GameActivity extends AppCompatActivity {
 
 
         for(int i = 0; i < handCardsImageViews.size();i++){
-            if(i<=player1.getCards().size()-1) {
+            if(i<= humanPlayer.getCards().size()-1) {
 
                 handCardsImageViews.get(i).setVisibility(View.VISIBLE);
-                handCardsImageViews.get(i).setImageResource(player1.getCards().get(i).getResourceId());
-                handCardsImageViews.get(i).setTag(player1.getCards().get(i).getResourceId());
-                if (player1.getCards().get(i).isClicked()) {
+                handCardsImageViews.get(i).setImageResource(humanPlayer.getCards().get(i).getResourceId());
+                handCardsImageViews.get(i).setTag(humanPlayer.getCards().get(i).getResourceId());
+                if (humanPlayer.getCards().get(i).isClicked()) {
                     handCardsImageViews.get(i).setBackgroundResource(R.drawable.style);
                     handCardsImageViews.get(i).setPadding(2, 2, 2, 2);
 
@@ -209,7 +174,7 @@ public class GameActivity extends AppCompatActivity {
         }
         TextView tv = (TextView)findViewById(R.id.spieler1TV);
         tv.setText("");
-        for(Card c:player1.getCards()){
+        for(Card c: humanPlayer.getCards()){
             if(c.isClicked())
                 tv.setText(tv.getText() + c.getSymbol().toString() + c.getValue().toString() + " ");
         }
@@ -219,10 +184,10 @@ public class GameActivity extends AppCompatActivity {
 
     public void markCard(View v){
 
-        for(Card c: player1.getCards()){
+        for(Card c: humanPlayer.getCards()){
             if(c.getResourceId() == (int)v.getTag() && !c.isClicked()){
                 List<Card> markedCards = new ArrayList<>();
-                for(Card c1:player1.getCards()){
+                for(Card c1: humanPlayer.getCards()){
                     if(c1.isClicked()){
                         markedCards.add(c1);
                     }
@@ -252,14 +217,14 @@ public class GameActivity extends AppCompatActivity {
 * */
     private int get_firstPlayer(){
         //Wenn Spieler Arschloch in der Runde zuvor war beginnt er das Spiel. Wenn es die erste Runde ist entscheidet der Zufall
-        if(player1.isArschloch()){
+        if(humanPlayer.isArschloch()){
 
             return 1;}
-        else if(player2.isArschloch())
+        else if(opponentPlayer1.isArschloch())
             return  2;
-        else if(player3.isArschloch())
+        else if(opponentPlayer2.isArschloch())
             return  3;
-        else if(player4.isArschloch())
+        else if(opponentPlayer3.isArschloch())
             return  4;
         else
             return (int)(Math.random()*4)+1;
@@ -269,26 +234,26 @@ public class GameActivity extends AppCompatActivity {
 
     private Player get_winner(){
         int points =0;
-        if(player1.isWinner()){
-            points = player1.getPoints();
+        if(humanPlayer.isWinner()){
+            points = humanPlayer.getPoints();
             points++;
-            player1.setPoints(points);
-            return player1;}
-        else if(player2.isWinner()){
-            points = player2.getPoints();
+            humanPlayer.setPoints(points);
+            return humanPlayer;}
+        else if(opponentPlayer1.isWinner()){
+            points = opponentPlayer1.getPoints();
             points++;
-            player2.setPoints(points);
-            return player2;}
-        else if(player3.isWinner()){
-            points = player3.getPoints();
+            opponentPlayer1.setPoints(points);
+            return opponentPlayer1;}
+        else if(opponentPlayer2.isWinner()){
+            points = opponentPlayer2.getPoints();
             points++;
-            player3.setPoints(points);
-            return player3;}
-        else if(player4.isWinner()){
-            points = player4.getPoints();
+            opponentPlayer2.setPoints(points);
+            return opponentPlayer2;}
+        else if(opponentPlayer3.isWinner()){
+            points = opponentPlayer3.getPoints();
             points++;
-            player4.setPoints(points);
-            return player4;}
+            opponentPlayer3.setPoints(points);
+            return opponentPlayer3;}
         else
         return null;
     }
