@@ -227,6 +227,7 @@ public class GameActivity extends AppCompatActivity {
                         markedCards.add(c1);
                     }
                 }
+                markedCards.add(c);
                 if(check_combination(markedCards)) {
                     c.setClicked(true);
                     System.out.println("Card Marked");
