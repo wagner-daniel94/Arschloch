@@ -80,7 +80,7 @@ public class OpponentPlayer extends Player
                     otherCard = winner.getCards().get(0);
                 }
                 lowestCard1 = otherCard;
-            }
+            }//Ende Level 2
 
             //Karten Tausch und Sortieren der Handkarten
             arschloch.getCards().remove(highestCard1);
