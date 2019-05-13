@@ -91,7 +91,7 @@ public class GameActivity extends AppCompatActivity {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                play_card(player1);
+                play_cards(player1);
             }
         });
     }
@@ -314,6 +314,34 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
+
+
+/*
+* Das spielen von Karten von der KI
+* */
+    private void play_cards(Player p){
+        if (amountCardsPlayed == 0){
+            List<Card> combination = new ArrayList<Card>();
+            Card_value cv = p.getCards().get(0).getValue();
+            while (p.getCards().get(0).getValue() == cv){
+                combination.add(p.getCards().get(0));
+                p.getCards().remove(0);
+            }
+            if(check_combination(combination)){
+                amountCardsPlayed = combination.size();
+                cardValuePlayed = cv;
+            }
+        }
+        else {
+            int index = 0;
+
+            while (index != p.getCards().size()-1){
+                if(p.getCards().get(index).getValue().compareTo(cardValuePlayed) >= 0)
+                index++;
+            }
+        }
+
+    }
     //Zählen von Zügen
     private int turnCount (){
         if (playersTurn==0) {
