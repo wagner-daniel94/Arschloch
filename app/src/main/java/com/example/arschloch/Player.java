@@ -49,5 +49,5 @@ public abstract class Player {
         this.points = punkte;
     }
 
-    public abstract void play_card();
+    public abstract void play_card(int amountCardsPlayed, Card_value cardvaluePlayed);
 }

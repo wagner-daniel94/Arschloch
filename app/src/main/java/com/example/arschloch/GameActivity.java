@@ -32,9 +32,9 @@ public class GameActivity extends AppCompatActivity {
     int playersTurn;
     int turnCount = 1;
     //Anzahl der Karten die zuvor gespielt wurden
-    int amountCardsPlayed = 0;
+    static int amountCardsPlayed = 0;
     //Kartenwert der zuvor gespielten KArten
-    Card_value cardValuePlayed;
+    static Card_value cardValuePlayed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class GameActivity extends AppCompatActivity {
                 playersTurn = get_firstPlayer();
             }
         });
+
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,7 +160,7 @@ public class GameActivity extends AppCompatActivity {
                 handCardsImageViews.get(i).setImageResource(humanPlayer.getCards().get(i).getResourceId());
                 handCardsImageViews.get(i).setTag(humanPlayer.getCards().get(i).getResourceId());
                 if (humanPlayer.getCards().get(i).isClicked()) {
-                    handCardsImageViews.get(i).setBackgroundResource(R.drawable.style);
+                    handCardsImageViews.get(i).setBackgroundResource(R.drawable.marked);
                     handCardsImageViews.get(i).setPadding(2, 2, 2, 2);
 
                 } else {
@@ -264,7 +265,7 @@ public class GameActivity extends AppCompatActivity {
 /*
 * Überprüfung ob es eine gültige Kombintion ist
 * */
-    private boolean check_combination(List<Card> choosen_cards){
+    public static boolean check_combination(List<Card> choosen_cards){
         boolean value_statement =true;
         for(int i = 0; i < choosen_cards.size()-1;i++){
             //Die ausgewählten Karten dürfen nur den gleichen Wert besitzen

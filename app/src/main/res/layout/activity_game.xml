@@ -106,6 +106,7 @@
             android:layout_height="130dp"
             android:layout_toEndOf="@id/card6"
             android:layout_marginLeft="-40dp"
+            android:onClick="markCard"
             app:srcCompat="@drawable/back" />
         <ImageView
             android:id="@+id/card8"
