@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -20,22 +19,41 @@ Datum: 21.04.2019
 Autor: Wagner
  */
 
-public class GameActivity extends AppCompatActivity {
-    //Spieler
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
+
+    //
+
     Player humanPlayer;
     Player opponentPlayer1;
     Player opponentPlayer2;
     Player opponentPlayer3;
     List<ImageView> handCardsImageViews;
+
+
     //Karten
-    Cards card_deck;
-    //Spieler an der Reihe
+
+    CardDeck card_deck;
+
+
+    //Spieler an der
+
     int playersTurn;
     int turnCount = 1;
+
+
     //Anzahl der Karten die zuvor gespielt wurden
+
     static int amountCardsPlayed = 0;
+
+
     //Kartenwert der zuvor gespielten KArten
+
     static Card_value cardValuePlayed;
+
+
+    //Sonstige -> Noch zuweisen
+    Thread klicken;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +61,10 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         Button playBtn = (Button) findViewById(R.id.playBtn);
-        playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Button passBtn = (Button) findViewById(R.id.passBtn);
 
-            }
-        });
+        playBtn.setOnClickListener(this);
+        passBtn.setOnClickListener(this);
 
         handCardsImageViews = new ArrayList<ImageView>();
 
@@ -67,30 +83,22 @@ public class GameActivity extends AppCompatActivity {
         handCardsImageViews.add((ImageView)findViewById(R.id.card13));
 
 
-        gameLoop();
     }
+@Override
+    public void onClick(View v){
 
-
-    public void gameLoop(){
-
-        cards_distributing();
-        playersTurn = 1;
-
-
-        while(true){
-
-            if(playersTurn == 1){
-
-            }
-
-
-            break;
+        switch (v.getId()){
+            case R.id.playBtn:
+                // Methoden die beim Klick auf Play gestartet werden sollen
+                //PlayHumanCards
+                //PlayAICards
+                break;
+            case R.id.passBtn:
+                // Methoden die beim Klick auf Pass gestartet werden sollen
+                //PlayAICards
+                break;
         }
-
-
-
     }
-
 
 
 /*
@@ -102,7 +110,7 @@ public class GameActivity extends AppCompatActivity {
         //Zähler für ausgeteilte Karten
         int c = 0;
         //Variable um eine Karte zu erstellen
-        card_deck = new Cards();
+        card_deck = new CardDeck();
 
         humanPlayer = new HumanPlayer();
         opponentPlayer1 = new OpponentPlayer();
@@ -170,7 +178,7 @@ public class GameActivity extends AppCompatActivity {
                 handCardsImageViews.get(i).setVisibility(View.VISIBLE);
                 handCardsImageViews.get(i).setImageResource(humanPlayer.getCards().get(i).getResourceId());
                 handCardsImageViews.get(i).setTag(humanPlayer.getCards().get(i).getResourceId());
-                if (humanPlayer.getCards().get(i).isClicked()) {
+                if (humanPlayer.getCards().get(i).isMarked()) {
                     handCardsImageViews.get(i).setBackgroundResource(R.drawable.marked);
                     handCardsImageViews.get(i).setPadding(2, 2, 2, 2);
 
@@ -187,7 +195,7 @@ public class GameActivity extends AppCompatActivity {
         TextView tv = (TextView)findViewById(R.id.spieler1TV);
         tv.setText("");
         for(Card c: humanPlayer.getCards()){
-            if(c.isClicked())
+            if(c.isMarked())
                 tv.setText(tv.getText() + c.getSymbol().toString() + c.getValue().toString() + " ");
         }
 
@@ -253,4 +261,6 @@ public class GameActivity extends AppCompatActivity {
             return playersTurn++;
 
     }
+
+
 }

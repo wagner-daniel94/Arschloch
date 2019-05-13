@@ -19,7 +19,7 @@ public class OpponentPlayer extends Player
                 combination.add(this.getCards().get(0));
                 this.getCards().remove(0);
             }
-            if(GameActivity.check_combination(combination)){
+            if(this.check_combination(combination)){
                 amountCardsPlayed = combination.size();
                 cardValuePlayed = cv;
             }
