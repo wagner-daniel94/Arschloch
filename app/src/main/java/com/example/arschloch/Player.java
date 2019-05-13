@@ -65,4 +65,6 @@ public abstract class Player {
         else
             return false;
     }
+
+    public abstract void druecken(Player arschloch, Player winner, Card wishCard);
 }
