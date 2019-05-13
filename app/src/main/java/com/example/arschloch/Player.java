@@ -51,5 +51,18 @@ public abstract class Player {
 
     public abstract void play_card(int amountCardsPlayed, Card_value cardvaluePlayed);
 
-    public abstract void druecken(Player arschloch, Player winner, Card wishCard);
+    public static boolean check_combination(List<Card> choosen_cards){
+        boolean value_statement =true;
+        for(int i = 0; i < choosen_cards.size()-1;i++){
+            //Die ausgewählten Karten dürfen nur den gleichen Wert besitzen
+            if(choosen_cards.get(i).getValue() != choosen_cards.get(i+1).getValue())
+                value_statement = false;
+        }
+        //Die Anzahl der Karten muss mit der Anzahl zuvor gespielter Karten übereinstimmen
+        if((choosen_cards.size() == GameActivity.amountCardsPlayed || GameActivity.amountCardsPlayed == 0)
+                && value_statement == true)
+            return true;
+        else
+            return false;
+    }
 }

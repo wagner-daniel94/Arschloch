@@ -26,6 +26,7 @@ public class GameActivity extends AppCompatActivity {
     Player opponentPlayer1;
     Player opponentPlayer2;
     Player opponentPlayer3;
+    List<ImageView> handCardsImageViews;
     //Karten
     Cards card_deck;
     //Spieler an der Reihe
@@ -41,26 +42,56 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        Button austeilenBtn =(Button) findViewById(R.id.austeilenBtn);
         Button playBtn = (Button) findViewById(R.id.playBtn);
-
-        cards_distributing();
-        austeilenBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                cards_distributing();
-                playersTurn = get_firstPlayer();
-            }
-        });
-
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                play_cards(humanPlayer);
+
             }
         });
+
+        handCardsImageViews = new ArrayList<ImageView>();
+
+        handCardsImageViews.add((ImageView)findViewById(R.id.card1));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card2));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card3));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card4));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card5));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card6));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card7));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card8));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card9));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card10));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card11));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card12));
+        handCardsImageViews.add((ImageView)findViewById(R.id.card13));
+
+
+        gameLoop();
     }
+
+
+    public void gameLoop(){
+
+        cards_distributing();
+        playersTurn = 1;
+
+
+        while(true){
+
+            if(playersTurn == 1){
+
+            }
+
+
+            break;
+        }
+
+
+
+    }
+
+
 
 /*
 * Das austeielen der Karten
@@ -126,30 +157,10 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-
     /*
     Karte einem ImageView zur Laufzeit zuweisen
      */
-
     public void set_card_imageView(){
-
-        List<ImageView> handCardsImageViews = new ArrayList<ImageView>();
-
-        handCardsImageViews.add((ImageView)findViewById(R.id.card1));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card2));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card3));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card4));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card5));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card6));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card7));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card8));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card9));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card10));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card11));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card12));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card13));
-
-
 
 
 
@@ -183,43 +194,12 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    public void markCard(View v){
-
-        for(Card c: humanPlayer.getCards()){
-            if(c.getResourceId() == (int)v.getTag() && !c.isClicked()){
-                List<Card> markedCards = new ArrayList<>();
-                for(Card c1: humanPlayer.getCards()){
-                    if(c1.isClicked()){
-                        markedCards.add(c1);
-                    }
-                }
-                markedCards.add(c);
-                if(check_combination(markedCards)) {
-                    c.setClicked(true);
-                    System.out.println("Card Marked");
-                    Toast.makeText(this,"new combination",Toast.LENGTH_LONG).show();
-                }
-                else
-                    Toast.makeText(this,"invalid card selected",Toast.LENGTH_LONG).show();
-            }else if(c.getResourceId() ==(int)v.getTag() && c.isClicked()){
-                c.setClicked(false);
-                System.out.println("Card Demarked");
-            }
-        }
-        set_card_imageView();
-    }
-
-
-
-
-
 /*
 * Festlegung des ersten Spielers
 * */
     private int get_firstPlayer(){
         //Wenn Spieler Arschloch in der Runde zuvor war beginnt er das Spiel. Wenn es die erste Runde ist entscheidet der Zufall
         if(humanPlayer.isArschloch()){
-
             return 1;}
         else if(opponentPlayer1.isArschloch())
             return  2;
@@ -230,8 +210,6 @@ public class GameActivity extends AppCompatActivity {
         else
             return (int)(Math.random()*4)+1;
     }
-
-
 
     private Player get_winner(){
         int points =0;
@@ -259,55 +237,6 @@ public class GameActivity extends AppCompatActivity {
         return null;
     }
 
-
-
-
-/*
-* Überprüfung ob es eine gültige Kombintion ist
-* */
-    public static boolean check_combination(List<Card> choosen_cards){
-        boolean value_statement =true;
-        for(int i = 0; i < choosen_cards.size()-1;i++){
-            //Die ausgewählten Karten dürfen nur den gleichen Wert besitzen
-            if(choosen_cards.get(i).getValue() != choosen_cards.get(i+1).getValue())
-                value_statement = false;
-        }
-        //Die Anzahl der Karten muss mit der Anzahl zuvor gespielter Karten übereinstimmen
-        if((choosen_cards.size() == amountCardsPlayed || amountCardsPlayed == 0) && value_statement == true)
-            return true;
-        else
-            return false;
-    }
-
-
-
-
-/*
-* Das spielen von Karten von der KI
-* */
-    private void play_cards(Player p){
-        if (amountCardsPlayed == 0){
-            List<Card> combination = new ArrayList<Card>();
-            Card_value cv = p.getCards().get(0).getValue();
-            while (p.getCards().get(0).getValue() == cv){
-                combination.add(p.getCards().get(0));
-                p.getCards().remove(0);
-            }
-            if(check_combination(combination)){
-                amountCardsPlayed = combination.size();
-                cardValuePlayed = cv;
-            }
-        }
-        else {
-            int index = 0;
-
-            while (index != p.getCards().size()-1){
-                if(p.getCards().get(index).getValue().compareTo(cardValuePlayed) >= 0)
-                index++;
-            }
-        }
-
-    }
     //Zählen von Zügen
     private int turnCount (){
         if (playersTurn==0) {
@@ -317,9 +246,9 @@ public class GameActivity extends AppCompatActivity {
     }
     //Zählen des Spielers der an der Reihe ist
     private int playerPlayer () {
-        if (playersTurn == 3)
+        if (playersTurn == 4)
 
-            return 0;
+            return 1;
         else
             return playersTurn++;
 

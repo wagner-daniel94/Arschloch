@@ -7,18 +7,6 @@
     android:background="@drawable/background"
     tools:context=".GameActivity">
 
-    <Button
-        android:id="@+id/austeilenBtn"
-        android:layout_width="181dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/buttonborder"
-        android:text="austeilen"
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/spieler1TV"
         android:layout_width="wrap_content"
@@ -32,18 +20,19 @@
 
     <Button
         android:id="@+id/playBtn"
-        android:layout_width="189dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/buttonborder"
         android:text="play"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/austeilenBtn"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <RelativeLayout
-        android:layout_width="715dp"
+        android:id="@+id/relativeLayout"
+        android:layout_width="580dp"
         android:layout_height="130dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
@@ -56,106 +45,116 @@
             android:layout_height="130dp"
             android:onClick="markCard"
             android:tag="Card1"
-            app:srcCompat="@drawable/back"
-            />
+            app:srcCompat="@drawable/back" />
 
         <ImageView
             android:id="@+id/card2"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card1"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card1"
             android:onClick="markCard"
             android:tag="Card2"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card3"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card2"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card2"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card4"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card3"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card3"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card5"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card4"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card4"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card6"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card5"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card5"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card7"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card6"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card6"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card8"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card7"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card7"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card9"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card8"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card8"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card10"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card9"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card9"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card11"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card10"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card10"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
             android:id="@+id/card12"
             android:layout_width="80dp"
             android:layout_height="130dp"
-            android:layout_toEndOf="@id/card11"
             android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card11"
             android:onClick="markCard"
             app:srcCompat="@drawable/back" />
+
         <ImageView
-        android:id="@+id/card13"
-        android:layout_width="80dp"
-        android:layout_height="130dp"
-        android:layout_toEndOf="@id/card12"
-        android:layout_marginLeft="-40dp"
+            android:id="@+id/card13"
+            android:layout_width="80dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="-40dp"
+            android:layout_toEndOf="@id/card12"
             android:onClick="markCard"
-        app:srcCompat="@drawable/back" />
+            app:srcCompat="@drawable/back" />
 
 
     </RelativeLayout>
