@@ -6,13 +6,10 @@ Autor: Wagner
 
 package com.example.arschloch;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-
 public class Card implements Comparable<Card>{
     private Card_value value;
     private Card_symbol symbol;
-    private boolean isClicked;
+    private boolean isMarked;
 
     int resourceId;
 
@@ -29,6 +26,11 @@ public class Card implements Comparable<Card>{
     public int compareTo(Card o) {
         return value.compareTo(o.value);
     }
+
+
+
+
+    //Getter & Setter
 
     public Card_value getValue() {
         return value;
@@ -48,11 +50,11 @@ public class Card implements Comparable<Card>{
 
     public int getResourceId(){ return this.resourceId; }
 
-    public boolean isClicked() {
-        return isClicked;
+    public boolean isMarked() {
+        return isMarked;
     }
 
-    public void setClicked(boolean clicked) {
-        isClicked = clicked;
+    public void setMarked(boolean marked) {
+        isMarked = marked;
     }
 }

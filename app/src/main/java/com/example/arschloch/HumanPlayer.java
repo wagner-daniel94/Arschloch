@@ -1,7 +1,6 @@
 package com.example.arschloch;
 
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,24 +11,24 @@ public class HumanPlayer extends Player
 
     public void markCard(View v){
         for(Card c: this.getCards()){
-            if(c.getResourceId() == (int)v.getTag() && !c.isClicked()){
+            if(c.getResourceId() == (int)v.getTag() && !c.isMarked()){
                 List<Card> markedCards = new ArrayList<>();
                 for(Card c1: this.getCards()){
-                    if(c1.isClicked()){
+                    if(c1.isMarked()){
                         markedCards.add(c1);
                     }
                 }
                 markedCards.add(c);
                 if(check_combination(markedCards)) {
-                    c.setClicked(true);
+                    c.setMarked(true);
                     System.out.println("Card Marked");
                     //Toast.makeText(this,"new combination",Toast.LENGTH_LONG).show();
                 }
 
                     //else Toast.makeText(this,"invalid card selected",Toast.LENGTH_LONG).show();
 
-            }else if(c.getResourceId() ==(int)v.getTag() && c.isClicked()){
-                c.setClicked(false);
+            }else if(c.getResourceId() ==(int)v.getTag() && c.isMarked()){
+                c.setMarked(false);
                 System.out.println("Card Demarked");
             }
         }

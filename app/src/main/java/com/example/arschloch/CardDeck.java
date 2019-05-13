@@ -3,10 +3,10 @@ package com.example.arschloch;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cards {
+public class CardDeck {
     private List<Card> cards;
 
-    public Cards(){
+    public CardDeck(){
         cards = new ArrayList<Card>();
         //Hearts fertig
         cards.add(new Card(Card_value.two,Card_symbol.hearts,R.drawable.heartstwo));
