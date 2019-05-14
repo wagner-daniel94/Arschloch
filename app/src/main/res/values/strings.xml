@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Arschloch</string>
     <string name="title_activity_game">GameActivity</string>
+    <string name="TVop1">Opponent1</string>
+    <string name="TVop2">Opponent2</string>
+    <string name="TVop3">Opponent3</string>
 </resources>
