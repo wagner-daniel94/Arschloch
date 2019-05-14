@@ -23,7 +23,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     //
 
-    Player humanPlayer;
+    HumanPlayer humanPlayer;
     Player opponentPlayer1;
     Player opponentPlayer2;
     Player opponentPlayer3;
@@ -81,8 +81,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         handCardsImageViews.add((ImageView)findViewById(R.id.card11));
         handCardsImageViews.add((ImageView)findViewById(R.id.card12));
         handCardsImageViews.add((ImageView)findViewById(R.id.card13));
-
-
+        cards_distributing();
+        set_card_imageView();
     }
 @Override
     public void onClick(View v){
@@ -202,6 +202,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    public void markCard(View v){
+        humanPlayer.markCard(v);
+        set_card_imageView();
+    }
 /*
 * Festlegung des ersten Spielers
 * */

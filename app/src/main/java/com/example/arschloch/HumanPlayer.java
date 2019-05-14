@@ -42,7 +42,17 @@ public class HumanPlayer extends Player
     @Override
     public void play_card(int amountCardsPlayed, Card_value cardvaluePlayed)
     {
+       /*if(GameActivity.markedCards.size() != 0){
 
+           if(GameActivity.markedCards.get(0).getValue().compareTo(cardvaluePlayed) > 1){
+
+               if(GameActivity.markedCards.size() == amountCardsPlayed){
+
+
+               }
+           }
+
+       }*/
     }
 
     @Override
