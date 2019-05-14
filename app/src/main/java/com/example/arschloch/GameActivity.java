@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -99,7 +100,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.playBtn:
                 // Methoden die beim Klick auf Play gestartet werden sollen
                 //PlayHumanCards
-                humanPlayer.play_card();
+                try {
+                    humanPlayer.play_card();
+                }
+                catch (Exception e){
+                    Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    System.out.println(e.getMessage());
+                }
                 //PlayAICards
                 break;
             case R.id.passBtn:

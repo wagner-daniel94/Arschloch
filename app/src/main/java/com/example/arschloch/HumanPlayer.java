@@ -10,7 +10,7 @@ import java.util.List;
 
 public class HumanPlayer extends Player
 {
-    public List<Card> markedCards;
+    public List<Card> markedCards = new ArrayList<>();
 
     public void markCard(View v){
         for(Card c: this.getCards()){
@@ -50,9 +50,16 @@ public class HumanPlayer extends Player
 
        if(markedCards.size() != 0) {
 
-           if (GameActivity.cardValuePlayed != null || markedCards.get(0).getValue().compareTo(GameActivity.cardValuePlayed) > 1) {
+           if (GameActivity.cardValuePlayed != null){
+
+               if(markedCards.get(0).getValue().compareTo(GameActivity.cardValuePlayed) > 1) {
 
                if (markedCards.size() == GameActivity.amountCardsPlayed) {
+
+
+               }
+               else
+                   move = false;
 
 
                }
@@ -71,7 +78,7 @@ public class HumanPlayer extends Player
 
 
         if(!move){}
-            //Toast.makeText(this,"Invalid move",Toast.LENGTH_SHORT).show();
+            throw new RuntimeException("Invalid move");
     }
 
     @Override
