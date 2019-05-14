@@ -29,6 +29,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     Player opponentPlayer2;
     Player opponentPlayer3;
     List<ImageView> handCardsImageViews;
+    List<ImageView> middleCardsImageViews;
 
 
     //Karten
@@ -52,8 +53,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     static Card_value cardValuePlayed;
 
 
-    //Sonstige -> Noch zuweisen
-    Thread klicken;
+
 
 
     @Override
@@ -67,7 +67,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         playBtn.setOnClickListener(this);
         passBtn.setOnClickListener(this);
 
-        handCardsImageViews = new ArrayList<ImageView>();
+        handCardsImageViews = new ArrayList<>();
+        middleCardsImageViews = new ArrayList<>();
 
         handCardsImageViews.add((ImageView)findViewById(R.id.card1));
         handCardsImageViews.add((ImageView)findViewById(R.id.card2));
@@ -82,8 +83,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         handCardsImageViews.add((ImageView)findViewById(R.id.card11));
         handCardsImageViews.add((ImageView)findViewById(R.id.card12));
         handCardsImageViews.add((ImageView)findViewById(R.id.card13));
+
+        middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard1));
+        middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard2));
+        middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard3));
+        middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard4));
         cards_distributing();
         set_card_imageView();
+        set_card_imageView_middleCards();
     }
 @Override
     public void onClick(View v){
@@ -92,6 +99,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.playBtn:
                 // Methoden die beim Klick auf Play gestartet werden sollen
                 //PlayHumanCards
+                humanPlayer.play_card();
                 //PlayAICards
                 break;
             case R.id.passBtn:
@@ -203,6 +211,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void set_card_imageView_middleCards(){
+        for(ImageView iv:middleCardsImageViews)
+        {
+            iv.setVisibility(View.GONE);
+        }
+    }
 
     public void markCard(View v){
         humanPlayer.markCard(v);

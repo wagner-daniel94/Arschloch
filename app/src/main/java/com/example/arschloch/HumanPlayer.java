@@ -1,6 +1,8 @@
 package com.example.arschloch;
 
+import android.app.Application;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,11 +10,12 @@ import java.util.List;
 
 public class HumanPlayer extends Player
 {
+    public List<Card> markedCards;
 
     public void markCard(View v){
         for(Card c: this.getCards()){
             if(c.getResourceId() == (int)v.getTag() && !c.isMarked()){
-                List<Card> markedCards = new ArrayList<>();
+                markedCards = new ArrayList<>();
                 for(Card c1: this.getCards()){
                     if(c1.isMarked()){
                         markedCards.add(c1);
@@ -40,19 +43,35 @@ public class HumanPlayer extends Player
 
 
     @Override
-    public void play_card(int amountCardsPlayed, Card_value cardvaluePlayed)
+    public void play_card()
     {
-       /*if(GameActivity.markedCards.size() != 0){
+        boolean move =true;
+        if (markedCards != null){
 
-           if(GameActivity.markedCards.get(0).getValue().compareTo(cardvaluePlayed) > 1){
+       if(markedCards.size() != 0) {
 
-               if(GameActivity.markedCards.size() == amountCardsPlayed){
+           if (GameActivity.cardValuePlayed != null || markedCards.get(0).getValue().compareTo(GameActivity.cardValuePlayed) > 1) {
+
+               if (markedCards.size() == GameActivity.amountCardsPlayed) {
 
 
                }
+               else
+                   move = false;
            }
+           else
+               move = false;
+       }
+       else
+           move = false;
 
-       }*/
+       }
+        else
+            move = false;
+
+
+        if(!move){}
+            //Toast.makeText(this,"Invalid move",Toast.LENGTH_SHORT).show();
     }
 
     @Override

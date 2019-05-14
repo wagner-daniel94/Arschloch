@@ -10,9 +10,9 @@ public class OpponentPlayer extends Player
     boolean level2 =  false;
 
     @Override
-    public void play_card(int amountCardsPlayed, Card_value cardValuePlayed)
+    public void play_card()
     {
-        if (amountCardsPlayed == 0){
+        if (GameActivity.amountCardsPlayed == 0){
             List<Card> combination = new ArrayList<Card>();
             Card_value cv = this.getCards().get(0).getValue();
             while (this.getCards().get(0).getValue() == cv){
@@ -20,15 +20,15 @@ public class OpponentPlayer extends Player
                 this.getCards().remove(0);
             }
             if(this.check_combination(combination)){
-                amountCardsPlayed = combination.size();
-                cardValuePlayed = cv;
+                GameActivity.amountCardsPlayed = combination.size();
+                GameActivity.cardValuePlayed = cv;
             }
         }
         else {
             int index = 0;
 
             while (index != this.getCards().size()-1){
-                if(this.getCards().get(index).getValue().compareTo(cardValuePlayed) >= 0)
+                if(this.getCards().get(index).getValue().compareTo(GameActivity.cardValuePlayed) >= 0)
                     index++;
             }
         }
