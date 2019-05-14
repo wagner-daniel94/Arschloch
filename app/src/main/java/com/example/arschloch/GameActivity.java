@@ -1,5 +1,6 @@
 package com.example.arschloch;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -178,14 +179,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 handCardsImageViews.get(i).setVisibility(View.VISIBLE);
                 handCardsImageViews.get(i).setImageResource(humanPlayer.getCards().get(i).getResourceId());
                 handCardsImageViews.get(i).setTag(humanPlayer.getCards().get(i).getResourceId());
-                if (humanPlayer.getCards().get(i).isMarked()) {
-                    handCardsImageViews.get(i).setBackgroundResource(R.drawable.marked);
+                if (humanPlayer.getCards().get(i).isMarked())
+                {
+                    handCardsImageViews.get(i).setForeground(getDrawable(R.drawable.marked));
                     handCardsImageViews.get(i).setPadding(2, 2, 2, 2);
-
-                } else {
+                }
+                else
+                {
                     //handCardsImageViews.get(i).background
                     handCardsImageViews.get(i).setPadding(0, 0, 0, 0);
-
                 }
             }
             else {

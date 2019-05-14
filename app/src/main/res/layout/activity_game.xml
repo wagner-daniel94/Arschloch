@@ -171,17 +171,22 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="230dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="31dp"
+        android:id="@+id/relativeLayout2"
+        android:layout_width="239dp"
+        android:layout_height="101dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="183dp"
+        android:layout_marginBottom="44dp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toStartOf="@+id/IVop3"
         app:layout_constraintStart_toEndOf="@+id/IVop1"
         app:layout_constraintTop_toBottomOf="@+id/IVop2">
 
         <ImageView
             android:id="@+id/middlecard1"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_width="49dp"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/back" />
 
         <ImageView
@@ -234,30 +239,48 @@
         android:id="@+id/IVop3"
         android:layout_width="50dp"
         android:layout_height="84dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="112dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="102dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/passBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/TVacop1"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/back" />
 
     <TextView
         android:id="@+id/TVop1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/TVop1"
+        android:layout_width="91dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="516dp"
+        android:text="Opponent1"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/IVop1"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/TVop3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/TVop2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="242dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/TVop2"
+        android:layout_marginBottom="111dp"
+        android:text="Opponent2"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
         app:layout_constraintEnd_toStartOf="@+id/IVop2"
-        tools:layout_editor_absoluteY="5dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/TVop3"
@@ -265,7 +288,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/TVop3"
+        android:text="Opponent3"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

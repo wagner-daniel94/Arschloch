@@ -6,6 +6,9 @@ Autor: Wagner
 
 package com.example.arschloch;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+
 public class Card implements Comparable<Card>{
     private Card_value value;
     private Card_symbol symbol;
@@ -26,11 +29,6 @@ public class Card implements Comparable<Card>{
     public int compareTo(Card o) {
         return value.compareTo(o.value);
     }
-
-
-
-
-    //Getter & Setter
 
     public Card_value getValue() {
         return value;
