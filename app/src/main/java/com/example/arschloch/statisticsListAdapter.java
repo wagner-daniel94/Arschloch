@@ -28,7 +28,7 @@ public class statisticsListAdapter extends ArrayAdapter <Statistic>{
 
     public View getView(int position, View convertView, ViewGroup parent){
         String text = getItem(position).getStatisticName();
-        int zahl = getItem(position).getStatisticNumber();
+        String zahl = getItem(position).getStatisticNumber();
 
         Statistic statistic = new Statistic(zahl,text);
 

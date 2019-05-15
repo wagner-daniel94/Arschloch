@@ -7,21 +7,21 @@ public class Statistic extends AppCompatActivity {
 
 
 
-  private int statisticNumber;
+  private String statisticNumber;
   private String statisticName;
 
 
 
-    public Statistic(int statisticNumber, String statisticName) {
+    public Statistic(String statisticNumber, String statisticName) {
         this.statisticNumber = statisticNumber;
         this.statisticName = statisticName;
     }
 
-    public int getStatisticNumber() {
+    public String getStatisticNumber() {
         return statisticNumber;
     }
 
-    public void setStatisticNumber(int statisticNumber) {
+    public void setStatisticNumber(String statisticNumber) {
         this.statisticNumber = statisticNumber;
     }
 

@@ -9,19 +9,19 @@ import java.util.ArrayList;
 
 public class StatisticActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+  //  private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistic);
-        Log.d(TAG, "onCreate: Started. ");
-        ListView mListView = (ListView) findViewById(R.id.listView);
+        //Log.d(TAG, "onCreate: Started. ");
+       ListView mListView = (ListView) findViewById(R.id.listView);
 
-        Statistic statistics  = new Statistic(1,"Anzahl Spiele");
-        Statistic statistics1 = new Statistic(2,"Anzahl gewonnene Spiele");
-        Statistic statistics2 = new Statistic(3,"Gewinnrate");
-        Statistic statistics3 = new Statistic(4,"Anzahl der Züge");
-        Statistic statistics4 = new Statistic(5,"Anzahl verlorener Spiele");
+        Statistic statistics  = new Statistic("1","Anzahl Spiele");
+        Statistic statistics1 = new Statistic("2","Anzahl gewonnene Spiele");
+        Statistic statistics2 = new Statistic("3","Gewinnrate");
+        Statistic statistics3 = new Statistic("4","Anzahl der Züge");
+        Statistic statistics4 = new Statistic("5","Anzahl verlorener Spiele");
 
         ArrayList<Statistic> statisticsList = new ArrayList<>();
 
