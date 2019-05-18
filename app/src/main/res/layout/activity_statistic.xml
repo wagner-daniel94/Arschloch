@@ -15,7 +15,7 @@
         android:layout_height="60dp"
         android:layout_weight="50"
         android:gravity="center"
-        android:text="Zahl" />
+        android:text="Name" />
 
     <TextView
         android:id="@+id/textView1"
@@ -23,17 +23,10 @@
         android:layout_height="60dp"
         android:layout_weight="50"
         android:gravity="center"
-        android:text="Name"
+        android:text="Zahl"
         android:textAlignment="center" />
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true">
 
-    </ListView>
 
 
 </LinearLayout>

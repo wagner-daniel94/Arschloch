@@ -17,6 +17,7 @@ public class statisticsListAdapter extends ArrayAdapter <Statistic>{
     private Context mContext;
     int mRessource;
 
+  // einsetzten des Objektes Statistic um es in die Liustview ein zu fügen
 
     public statisticsListAdapter(Context context, int resource,  ArrayList<Statistic> objects) {
         super(context, resource, objects);
@@ -35,8 +36,8 @@ public class statisticsListAdapter extends ArrayAdapter <Statistic>{
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mRessource,parent,false);
 
-        TextView tvText = (TextView) convertView.findViewById(R.id.textView1);
-        TextView tvZahl = (TextView) convertView.findViewById(R.id.textView2);
+        TextView tvText = (TextView) convertView.findViewById(R.id.textView2);
+        TextView tvZahl = (TextView) convertView.findViewById(R.id.textView1);
 
 
         tvText.setText(text);

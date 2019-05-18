@@ -13,9 +13,10 @@ public class StatisticActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistic);
+        setContentView(R.layout.activity_statisticmain);
         //Log.d(TAG, "onCreate: Started. ");
-       ListView mListView = (ListView) findViewById(R.id.listView);
+       ListView mListView = (ListView) findViewById(R.id.myListView);
+        //erstellen der Statistik Instanzen. noch abändern zu nicht hardcoded Zahlen.
 
         Statistic statistics  = new Statistic("1","Anzahl Spiele");
         Statistic statistics1 = new Statistic("2","Anzahl gewonnene Spiele");
