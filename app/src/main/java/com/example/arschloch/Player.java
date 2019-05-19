@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player {
-    private boolean arschloch;
-    private boolean winner;
-    private List<Card> cards;
-    private int points;
+    protected boolean arschloch;
+    protected boolean winner;
+    protected List<Card> cards;
+    protected int points;
 
     public Player() {
         this.arschloch = false;

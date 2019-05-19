@@ -201,7 +201,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 else
                 {
-                    //handCardsImageViews.get(i).background
+                    handCardsImageViews.get(i).setForeground(null);
                     handCardsImageViews.get(i).setPadding(0, 0, 0, 0);
                 }
             }

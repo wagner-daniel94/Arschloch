@@ -10,7 +10,12 @@ import java.util.List;
 
 public class HumanPlayer extends Player
 {
-    public List<Card> markedCards = new ArrayList<>();
+    private List<Card> markedCards;
+
+    public HumanPlayer(){
+        super();
+        markedCards =new ArrayList<>();
+    }
 
     public void markCard(View v){
         for(Card c: this.getCards()){
@@ -32,6 +37,7 @@ public class HumanPlayer extends Player
 
             }else if(c.getResourceId() ==(int)v.getTag() && c.isMarked()){
                 c.setMarked(false);
+                markedCards.remove(c);
                 System.out.println("Card Demarked");
             }
         }
@@ -46,38 +52,38 @@ public class HumanPlayer extends Player
     public void play_card()
     {
         boolean move =true;
-        if (markedCards != null){
 
-       if(markedCards.size() != 0) {
+        //check ob Karten markiert wurden
+        if (markedCards.size() == 0)
+            move = false;
+            //wenn amountCardsPlayed 0 ist wurde noch keine Karte gespielt
+        else if (GameActivity.amountCardsPlayed == 0) {
+            move = true;
+            //markierte Karten müssen vom Wert größer sein als die zuvor gespielten Karten
+        } else if (markedCards.get(0).getValue().compareTo(GameActivity.cardValuePlayed) >= 1) {
+            //die Anzahl der markierten Karten muss mit der Anzahl der zuvor gespielten Karten übereinstimmen
+            if (markedCards.size() == GameActivity.amountCardsPlayed)
+                move = true;
 
-           if (GameActivity.cardValuePlayed != null){
+            else
+                move = false;
 
-               if(markedCards.get(0).getValue().compareTo(GameActivity.cardValuePlayed) > 1) {
-
-               if (markedCards.size() == GameActivity.amountCardsPlayed) {
-
-
-               }
-               else
-                   move = false;
-
-
-               }
-               else
-                   move = false;
-           }
-           else
-               move = false;
-       }
-       else
-           move = false;
-
-       }
-        else
+        } else
             move = false;
 
 
-        if(!move){}
+
+
+
+
+
+
+        if(move){
+            //Karten spielen
+
+            throw new RuntimeException("Valid move");
+        }
+        else
             throw new RuntimeException("Invalid move");
     }
 
