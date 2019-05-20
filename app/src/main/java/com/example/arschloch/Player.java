@@ -1,5 +1,7 @@
 package com.example.arschloch;
 
+import android.view.View;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,30 +10,44 @@ public abstract class Player {
     protected boolean winner;
     protected List<Card> cards;
     protected int points;
+    protected List<Card> combination;
 
     public Player() {
         this.arschloch = false;
         this.winner = false;
-        this.cards = new ArrayList<Card>();
+        this.cards = new ArrayList<>();
         this.points = 0;
+        this.combination = new ArrayList<>();
     }
 
 
     public abstract void play_card();
 
+    public void get_cards_played(){
+        //Karten spielen
+        for(int i = 0;i < GameActivity.middleCardsImageViews.size();i++){
+            if(i <= combination.size()-1){
+                GameActivity.middleCardsImageViews.get(i).setImageResource(combination.get(i).getResourceId());
+                GameActivity.middleCardsImageViews.get(i).setVisibility(View.VISIBLE);
+                this.getCards().remove(combination.get(i));
+            }
+            else
+                GameActivity.middleCardsImageViews.get(i).setVisibility(View.GONE);
+        }
+        GameActivity.amountCardsPlayed =combination.size();
+        GameActivity.cardValuePlayed = combination.get(0).getValue();
+        combination.clear();
+    }
+
     public static boolean check_combination(List<Card> choosen_cards) {
-        boolean value_statement = true;
+
         for (int i = 0; i < choosen_cards.size() - 1; i++) {
             //Die ausgewählten Karten dürfen nur den gleichen Wert besitzen
             if (choosen_cards.get(i).getValue() != choosen_cards.get(i + 1).getValue())
-                value_statement = false;
+                return false;
         }
-        //Die Anzahl der Karten muss mit der Anzahl zuvor gespielter Karten übereinstimmen
-        if ((choosen_cards.size() == GameActivity.amountCardsPlayed || GameActivity.amountCardsPlayed == 0)
-                && value_statement == true)
+
             return true;
-        else
-            return false;
     }
 
     public abstract void wuenschen(Player arschloch, Player winner, Card wishCard);
@@ -39,8 +55,15 @@ public abstract class Player {
     public abstract void tauschen(Player arschloch, Player winner);
 
 
-    //Getter & Setter
+    //region Getter & Setter
 
+    public List<Card> getCombination() {
+        return combination;
+    }
+
+    public void setCombination(List<Card> combination) {
+        this.combination = combination;
+    }
     public boolean isArschloch() {
         return arschloch;
     }
@@ -72,5 +95,5 @@ public abstract class Player {
     public void setPoints(int punkte) {
         this.points = punkte;
     }
-
+    //endregion
 }

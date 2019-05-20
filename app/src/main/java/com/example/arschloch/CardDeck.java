@@ -8,7 +8,7 @@ public class CardDeck {
 
     public CardDeck(){
         cards = new ArrayList<Card>();
-        //Hearts fertig
+        //region Hearts cards
         cards.add(new Card(Card_value.two,Card_symbol.hearts,R.drawable.heartstwo));
         cards.add(new Card(Card_value.three,Card_symbol.hearts,R.drawable.heartsthree));
         cards.add(new Card(Card_value.four,Card_symbol.hearts,R.drawable.heartsfour));
@@ -22,8 +22,9 @@ public class CardDeck {
         cards.add(new Card(Card_value.queen,Card_symbol.hearts,R.drawable.heartsqueen));
         cards.add(new Card(Card_value.king,Card_symbol.hearts,R.drawable.heartsking));
         cards.add(new Card(Card_value.ace,Card_symbol.hearts,R.drawable.heartsace));
+        //endregion
 
-        //Diamonds fertig
+        //region Diamonds cards
         cards.add(new Card(Card_value.two,Card_symbol.diamonds,R.drawable.diamondstwo));
         cards.add(new Card(Card_value.three,Card_symbol.diamonds,R.drawable.diamondsthree));
         cards.add(new Card(Card_value.four,Card_symbol.diamonds,R.drawable.diamondsfour));
@@ -37,8 +38,9 @@ public class CardDeck {
         cards.add(new Card(Card_value.queen,Card_symbol.diamonds,R.drawable.diamondsqueen));
         cards.add(new Card(Card_value.king,Card_symbol.diamonds,R.drawable.diamondsking));
         cards.add(new Card(Card_value.ace,Card_symbol.diamonds,R.drawable.diamondsace));
+        //endregion
 
-        //Clubs fertig
+        //region Clubs cards
         cards.add(new Card(Card_value.two,Card_symbol.clubs,R.drawable.clubstwo));
         cards.add(new Card(Card_value.three,Card_symbol.clubs,R.drawable.clubsthree));
         cards.add(new Card(Card_value.four,Card_symbol.clubs,R.drawable.clubsfour));
@@ -52,8 +54,9 @@ public class CardDeck {
         cards.add(new Card(Card_value.queen,Card_symbol.clubs,R.drawable.clubsqueen));
         cards.add(new Card(Card_value.king,Card_symbol.clubs,R.drawable.clubsking));
         cards.add(new Card(Card_value.ace,Card_symbol.clubs,R.drawable.clubsace));
+        //endregion
 
-        //Spades fertig
+        //region Spades cards
         cards.add(new Card(Card_value.two,Card_symbol.spades,R.drawable.spadestwo));
         cards.add(new Card(Card_value.three,Card_symbol.spades,R.drawable.spadesthree));
         cards.add(new Card(Card_value.four,Card_symbol.spades,R.drawable.spadesfour));
@@ -67,7 +70,7 @@ public class CardDeck {
         cards.add(new Card(Card_value.queen,Card_symbol.spades,R.drawable.spadesqueen));
         cards.add(new Card(Card_value.king,Card_symbol.spades,R.drawable.spadesking));
         cards.add(new Card(Card_value.ace,Card_symbol.spades,R.drawable.spadesace));
-
+        //endregion
     }
 
     public List<Card> getCards() {

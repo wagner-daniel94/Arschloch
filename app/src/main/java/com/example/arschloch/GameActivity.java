@@ -25,12 +25,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     //
 
+    //region Variablen
     HumanPlayer humanPlayer;
+
     Player opponentPlayer1;
     Player opponentPlayer2;
     Player opponentPlayer3;
-    List<ImageView> handCardsImageViews;
-    List<ImageView> middleCardsImageViews;
+    static List<ImageView> handCardsImageViews;
+    static List<ImageView> middleCardsImageViews;
 
 
     //Karten
@@ -53,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     static Card_value cardValuePlayed;
 
-
+    //endregion
 
 
 
@@ -102,6 +104,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 //PlayHumanCards
                 try {
                     humanPlayer.play_card();
+                    set_card_imageView();
                 }
                 catch (Exception e){
                     Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
@@ -186,8 +189,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void set_card_imageView(){
 
-
-
         for(int i = 0; i < handCardsImageViews.size();i++){
             if(i<= humanPlayer.getCards().size()-1) {
 
@@ -197,24 +198,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 if (humanPlayer.getCards().get(i).isMarked())
                 {
                     handCardsImageViews.get(i).setForeground(getDrawable(R.drawable.marked));
-                    handCardsImageViews.get(i).setPadding(2, 2, 2, 2);
                 }
                 else
                 {
                     handCardsImageViews.get(i).setForeground(null);
-                    handCardsImageViews.get(i).setPadding(0, 0, 0, 0);
                 }
             }
             else {
                 handCardsImageViews.get(i).setVisibility(View.GONE);
             }
         }
-        TextView tv = (TextView)findViewById(R.id.spieler1TV);
-        tv.setText("");
-        for(Card c: humanPlayer.getCards()){
-            if(c.isMarked())
-                tv.setText(tv.getText() + c.getSymbol().toString() + c.getValue().toString() + " ");
-        }
+
 
     }
 

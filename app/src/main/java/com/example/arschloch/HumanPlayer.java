@@ -1,8 +1,6 @@
 package com.example.arschloch;
 
-import android.app.Application;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,35 +8,24 @@ import java.util.List;
 
 public class HumanPlayer extends Player
 {
-    private List<Card> markedCards;
 
-    public HumanPlayer(){
-        super();
-        markedCards =new ArrayList<>();
-    }
 
     public void markCard(View v){
         for(Card c: this.getCards()){
             if(c.getResourceId() == (int)v.getTag() && !c.isMarked()){
-                markedCards = new ArrayList<>();
-                for(Card c1: this.getCards()){
-                    if(c1.isMarked()){
-                        markedCards.add(c1);
-                    }
-                }
-                markedCards.add(c);
-                if(check_combination(markedCards)) {
-                    c.setMarked(true);
-                    System.out.println("Card Marked");
-                    //Toast.makeText(this,"new combination",Toast.LENGTH_LONG).show();
-                }
 
-                    //else Toast.makeText(this,"invalid card selected",Toast.LENGTH_LONG).show();
+
+                combination.add(c);
+                if(check_combination(combination)) {
+                    c.setMarked(true);
+                }
+                else
+                    combination.remove(c);
+
 
             }else if(c.getResourceId() ==(int)v.getTag() && c.isMarked()){
                 c.setMarked(false);
-                markedCards.remove(c);
-                System.out.println("Card Demarked");
+                combination.remove(c);
             }
         }
 
@@ -54,15 +41,15 @@ public class HumanPlayer extends Player
         boolean move =true;
 
         //check ob Karten markiert wurden
-        if (markedCards.size() == 0)
+        if (combination.size() == 0)
             move = false;
             //wenn amountCardsPlayed 0 ist wurde noch keine Karte gespielt
         else if (GameActivity.amountCardsPlayed == 0) {
             move = true;
             //markierte Karten müssen vom Wert größer sein als die zuvor gespielten Karten
-        } else if (markedCards.get(0).getValue().compareTo(GameActivity.cardValuePlayed) >= 1) {
+        } else if (combination.get(0).getValue().compareTo(GameActivity.cardValuePlayed) >= 1) {
             //die Anzahl der markierten Karten muss mit der Anzahl der zuvor gespielten Karten übereinstimmen
-            if (markedCards.size() == GameActivity.amountCardsPlayed)
+            if (combination.size() == GameActivity.amountCardsPlayed)
                 move = true;
 
             else
@@ -80,8 +67,7 @@ public class HumanPlayer extends Player
 
         if(move){
             //Karten spielen
-
-            throw new RuntimeException("Valid move");
+            get_cards_played();
         }
         else
             throw new RuntimeException("Invalid move");
