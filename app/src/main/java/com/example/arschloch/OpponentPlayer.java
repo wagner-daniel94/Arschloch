@@ -20,18 +20,40 @@ public class OpponentPlayer extends Player
                 this.getCards().remove(0);
             }
             if(this.check_combination(combination)){
-                GameActivity.amountCardsPlayed = combination.size();
-                GameActivity.cardValuePlayed = cv;
+                get_cards_played();
+
             }
         }
         else {
-            int index = 0;
+            for(int i = 0;i<this.getCards().size()-1;i++) {
+                if(this.getCards().get(i).getValue().compareTo(GameActivity.cardValuePlayed) > 0) {
+                    if (get_cards_marked_by_amount_value(this.getCards().get(i).getValue())) {
+                        if (this.check_combination(combination)) {
+                            get_cards_played();
+                            break;
+                        }
+                    }
+                }
 
-            while (index != this.getCards().size()-1){
-                if(this.getCards().get(index).getValue().compareTo(GameActivity.cardValuePlayed) >= 0)
-                    index++;
+
+            }
+
+        }
+    }
+
+    private boolean get_cards_marked_by_amount_value(Card_value cv){
+        List<Card> tmpList = new ArrayList<>();
+        for(Card c:this.getCards()){
+            if(c.getValue() == cv){
+                tmpList.add(c);
             }
         }
+        if(tmpList.size()==GameActivity.amountCardsPlayed){
+            this.combination = tmpList;
+            return true;
+        }
+        else
+            return false;
     }
 
     @Override

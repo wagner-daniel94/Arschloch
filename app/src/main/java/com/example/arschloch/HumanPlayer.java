@@ -58,13 +58,6 @@ public class HumanPlayer extends Player
         } else
             move = false;
 
-
-
-
-
-
-
-
         if(move){
             //Karten spielen
             get_cards_played();

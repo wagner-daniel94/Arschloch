@@ -105,6 +105,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     humanPlayer.play_card();
                     set_card_imageView();
+
+                    Thread.sleep(5000);
+                    opponentPlayer1.play_card();
+                    Thread.sleep(5000);
+                    opponentPlayer2.play_card();
+                    Thread.sleep(5000);
+                    opponentPlayer3.play_card();
                 }
                 catch (Exception e){
                     Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();

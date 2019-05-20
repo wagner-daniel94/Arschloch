@@ -33,11 +33,13 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="570dp"
+        android:layout_width="564dp"
         android:layout_height="132dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/playBtn"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
