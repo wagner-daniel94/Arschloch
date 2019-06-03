@@ -116,10 +116,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 try {
 
                     checkSkipAmount();
-
+                    //play_card gibt einen boolean zurück ob Karten gespielt wurden
                     if (humanPlayer.play_card())
                         amountSkipped = 0;
                     else
+                        //Der Spieler kann durch drücken auf Play nicht skippen
                        throw new Exception("Invalid move!");
 
                     //Implementation mit Handler
@@ -237,6 +238,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //check, ob viermal geskippt wurde. setzt dann die Variablen zurück
     private void checkSkipAmount(){
         if (amountSkipped == 4) {
             amountCardsPlayed = 0;
@@ -339,6 +341,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //belegt die ImageViews in der Mitte mit Karten
     public static void set_card_imageView_middleCards(List<Card> combination){
 
         if(combination == null){
@@ -362,6 +365,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //wird bei Klick auf eine Karte ausgelöst: triggert die Methode markCard in humanPlayer
     public void markCard(View v){
         humanPlayer.markCard(v);
         set_card_imageView();
@@ -426,6 +430,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //Nach Ende der Runde wird alles zurückgesetzt. Wird auch vor der 1. Runde aufgerufen
     private void resetGame(){
         cards_distributing();
         set_card_imageView();
