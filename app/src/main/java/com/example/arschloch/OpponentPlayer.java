@@ -10,27 +10,28 @@ public class OpponentPlayer extends Player
     boolean level2 =  false;
 
     @Override
-    public void play_card()
+    public boolean play_card()
     {
         if (GameActivity.amountCardsPlayed == 0){
-            List<Card> combination = new ArrayList<Card>();
+            //List<Card> combination = new ArrayList<Card>();
             Card_value cv = this.getCards().get(0).getValue();
             while (this.getCards().get(0).getValue() == cv){
                 combination.add(this.getCards().get(0));
                 this.getCards().remove(0);
             }
             if(this.check_combination(combination)){
-                get_cards_played();
+                move_cards_to_middle();
+                return true;
 
             }
         }
         else {
-            for(int i = 0;i<this.getCards().size()-1;i++) {
+            for(int i = 0;i<this.getCards().size();i++) {
                 if(this.getCards().get(i).getValue().compareTo(GameActivity.cardValuePlayed) > 0) {
                     if (get_cards_marked_by_amount_value(this.getCards().get(i).getValue())) {
                         if (this.check_combination(combination)) {
-                            get_cards_played();
-                            break;
+                            move_cards_to_middle();
+                            return  true;
                         }
                     }
                 }
@@ -39,6 +40,7 @@ public class OpponentPlayer extends Player
             }
 
         }
+        return false;
     }
 
     private boolean get_cards_marked_by_amount_value(Card_value cv){

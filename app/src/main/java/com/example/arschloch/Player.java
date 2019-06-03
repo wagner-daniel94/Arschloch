@@ -21,19 +21,13 @@ public abstract class Player {
     }
 
 
-    public abstract void play_card();
+    public abstract boolean play_card();
 
-    public void get_cards_played(){
+    public void move_cards_to_middle(){
         //Karten spielen
-        for(int i = 0;i < GameActivity.middleCardsImageViews.size();i++){
-            if(i <= combination.size()-1){
-                GameActivity.middleCardsImageViews.get(i).setImageResource(combination.get(i).getResourceId());
-                GameActivity.middleCardsImageViews.get(i).setVisibility(View.VISIBLE);
-                this.getCards().remove(combination.get(i));
-            }
-            else
-                GameActivity.middleCardsImageViews.get(i).setVisibility(View.GONE);
-        }
+        GameActivity.set_card_imageView_middleCards(combination);
+        this.cards.removeAll(combination);
+
         GameActivity.amountCardsPlayed =combination.size();
         GameActivity.cardValuePlayed = combination.get(0).getValue();
         combination.clear();

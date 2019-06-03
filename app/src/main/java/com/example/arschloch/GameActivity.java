@@ -1,6 +1,7 @@
 package com.example.arschloch;
 
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,36 +27,37 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     //
 
     //region Variablen
+    //Spielerobjkte
     HumanPlayer humanPlayer;
-
     Player opponentPlayer1;
     Player opponentPlayer2;
     Player opponentPlayer3;
+    //Kartenstapelobjekte der ImageViews
     static List<ImageView> handCardsImageViews;
     static List<ImageView> middleCardsImageViews;
-
-
-    //Karten
-
+    //Textviews für Kartenanzhal Anzeige
+    TextView TVacop3;
+    TextView TVacop1;
+    TextView TVacop2;
+    //Kartenstapel mit allen Karten
     CardDeck card_deck;
-
-
-    //Spieler an der
-
+    //Spieler an der Reihe
     int playersTurn;
+    //Anzahl Spielzüge
     int turnCount = 1;
-
-
+    //Anzahl an hintereinander folgenden Skips
+    int amountSkipped = 0;
     //Anzahl der Karten die zuvor gespielt wurden
-
     static int amountCardsPlayed = 0;
-
-
     //Kartenwert der zuvor gespielten KArten
-
     static Card_value cardValuePlayed;
+    //Rundenanzahl
+    int amountRounds = 0;
+    //
+    //endregion.
 
-    //endregion
+    //Implementation mit Handler
+    //Handler handler;
 
 
 
@@ -63,6 +65,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+
 
         Button playBtn = (Button) findViewById(R.id.playBtn);
         Button passBtn = (Button) findViewById(R.id.passBtn);
@@ -72,6 +76,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         handCardsImageViews = new ArrayList<>();
         middleCardsImageViews = new ArrayList<>();
+
+        TVacop3 = (TextView)findViewById(R.id.TVacop3) ;
+        TVacop1 = (TextView)findViewById(R.id.TVacop1) ;
+        TVacop2 = (TextView)findViewById(R.id.TVacop2) ;
 
         handCardsImageViews.add((ImageView)findViewById(R.id.card1));
         handCardsImageViews.add((ImageView)findViewById(R.id.card2));
@@ -91,30 +99,78 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard2));
         middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard3));
         middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard4));
-        cards_distributing();
-        set_card_imageView();
-        set_card_imageView_middleCards();
+        resetGame();
+
+        //Implementation mit Handler
+        //handler = new Handler();
+
+
     }
 @Override
     public void onClick(View v){
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.playBtn:
                 // Methoden die beim Klick auf Play gestartet werden sollen
                 //PlayHumanCards
                 try {
-                    humanPlayer.play_card();
-                    set_card_imageView();
 
-                    Thread.sleep(5000);
-                    opponentPlayer1.play_card();
-                    Thread.sleep(5000);
-                    opponentPlayer2.play_card();
-                    Thread.sleep(5000);
-                    opponentPlayer3.play_card();
-                }
-                catch (Exception e){
-                    Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    checkSkipAmount();
+
+                    if (humanPlayer.play_card())
+                        amountSkipped = 0;
+                    else
+                       throw new Exception("Invalid move!");
+
+                    //Implementation mit Handler
+/*
+                    handler.post(new Runnable() {
+                        public void run() {
+
+                            set_card_imageView();
+                            try {
+                                Thread.sleep(500);
+                            }
+                            catch (InterruptedException e){
+
+                            }
+                        }
+                    });*/
+                    set_card_imageView();
+                    Thread.sleep(500);
+
+                    checkSkipAmount();
+                    if (opponentPlayer1.play_card()) {
+                        amountSkipped = 0;
+                        TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+                    }
+                    else
+                        amountSkipped++;
+
+                    //Thread.sleep(500);
+                    checkSkipAmount();
+
+                    if (opponentPlayer2.play_card()) {
+                        amountSkipped = 0;
+                        TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                    }
+                    else
+                        amountSkipped++;
+
+                    //Thread.sleep(500);
+
+                    checkSkipAmount();
+
+                    if (opponentPlayer3.play_card()) {
+                        amountSkipped = 0;
+                        TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                    }
+                    else
+                        amountSkipped++;
+
+
+                } catch (Exception e) {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     System.out.println(e.getMessage());
                 }
                 //PlayAICards
@@ -122,10 +178,73 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.passBtn:
                 // Methoden die beim Klick auf Pass gestartet werden sollen
                 //PlayAICards
+                try {
+                    checkSkipAmount();
+
+
+                amountSkipped++;
+                //Implementation mit runOnUiThread
+                /*this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        set_card_imageView();
+                        try {
+                            Thread.sleep(5000);
+                        }
+                        catch (InterruptedException e){
+
+                        }
+                    }
+                });*/
+
+                    checkSkipAmount();
+
+                if (opponentPlayer1.play_card()) {
+                    amountSkipped = 0;
+                    TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+                }
+                else
+                    amountSkipped++;
+
+
+                //Thread.sleep(5000);
+                    checkSkipAmount();
+
+                if (opponentPlayer2.play_card()){
+                    amountSkipped = 0;
+                    TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                }
+
+                else
+                    amountSkipped++;
+
+
+                //Thread.sleep(5000);
+                    checkSkipAmount();
+
+                if (opponentPlayer3.play_card()) {
+                    amountSkipped = 0;
+                    TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
+                }
+                else
+                    amountSkipped++;
+
+        }
+                catch (Exception e){
+                Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                System.out.println(e.getMessage());
+            }
                 break;
         }
     }
 
+    private void checkSkipAmount(){
+        if (amountSkipped == 4) {
+            amountCardsPlayed = 0;
+            cardValuePlayed = null;
+            amountSkipped = 0;
+            set_card_imageView_middleCards(null);
+        }
+    }
 
 /*
 * Das austeielen der Karten
@@ -214,15 +333,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             else {
                 handCardsImageViews.get(i).setVisibility(View.GONE);
             }
+            handCardsImageViews.get(i).invalidate();
         }
 
 
     }
 
-    public void set_card_imageView_middleCards(){
-        for(ImageView iv:middleCardsImageViews)
-        {
-            iv.setVisibility(View.GONE);
+    public static void set_card_imageView_middleCards(List<Card> combination){
+
+        if(combination == null){
+            for (ImageView iv:middleCardsImageViews){
+                iv.setVisibility(View.GONE);
+            }
+            return;
+        }
+
+        for(int i = 0;i < middleCardsImageViews.size();i++){
+
+            if(i <= combination.size()-1){
+                middleCardsImageViews.get(i).setImageResource(combination.get(i).getResourceId());
+                middleCardsImageViews.get(i).setVisibility(View.VISIBLE);
+
+            }
+            else
+                middleCardsImageViews.get(i).setVisibility(View.GONE);
+
+
         }
     }
 
@@ -290,5 +426,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void resetGame(){
+        cards_distributing();
+        set_card_imageView();
+        set_card_imageView_middleCards(null);
+        amountSkipped = 0;
+        amountCardsPlayed = 0;
+        cardValuePlayed = null;
+        playersTurn = get_firstPlayer();
+
+        if(amountRounds != 1){
+            //Drücken
+        }
+
+
+
+    }
 
 }

@@ -2,9 +2,7 @@ package com.example.arschloch;
 
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class HumanPlayer extends Player
 {
@@ -36,7 +34,7 @@ public class HumanPlayer extends Player
 
 
     @Override
-    public void play_card()
+    public boolean play_card()
     {
         boolean move =true;
 
@@ -60,10 +58,11 @@ public class HumanPlayer extends Player
 
         if(move){
             //Karten spielen
-            get_cards_played();
+            move_cards_to_middle();
+            return true;
         }
         else
-            throw new RuntimeException("Invalid move");
+            return false;
     }
 
     @Override

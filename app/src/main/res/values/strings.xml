@@ -4,4 +4,8 @@
     <string name="TVop1">Opponent1</string>
     <string name="TVop2">Opponent2</string>
     <string name="TVop3">Opponent3</string>
+
+    <string name="TVamountcards1">13</string>
+    <string name="TVamountcards2">13</string>
+    <string name="TVamountcards3">13</string>
 </resources>
