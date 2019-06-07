@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +72,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Button playBtn = (Button) findViewById(R.id.playBtn);
         Button passBtn = (Button) findViewById(R.id.passBtn);
+        LinearLayout handCardsLayout = (LinearLayout) findViewById(R.id.relativeLayout);
+        LinearLayout playedCardsLayout = (LinearLayout) findViewById(R.id.relativeLayout2);
+
+
+
+
+
+        TVacop3 = (TextView)findViewById(R.id.TVacop3) ;
+        TVacop1 = (TextView)findViewById(R.id.TVacop1) ;
+        TVacop2 = (TextView)findViewById(R.id.TVacop2) ;
+
 
         playBtn.setOnClickListener(this);
         passBtn.setOnClickListener(this);
@@ -77,9 +90,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         handCardsImageViews = new ArrayList<>();
         middleCardsImageViews = new ArrayList<>();
 
-        TVacop3 = (TextView)findViewById(R.id.TVacop3) ;
-        TVacop1 = (TextView)findViewById(R.id.TVacop1) ;
-        TVacop2 = (TextView)findViewById(R.id.TVacop2) ;
 
         handCardsImageViews.add((ImageView)findViewById(R.id.card1));
         handCardsImageViews.add((ImageView)findViewById(R.id.card2));
@@ -447,5 +457,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+
 
 }
