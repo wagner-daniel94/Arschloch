@@ -69,8 +69,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Button playBtn = (Button) findViewById(R.id.playBtn);
         Button passBtn = (Button) findViewById(R.id.passBtn);
-        LinearLayout handCardsLayout = (LinearLayout) findViewById(R.id.relativeLayout);
-        LinearLayout playedCardsLayout = (LinearLayout) findViewById(R.id.relativeLayout2);
 
 
         humanPlayer = new HumanPlayer();
@@ -398,48 +396,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             return (int)(Math.random()*4)+1;
     }
 
-    private Player get_winner(){
-        int points =0;
-        if(humanPlayer.isWinner()){
-            points = humanPlayer.getPoints();
-            points++;
-            humanPlayer.setPoints(points);
-            return humanPlayer;}
-        else if(opponentPlayer1.isWinner()){
-            points = opponentPlayer1.getPoints();
-            points++;
-            opponentPlayer1.setPoints(points);
-            return opponentPlayer1;}
-        else if(opponentPlayer2.isWinner()){
-            points = opponentPlayer2.getPoints();
-            points++;
-            opponentPlayer2.setPoints(points);
-            return opponentPlayer2;}
-        else if(opponentPlayer3.isWinner()){
-            points = opponentPlayer3.getPoints();
-            points++;
-            opponentPlayer3.setPoints(points);
-            return opponentPlayer3;}
-        else
-        return null;
-    }
-
-    //Zählen von Zügen
-    private int turnCount (){
-        if (playersTurn==0) {
-            turnCount++;}
-            return turnCount;
-
-    }
-    //Zählen des Spielers der an der Reihe ist
-    private int playerPlayer () {
-        if (playersTurn == 4)
-
-            return 1;
-        else
-            return playersTurn++;
-
-    }
 
     private void roundOver(){
         int i = 0;
@@ -497,6 +453,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private Player getWinner(){
+        if(humanPlayer.isWinner())
+            return humanPlayer;
+        else if(opponentPlayer1.isWinner())
+            return opponentPlayer1;
+        else if(opponentPlayer2.isWinner())
+            return opponentPlayer2;
+        else if(opponentPlayer3.isWinner())
+            return opponentPlayer3;
+        else
+            return null;
+    }
+
+    private Player getArschloch(){
+        if(humanPlayer.isArschloch())
+            return humanPlayer;
+        else if(opponentPlayer1.isArschloch())
+            return opponentPlayer1;
+        else if(opponentPlayer2.isArschloch())
+            return opponentPlayer2;
+        else if(opponentPlayer3.isArschloch())
+            return opponentPlayer3;
+        else
+            return null;
+    }
+
     private boolean checkSomeoneIsWinner(){
         if(humanPlayer.isWinner())
             return true;
@@ -522,6 +504,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if(amountRounds != 1){
             //Drücken
+            if(getWinner() == humanPlayer){
+
+            }
+
         }
 
         humanPlayer.setArschloch(false);
