@@ -1,14 +1,11 @@
 package com.example.arschloch;
 
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,7 +73,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayout playedCardsLayout = (LinearLayout) findViewById(R.id.relativeLayout2);
 
 
-
+        humanPlayer = new HumanPlayer();
+        opponentPlayer1 = new OpponentPlayer();
+        opponentPlayer2 = new OpponentPlayer();
+        opponentPlayer3 = new OpponentPlayer();
 
 
         TVacop3 = (TextView)findViewById(R.id.TVacop3) ;
@@ -109,7 +109,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard2));
         middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard3));
         middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard4));
-        resetGame();
+        resetRound();
 
         //Implementation mit Handler
         //handler = new Handler();
@@ -256,6 +256,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             amountSkipped = 0;
             set_card_imageView_middleCards(null);
         }
+        roundOver();
     }
 
 /*
@@ -269,10 +270,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         //Variable um eine Karte zu erstellen
         card_deck = new CardDeck();
 
-        humanPlayer = new HumanPlayer();
-        opponentPlayer1 = new OpponentPlayer();
-        opponentPlayer2 = new OpponentPlayer();
-        opponentPlayer3 = new OpponentPlayer();
+        humanPlayer.getCards().clear();
+        opponentPlayer1.getCards().clear();
+        opponentPlayer2.getCards().clear();
+        opponentPlayer3.getCards().clear();
 
         Collections.shuffle(card_deck.getCards());
 
@@ -440,8 +441,77 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void roundOver(){
+        int i = 0;
+        int a = 0;
+        if(humanPlayer.getCards().size() == 0){
+            i++;
+            if(!checkSomeoneIsWinner())
+                humanPlayer.setWinner(true);
+        }
+        else{
+            a=1;
+        }
+        if(opponentPlayer1.getCards().size() == 0){
+            i++;
+            if(!checkSomeoneIsWinner())
+                opponentPlayer1.setWinner(true);
+        }
+        else{
+            a=2;
+        }
+        if(opponentPlayer2.getCards().size() == 0){
+            i++;
+            if(!checkSomeoneIsWinner())
+                opponentPlayer2.setWinner(true);
+        }
+        else{
+            a=3;
+        }
+        if(opponentPlayer3.getCards().size() == 0){
+            i++;
+            if(!checkSomeoneIsWinner())
+                opponentPlayer3.setWinner(true);
+        }
+        else{
+            a=4;
+        }
+
+        if(i>=3){
+            //Runde vorbei
+            switch (a){
+                case 1:
+                    humanPlayer.setArschloch(true);
+                    break;
+                case 2:
+                    opponentPlayer1.setArschloch(true);
+                    break;
+                case 3:
+                    opponentPlayer2.setArschloch(true);
+                    break;
+                case 4:
+                    opponentPlayer3.setArschloch(true);
+                    break;
+            }
+            resetRound();
+        }
+    }
+
+    private boolean checkSomeoneIsWinner(){
+        if(humanPlayer.isWinner())
+            return true;
+        else if(opponentPlayer1.isWinner())
+            return true;
+        else if(opponentPlayer2.isWinner())
+            return true;
+        else if(opponentPlayer3.isWinner())
+            return true;
+        else
+            return false;
+    }
+
     //Nach Ende der Runde wird alles zurückgesetzt. Wird auch vor der 1. Runde aufgerufen
-    private void resetGame(){
+    private void resetRound(){
         cards_distributing();
         set_card_imageView();
         set_card_imageView_middleCards(null);
@@ -453,6 +523,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(amountRounds != 1){
             //Drücken
         }
+
+        humanPlayer.setArschloch(false);
+        humanPlayer.setWinner(false);
+        opponentPlayer1.setArschloch(false);
+        opponentPlayer1.setWinner(false);
+        opponentPlayer2.setArschloch(false);
+        opponentPlayer2.setWinner(false);
+        opponentPlayer3.setArschloch(false);
+        opponentPlayer3.setWinner(false);
 
 
 
