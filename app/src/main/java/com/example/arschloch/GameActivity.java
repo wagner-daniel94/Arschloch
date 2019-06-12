@@ -535,8 +535,63 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    }
 
+        //Je nachdem wer zuerst dran ist
+
+        //Wenn Opponent Player 1 zuerst dran ist
+        if(get_firstPlayer() == 2) {
+            Toast.makeText(this,"Opponent Player 1 begins",Toast.LENGTH_LONG).show();
+
+            if (opponentPlayer1.play_card()) {
+                amountSkipped = 0;
+                TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+            }
+            else
+                amountSkipped++;
+            //Thread.sleep(5000);
+            if (opponentPlayer2.play_card()) {
+                amountSkipped = 0;
+                TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+            } else
+                amountSkipped++;
+            //Thread.sleep(500);
+            if (opponentPlayer3.play_card()) {
+                amountSkipped = 0;
+                TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
+            } else
+                amountSkipped++;
+
+        }
+
+        //Wenn Opponent Player 2 zuerst dran ist
+        else if(get_firstPlayer() == 3){
+            Toast.makeText(this,"Opponent Player 2 begins",Toast.LENGTH_LONG).show();
+
+            if (opponentPlayer2.play_card()) {
+                amountSkipped = 0;
+                TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+            } else
+                amountSkipped++;
+            //Thread.sleep(500);
+            if (opponentPlayer3.play_card()) {
+                amountSkipped = 0;
+                TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
+            } else
+                amountSkipped++;
+        }
+
+        //Wenn Opponent Player 3 zuerst dran ist
+        else if(get_firstPlayer() == 4){
+            Toast.makeText(this,"Opponent Player 3 begins",Toast.LENGTH_LONG).show();
+
+            if (opponentPlayer3.play_card()) {
+                amountSkipped = 0;
+                TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
+            } else
+                amountSkipped++;
+        }
+
+    }
 
 
 }
