@@ -9,17 +9,25 @@ public class Statistic extends AppCompatActivity {
 
   private String statisticNumber;
   private String statisticName;
+  private int statisticId;
 
 
 
-    public Statistic(String statisticNumber, String statisticName) {
+    public Statistic(int statisticId, String statisticNumber, String statisticName) {
         this.statisticNumber = statisticNumber;
         this.statisticName = statisticName;
+        this.statisticId = statisticId;
     }
+
+    public Statistic() {
+
+    }
+
 
     public String getStatisticNumber() {
         return statisticNumber;
     }
+
 
     public void setStatisticNumber(String statisticNumber) {
         this.statisticNumber = statisticNumber;
@@ -33,6 +41,10 @@ public class Statistic extends AppCompatActivity {
         this.statisticName = statisticName;
     }
 
+    public int getStatisticId(){return statisticId;}
+    public void setStatisticId(int statisticId){
+        this.statisticId=statisticId;
+    }
 
 
 }

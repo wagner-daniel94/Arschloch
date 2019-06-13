@@ -30,8 +30,8 @@ public class statisticsListAdapter extends ArrayAdapter <Statistic>{
     public View getView(int position, View convertView, ViewGroup parent){
         String text = getItem(position).getStatisticName();
         String zahl = getItem(position).getStatisticNumber();
-
-        Statistic statistic = new Statistic(zahl,text);
+        int id = getItem(position).getStatisticId();
+        Statistic statistic = new Statistic(id,zahl,text);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mRessource,parent,false);
