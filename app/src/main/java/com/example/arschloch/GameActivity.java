@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +50,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     //Kartenwert der zuvor gespielten KArten
     static Card_value cardValuePlayed;
     //Rundenanzahl
-    int amountRounds = 0;
+    int amountRounds = 1;
     //
     //endregion.
 
@@ -150,34 +149,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     Thread.sleep(500);
 
                     checkSkipAmount();
-                    if (opponentPlayer1.play_card()) {
-                        amountSkipped = 0;
-                        TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+                    if(opponentPlayer1.getCards().size() != 0) {
+                        if (opponentPlayer1.play_card()) {
+                            amountSkipped = 0;
+                            TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+                        } else
+                            amountSkipped++;
                     }
-                    else
-                        amountSkipped++;
-
                     //Thread.sleep(500);
                     checkSkipAmount();
-
-                    if (opponentPlayer2.play_card()) {
-                        amountSkipped = 0;
-                        TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                    if(opponentPlayer2.getCards().size() != 0) {
+                        if (opponentPlayer2.play_card()) {
+                            amountSkipped = 0;
+                            TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                        } else
+                            amountSkipped++;
                     }
-                    else
-                        amountSkipped++;
-
                     //Thread.sleep(500);
 
                     checkSkipAmount();
-
-                    if (opponentPlayer3.play_card()) {
-                        amountSkipped = 0;
-                        TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                    if(opponentPlayer3.getCards().size() != 0) {
+                        if (opponentPlayer3.play_card()) {
+                            amountSkipped = 0;
+                            TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                        } else
+                            amountSkipped++;
                     }
-                    else
-                        amountSkipped++;
-
 
                 } catch (Exception e) {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -207,37 +204,33 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 });*/
 
                     checkSkipAmount();
-
-                if (opponentPlayer1.play_card()) {
-                    amountSkipped = 0;
-                    TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+                if(opponentPlayer1.getCards().size() != 0) {
+                    if (opponentPlayer1.play_card()) {
+                        amountSkipped = 0;
+                        TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+                    } else
+                        amountSkipped++;
                 }
-                else
-                    amountSkipped++;
-
 
                 //Thread.sleep(5000);
                     checkSkipAmount();
-
-                if (opponentPlayer2.play_card()){
-                    amountSkipped = 0;
-                    TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                if(opponentPlayer2.getCards().size() !=0) {
+                    if (opponentPlayer2.play_card()) {
+                        amountSkipped = 0;
+                        TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                    } else
+                        amountSkipped++;
                 }
-
-                else
-                    amountSkipped++;
-
 
                 //Thread.sleep(5000);
                     checkSkipAmount();
-
-                if (opponentPlayer3.play_card()) {
-                    amountSkipped = 0;
-                    TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
+                if(opponentPlayer3.getCards().size() !=0) {
+                    if (opponentPlayer3.play_card()) {
+                        amountSkipped = 0;
+                        TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
+                    } else
+                        amountSkipped++;
                 }
-                else
-                    amountSkipped++;
-
         }
                 catch (Exception e){
                 Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
@@ -383,7 +376,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 /*
 * Festlegung des ersten Spielers
 * */
-    private int get_firstPlayer(){
+    private int set_firstPlayer(){
         //Wenn Spieler Arschloch in der Runde zuvor war beginnt er das Spiel. Wenn es die erste Runde ist entscheidet der Zufall
         if(humanPlayer.isArschloch()){
             return 1;}
@@ -501,7 +494,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         amountSkipped = 0;
         amountCardsPlayed = 0;
         cardValuePlayed = null;
-        playersTurn = get_firstPlayer();
+        playersTurn = set_firstPlayer();
 
         if(amountRounds != 1){
             //Drücken
@@ -526,7 +519,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         //Je nachdem wer zuerst dran ist
 
         //Wenn Opponent Player 1 zuerst dran ist
-        if(get_firstPlayer() == 2) {
+        if(playersTurn == 2) {
             Toast.makeText(this,"Opponent Player 1 begins",Toast.LENGTH_LONG).show();
 
             if (opponentPlayer1.play_card()) {
@@ -551,7 +544,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         //Wenn Opponent Player 2 zuerst dran ist
-        else if(get_firstPlayer() == 3){
+        else if(playersTurn == 3){
             Toast.makeText(this,"Opponent Player 2 begins",Toast.LENGTH_LONG).show();
 
             if (opponentPlayer2.play_card()) {
@@ -568,7 +561,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         //Wenn Opponent Player 3 zuerst dran ist
-        else if(get_firstPlayer() == 4){
+        else if(playersTurn == 4){
             Toast.makeText(this,"Opponent Player 3 begins",Toast.LENGTH_LONG).show();
 
             if (opponentPlayer3.play_card()) {
