@@ -125,7 +125,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 //PlayHumanCards
                 try {
 
-                    checkSkipAmount();
+                    checkSkipAmount(getAmountPlayersInGame());
                     //play_card gibt einen boolean zurück ob Karten gespielt wurden
                     if(humanPlayer.getCards().size() != 0) {
                         if (humanPlayer.play_card()) {
@@ -153,7 +153,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     set_card_imageView();
                     Thread.sleep(500);
 
-                    checkSkipAmount();
+                    checkSkipAmount(getAmountPlayersInGame());
                     if(opponentPlayer1.getCards().size() != 0) {
                         if (opponentPlayer1.play_card()) {
                             amountSkipped = 0;
@@ -163,7 +163,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             amountSkipped++;
                     }
                     //Thread.sleep(500);
-                    checkSkipAmount();
+                    checkSkipAmount(getAmountPlayersInGame());
                     if(opponentPlayer2.getCards().size() != 0) {
                         if (opponentPlayer2.play_card()) {
                             TVCardsPlayedBy.setText("OpponentPlayer2 played:");
@@ -174,7 +174,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     //Thread.sleep(500);
 
-                    checkSkipAmount();
+                    checkSkipAmount(getAmountPlayersInGame());
                     if(opponentPlayer3.getCards().size() != 0) {
                         if (opponentPlayer3.play_card()) {
                             TVCardsPlayedBy.setText("OpponentPlayer3 played:");
@@ -194,7 +194,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 // Methoden die beim Klick auf Pass gestartet werden sollen
                 //PlayAICards
                 try {
-                    checkSkipAmount();
+                    checkSkipAmount(getAmountPlayersInGame());
 
 
                 amountSkipped++;
@@ -211,7 +211,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });*/
 
-                    checkSkipAmount();
+                    checkSkipAmount(getAmountPlayersInGame());
                 if(opponentPlayer1.getCards().size() != 0) {
                     if (opponentPlayer1.play_card()) {
                         TVCardsPlayedBy.setText("OpponentPlayer1 played:");
@@ -222,7 +222,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 //Thread.sleep(5000);
-                    checkSkipAmount();
+                    checkSkipAmount(getAmountPlayersInGame());
                 if(opponentPlayer2.getCards().size() !=0) {
                     if (opponentPlayer2.play_card()) {
                         TVCardsPlayedBy.setText("OpponentPlayer2 played:");
@@ -233,7 +233,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 //Thread.sleep(5000);
-                    checkSkipAmount();
+                    checkSkipAmount(getAmountPlayersInGame());
                 if(opponentPlayer3.getCards().size() !=0) {
                     if (opponentPlayer3.play_card()) {
                         TVCardsPlayedBy.setText("OpponentPlayer3 played:");
@@ -249,11 +249,34 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
                 break;
         }
+
+        System.out.println("Log: Before Game Loop");
+        if(humanPlayer.getCards().size() == 0) {
+            finishing_Gameloop();
+            resetRound();
+        }
+    }
+
+    //check, wie viele Spieler noch in game sind
+    private int getAmountPlayersInGame(){
+
+        int playersInGame = 0;
+        if(humanPlayer.getCards().size() > 0)
+            playersInGame++;
+        if(opponentPlayer1.getCards().size() > 0)
+            playersInGame++;
+        if(opponentPlayer2.getCards().size() > 0)
+            playersInGame++;
+        if(opponentPlayer3.getCards().size() > 0)
+            playersInGame++;
+
+        return playersInGame;
     }
 
     //check, ob viermal geskippt wurde. setzt dann die Variablen zurück
-    private void checkSkipAmount(){
-        if (amountSkipped == 4) {
+    private void checkSkipAmount(int i){
+        // -1 da immer "Anzahl Spieler - 1" Skips notwendig sind um eine Runde zu beenden
+        if (amountSkipped == i - 1) {
             amountCardsPlayed = 0;
             cardValuePlayed = null;
             amountSkipped = 0;
@@ -602,5 +625,46 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //Methode die dafür sorgt, dass die Runde zuende gespielt wird wenn humanPlayer keine Karten mehr hat
+    public void finishing_Gameloop(){
+
+            while(getAmountPlayersInGame() > 1){
+
+                System.out.println("Log: Finishing Game Loop Initiated");
+                checkSkipAmount(getAmountPlayersInGame());
+                try {
+                    if (opponentPlayer1.getCards().size() > 0) {
+                        if (opponentPlayer1.play_card()) {
+                            amountSkipped = 0;
+                            TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+                            System.out.println("Log: Player 1 played Card");
+                        } else
+                            amountSkipped++;
+                    }
+
+                    checkSkipAmount(getAmountPlayersInGame());
+                    if (opponentPlayer2.getCards().size() > 0) {
+                        if (opponentPlayer2.play_card()) {
+                            amountSkipped = 0;
+                            TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                            System.out.println("Log: Player 2 played Card");
+                        } else
+                            amountSkipped++;
+                    }
+                    checkSkipAmount(getAmountPlayersInGame());
+                    if (opponentPlayer3.getCards().size() > 0) {
+                        if (opponentPlayer3.play_card()) {
+                            amountSkipped = 0;
+                            TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
+                            System.out.println("Log: Player 3 played Card");
+                        } else
+                            amountSkipped++;
+                    }
+                }catch (Exception e){
+                Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+    }
 
 }
