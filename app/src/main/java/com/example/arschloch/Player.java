@@ -21,7 +21,7 @@ public abstract class Player {
     }
 
 
-    public abstract boolean play_card();
+    public abstract boolean play_card() throws Exception;
 
     public void move_cards_to_middle(){
         //Karten spielen

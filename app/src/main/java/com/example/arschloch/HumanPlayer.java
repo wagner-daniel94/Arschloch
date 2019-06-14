@@ -34,8 +34,12 @@ public class HumanPlayer extends Player
 
 
     @Override
-    public boolean play_card()
+    public boolean play_card() throws Exception
     {
+        if(this.getCards().size() ==0 ){
+            throw new Exception("Player has no cards left!!");
+        }
+
         boolean move =true;
 
         //check ob Karten markiert wurden

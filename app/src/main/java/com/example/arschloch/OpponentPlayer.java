@@ -10,8 +10,11 @@ public class OpponentPlayer extends Player
     boolean level2 =  false;
 
     @Override
-    public boolean play_card()
+    public boolean play_card() throws Exception
     {
+        if (this.getCards().size() == 0){
+            throw new Exception("Player has no cards left!!");
+        }
         if (GameActivity.amountCardsPlayed == 0){
             //List<Card> combination = new ArrayList<Card>();
             Card_value cv = this.getCards().get(0).getValue();
