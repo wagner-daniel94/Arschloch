@@ -533,60 +533,71 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         //Wenn Opponent Player 1 zuerst dran ist
         if(playersTurn == 2) {
             Toast.makeText(this,"Opponent Player 1 begins",Toast.LENGTH_LONG).show();
-
-            if (opponentPlayer1.play_card()) {
-                TVCardsPlayedBy.setText("OpponentPlayer1 played:");
-                amountSkipped = 0;
-                TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+            try {
+                if (opponentPlayer1.play_card()) {
+                    TVCardsPlayedBy.setText("OpponentPlayer1 played:");
+                    amountSkipped = 0;
+                    TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+                } else
+                    amountSkipped++;
+                //Thread.sleep(5000);
+                if (opponentPlayer2.play_card()) {
+                    TVCardsPlayedBy.setText("OpponentPlayer2 played:");
+                    amountSkipped = 0;
+                    TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                } else
+                    amountSkipped++;
+                //Thread.sleep(500);
+                if (opponentPlayer3.play_card()) {
+                    TVCardsPlayedBy.setText("OpponentPlayer3 played:");
+                    amountSkipped = 0;
+                    TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
+                } else
+                    amountSkipped++;
             }
-            else
-                amountSkipped++;
-            //Thread.sleep(5000);
-            if (opponentPlayer2.play_card()) {
-                TVCardsPlayedBy.setText("OpponentPlayer2 played:");
-                amountSkipped = 0;
-                TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
-            } else
-                amountSkipped++;
-            //Thread.sleep(500);
-            if (opponentPlayer3.play_card()) {
-                TVCardsPlayedBy.setText("OpponentPlayer3 played:");
-                amountSkipped = 0;
-                TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
-            } else
-                amountSkipped++;
+            catch (Exception e){
+                Toast.makeText(this,e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
 
         }
 
         //Wenn Opponent Player 2 zuerst dran ist
         else if(playersTurn == 3){
             Toast.makeText(this,"Opponent Player 2 begins",Toast.LENGTH_LONG).show();
-
-            if (opponentPlayer2.play_card()) {
-                TVCardsPlayedBy.setText("OpponentPlayer2 played:");
-                amountSkipped = 0;
-                TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
-            } else
-                amountSkipped++;
-            //Thread.sleep(500);
-            if (opponentPlayer3.play_card()) {
-                TVCardsPlayedBy.setText("OpponentPlayer3 played:");
-                amountSkipped = 0;
-                TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
-            } else
-                amountSkipped++;
+            try {
+                if (opponentPlayer2.play_card()) {
+                    TVCardsPlayedBy.setText("OpponentPlayer2 played:");
+                    amountSkipped = 0;
+                    TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                } else
+                    amountSkipped++;
+                //Thread.sleep(500);
+                if (opponentPlayer3.play_card()) {
+                    TVCardsPlayedBy.setText("OpponentPlayer3 played:");
+                    amountSkipped = 0;
+                    TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
+                } else
+                    amountSkipped++;
+            }
+            catch (Exception e){
+                Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
         }
 
         //Wenn Opponent Player 3 zuerst dran ist
         else if(playersTurn == 4){
             Toast.makeText(this,"Opponent Player 3 begins",Toast.LENGTH_LONG).show();
-
-            if (opponentPlayer3.play_card()) {
-                TVCardsPlayedBy.setText("OpponentPlayer3 played:");
-                amountSkipped = 0;
-                TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
-            } else
-                amountSkipped++;
+            try {
+                if (opponentPlayer3.play_card()) {
+                    TVCardsPlayedBy.setText("OpponentPlayer3 played:");
+                    amountSkipped = 0;
+                    TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
+                } else
+                    amountSkipped++;
+            }
+            catch (Exception e){
+                Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
