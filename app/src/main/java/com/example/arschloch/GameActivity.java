@@ -37,6 +37,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     TextView TVacop3;
     TextView TVacop1;
     TextView TVacop2;
+
+    TextView TVCardsPlayedBy;
     //Kartenstapel mit allen Karten
     CardDeck card_deck;
     //Spieler an der Reihe
@@ -80,6 +82,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         TVacop1 = (TextView)findViewById(R.id.TVacop1) ;
         TVacop2 = (TextView)findViewById(R.id.TVacop2) ;
 
+        TVCardsPlayedBy = (TextView)findViewById(R.id.TVCardsPlayedBy);
 
         playBtn.setOnClickListener(this);
         passBtn.setOnClickListener(this);
@@ -125,8 +128,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     checkSkipAmount();
                     //play_card gibt einen boolean zurück ob Karten gespielt wurden
                     if(humanPlayer.getCards().size() != 0) {
-                        if (humanPlayer.play_card())
+                        if (humanPlayer.play_card()) {
+                            TVCardsPlayedBy.setText("You played:");
                             amountSkipped = 0;
+                        }
                         else
                             //Der Spieler kann durch drücken auf Play nicht skippen
                             throw new Exception("Invalid move!");
@@ -152,6 +157,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     if(opponentPlayer1.getCards().size() != 0) {
                         if (opponentPlayer1.play_card()) {
                             amountSkipped = 0;
+                            TVCardsPlayedBy.setText("OpponentPlayer1 played:");
                             TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
                         } else
                             amountSkipped++;
@@ -160,6 +166,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     checkSkipAmount();
                     if(opponentPlayer2.getCards().size() != 0) {
                         if (opponentPlayer2.play_card()) {
+                            TVCardsPlayedBy.setText("OpponentPlayer2 played:");
                             amountSkipped = 0;
                             TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
                         } else
@@ -170,6 +177,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     checkSkipAmount();
                     if(opponentPlayer3.getCards().size() != 0) {
                         if (opponentPlayer3.play_card()) {
+                            TVCardsPlayedBy.setText("OpponentPlayer3 played:");
                             amountSkipped = 0;
                             TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
                         } else
@@ -206,6 +214,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     checkSkipAmount();
                 if(opponentPlayer1.getCards().size() != 0) {
                     if (opponentPlayer1.play_card()) {
+                        TVCardsPlayedBy.setText("OpponentPlayer1 played:");
                         amountSkipped = 0;
                         TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
                     } else
@@ -216,6 +225,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     checkSkipAmount();
                 if(opponentPlayer2.getCards().size() !=0) {
                     if (opponentPlayer2.play_card()) {
+                        TVCardsPlayedBy.setText("OpponentPlayer2 played:");
                         amountSkipped = 0;
                         TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
                     } else
@@ -226,6 +236,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     checkSkipAmount();
                 if(opponentPlayer3.getCards().size() !=0) {
                     if (opponentPlayer3.play_card()) {
+                        TVCardsPlayedBy.setText("OpponentPlayer3 played:");
                         amountSkipped = 0;
                         TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
                     } else
@@ -512,9 +523,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         opponentPlayer2.setWinner(false);
         opponentPlayer3.setArschloch(false);
         opponentPlayer3.setWinner(false);
-
-
-
+        TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
+        TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
+        TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
+        TVCardsPlayedBy.setText("");
 
         //Je nachdem wer zuerst dran ist
 
@@ -523,6 +535,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this,"Opponent Player 1 begins",Toast.LENGTH_LONG).show();
 
             if (opponentPlayer1.play_card()) {
+                TVCardsPlayedBy.setText("OpponentPlayer1 played:");
                 amountSkipped = 0;
                 TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
             }
@@ -530,14 +543,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 amountSkipped++;
             //Thread.sleep(5000);
             if (opponentPlayer2.play_card()) {
+                TVCardsPlayedBy.setText("OpponentPlayer2 played:");
                 amountSkipped = 0;
                 TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
             } else
                 amountSkipped++;
             //Thread.sleep(500);
             if (opponentPlayer3.play_card()) {
+                TVCardsPlayedBy.setText("OpponentPlayer3 played:");
                 amountSkipped = 0;
-                TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
             } else
                 amountSkipped++;
 
@@ -548,14 +563,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this,"Opponent Player 2 begins",Toast.LENGTH_LONG).show();
 
             if (opponentPlayer2.play_card()) {
+                TVCardsPlayedBy.setText("OpponentPlayer2 played:");
                 amountSkipped = 0;
                 TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
             } else
                 amountSkipped++;
             //Thread.sleep(500);
             if (opponentPlayer3.play_card()) {
+                TVCardsPlayedBy.setText("OpponentPlayer3 played:");
                 amountSkipped = 0;
-                TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
             } else
                 amountSkipped++;
         }
@@ -565,8 +582,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this,"Opponent Player 3 begins",Toast.LENGTH_LONG).show();
 
             if (opponentPlayer3.play_card()) {
+                TVCardsPlayedBy.setText("OpponentPlayer3 played:");
                 amountSkipped = 0;
-                TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
+                TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
             } else
                 amountSkipped++;
         }
