@@ -14,7 +14,7 @@ public class Card implements Comparable<Card>{
     private Card_symbol symbol;
     private boolean isMarked;
 
-    int resourceId;
+    private int resourceId;
 
 
 
