@@ -125,12 +125,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                     checkSkipAmount();
                     //play_card gibt einen boolean zurück ob Karten gespielt wurden
-                    if (humanPlayer.play_card())
-                        amountSkipped = 0;
-                    else
-                        //Der Spieler kann durch drücken auf Play nicht skippen
-                       throw new Exception("Invalid move!");
-
+                    if(humanPlayer.getCards().size() != 0) {
+                        if (humanPlayer.play_card())
+                            amountSkipped = 0;
+                        else
+                            //Der Spieler kann durch drücken auf Play nicht skippen
+                            throw new Exception("Invalid move!");
+                    }
                     //Implementation mit Handler
 /*
                     handler.post(new Runnable() {
