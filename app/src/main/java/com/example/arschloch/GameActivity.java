@@ -53,7 +53,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     static Card_value cardValuePlayed;
     //Rundenanzahl
     int amountRounds = 1;
-    //
+    //Rundenanzahl für die Statistik
+    int amountRoundsStatistic = 0;
+    //gewonnene Runden
+    int amountRoundsWon = 0;
+    // anzahl gespielter Runden
+    int amountTurnsPlayed = 0;
+    //Anzahl verlorener Spiele
+    int amountGamesLost = 0;
     //endregion.
 
     //Implementation mit Handler
@@ -477,26 +484,33 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     opponentPlayer3.setArschloch(true);
                     break;
             }
+            amountTurnsPlayed++;
             resetRound();
         }
     }
 
     private Player getWinner(){
-        if(humanPlayer.isWinner())
-            return humanPlayer;
-        else if(opponentPlayer1.isWinner())
-            return opponentPlayer1;
-        else if(opponentPlayer2.isWinner())
-            return opponentPlayer2;
-        else if(opponentPlayer3.isWinner())
-            return opponentPlayer3;
+        if(humanPlayer.isWinner()){
+            amountRoundsWon++;
+            amountRoundsStatistic++;
+            return humanPlayer;}
+        else if(opponentPlayer1.isWinner()){
+            amountRoundsStatistic++;
+            return opponentPlayer1;}
+        else if(opponentPlayer2.isWinner()){
+            amountRoundsStatistic++;
+            return opponentPlayer2;}
+        else if(opponentPlayer3.isWinner()){
+            amountRoundsStatistic++;
+            return opponentPlayer3;}
         else
             return null;
     }
 
     private Player getArschloch(){
-        if(humanPlayer.isArschloch())
-            return humanPlayer;
+        if(humanPlayer.isArschloch()){
+            amountGamesLost++;
+            return humanPlayer;}
         else if(opponentPlayer1.isArschloch())
             return opponentPlayer1;
         else if(opponentPlayer2.isArschloch())
@@ -522,6 +536,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     //Nach Ende der Runde wird alles zurückgesetzt. Wird auch vor der 1. Runde aufgerufen
     private void resetRound(){
+        updateStatistics();
         cards_distributing();
         set_card_imageView();
         set_card_imageView_middleCards(null);
@@ -666,5 +681,48 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
 
     }
+
+    public void updateStatistics(){
+
+        MyDatabaseHelper db = new MyDatabaseHelper(this);
+        for (int j = 31; j<36;j++) {
+            Statistic statistics = db.getStatistic(j);
+            int zwischenspeicher = Integer.parseInt(statistics.getStatisticNumber());
+
+            if (j == 31){
+                zwischenspeicher=zwischenspeicher+amountRoundsStatistic;
+                statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
+                db.updateStatistics(statistics);
+            }else if (j == 32){
+                zwischenspeicher=zwischenspeicher+amountRoundsWon;
+                statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
+                db.updateStatistics(statistics);
+            }else if (j == 33){
+                int winPercentage = Integer.parseInt(statistics.getStatisticNumber());
+                Statistic help= db.getStatistic(31);
+                int helpAmountTurns = Integer.parseInt(help.getStatisticNumber());
+                Statistic help2= db.getStatistic(32);
+                int helpWonTurns = Integer.parseInt(help.getStatisticNumber());
+                if(helpAmountTurns == 0){
+                    helpAmountTurns = 1;
+                }else {
+                    winPercentage = helpWonTurns/helpAmountTurns+1;
+                }
+                statistics.setStatisticNumber(String.valueOf(winPercentage));
+                db.updateStatistics(statistics);
+            }else if (j == 34){
+                zwischenspeicher=zwischenspeicher+amountTurnsPlayed;
+                statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
+                db.updateStatistics(statistics);
+            }else if (j == 35){
+                zwischenspeicher=zwischenspeicher+amountGamesLost;
+                statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
+                db.updateStatistics(statistics);
+            }
+
+        }
+    }
+
+
 
 }

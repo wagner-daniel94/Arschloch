@@ -9,10 +9,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,7 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         startGameBtn.setOnClickListener(this);
         openStatsBtn.setOnClickListener(this);
-
+        MyDatabaseHelper db = new MyDatabaseHelper(this);
+        db.createDefaultStatisticsIfNeed();
     }
 
     @Override

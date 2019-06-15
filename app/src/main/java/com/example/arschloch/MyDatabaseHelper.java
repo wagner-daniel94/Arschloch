@@ -41,7 +41,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "MyDatabaseHelper.onCreate ... ");
 
         String script = "CREATE TABLE " + TABLE_STATISTICS + "("
-                + COLUMN_STATISTIC_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_STATISTIC_NAME + " TEXT,"
+                + COLUMN_STATISTIC_ID + " INTEGER PRIMARY KEY," + COLUMN_STATISTIC_NAME + " TEXT,"
                 + COLUMN_STATISTIC_NUMBER + " TEXT" + ")";
 
         db.execSQL(script);
@@ -58,16 +58,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // If Note table has no data
+    // If Statistics table has no data
     // default, Insert 2 records.
-    public void createDefaultNotesIfNeed()  {
+    public void createDefaultStatisticsIfNeed()  {
         int count = this.getStatisticsCount();
         if(count ==0 ) {
-            Statistic statistics  = new Statistic(0,"0","Anzahl Spiele");
-            Statistic statistics1 = new Statistic(1,"0","Anzahl gewonnene Spiele");
-            Statistic statistics2 = new Statistic(2,"0","Gewinnrate");
-            Statistic statistics3 = new Statistic(3,"0","Anzahl der Züge");
-            Statistic statistics4 = new Statistic(4,"0","Anzahl verlorener Spiele");
+            Statistic statistics  = new Statistic(1,"0","Anzahl Spiele");
+            Statistic statistics1 = new Statistic(2,"0","Anzahl gewonnene Spiele");
+            Statistic statistics2 = new Statistic(3,"0","Gewinnrate");
+            Statistic statistics3 = new Statistic(4,"0","Anzahl der Züge");
+            Statistic statistics4 = new Statistic(5,"0","Anzahl verlorener Spiele");
             this.addStatistic(statistics);
             this.addStatistic(statistics1);
             this.addStatistic(statistics2);
@@ -95,21 +95,24 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public Statistic getStatistic(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-
+        Statistic statistic = new Statistic();
         Cursor cursor = db.query(TABLE_STATISTICS, new String[] {COLUMN_STATISTIC_ID,
-                        COLUMN_STATISTIC_NAME, COLUMN_STATISTIC_NUMBER}, COLUMN_STATISTIC_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
+                        COLUMN_STATISTIC_NUMBER, COLUMN_STATISTIC_NAME}, COLUMN_STATISTIC_ID + "=?",
+                new String[] { String.valueOf(id) }, COLUMN_STATISTIC_ID, COLUMN_STATISTIC_ID, null, null);
+        if(cursor !=null )
             cursor.moveToFirst();
 
-        Statistic statistic = new Statistic(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2));
-        // return note
-        return statistic;
+
+             statistic = new Statistic(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1), cursor.getString(2));
+
+             return statistic;
+
+
     }
 
 
-    public List<Statistic> getAllNotes() {
+    public List<Statistic> getAllStatistics() {
         List<Statistic> statistics = new ArrayList<Statistic>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_STATISTICS;
@@ -167,5 +170,4 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(statistic.getStatisticId()) });
         db.close();
     }
-
 }

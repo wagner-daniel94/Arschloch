@@ -2,7 +2,6 @@ package com.example.arschloch;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -23,11 +22,11 @@ public class StatisticActivity extends AppCompatActivity {
         //erstellen der Statistik Instanzen. noch abändern zu nicht hardcoded Zahlen.
 
        MyDatabaseHelper db = new MyDatabaseHelper(this);
-       db.createDefaultNotesIfNeed();
+       db.createDefaultStatisticsIfNeed();
 
 
 
-        List<Statistic> statistics = db.getAllNotes();
+        List<Statistic> statistics = db.getAllStatistics();
         this.statisticsList.addAll(statistics);
 
 
