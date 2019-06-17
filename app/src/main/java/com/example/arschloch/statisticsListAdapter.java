@@ -32,14 +32,15 @@ public class statisticsListAdapter extends ArrayAdapter <Statistic>{
         String zahl = getItem(position).getStatisticNumber();
         int id = getItem(position).getStatisticId();
         Statistic statistic = new Statistic(id,zahl,text);
-
+        String idHelper = String.valueOf(id);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mRessource,parent,false);
 
+        TextView tvId = (TextView) convertView.findViewById(R.id.textView0);
         TextView tvText = (TextView) convertView.findViewById(R.id.textView2);
         TextView tvZahl = (TextView) convertView.findViewById(R.id.textView1);
 
-
+        tvId.setText(idHelper);
         tvText.setText(text);
         tvZahl.setText(zahl);
 

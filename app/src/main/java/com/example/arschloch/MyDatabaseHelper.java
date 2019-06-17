@@ -170,4 +170,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(statistic.getStatisticId()) });
         db.close();
     }
+
+    public void deleteDatabase(String DATABASE_NAME){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String clearDBQuery = " DELETE FROM " + DATABASE_NAME;
+        db.execSQL(clearDBQuery);
+    }
+
+
+
+
 }

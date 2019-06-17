@@ -685,23 +685,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void updateStatistics(){
 
         MyDatabaseHelper db = new MyDatabaseHelper(this);
-        for (int j = 31; j<36;j++) {
+        for (int j = 1; j<6;j++) {
             Statistic statistics = db.getStatistic(j);
             int zwischenspeicher = Integer.parseInt(statistics.getStatisticNumber());
 
-            if (j == 31){
+            if (j == 1){
                 zwischenspeicher=zwischenspeicher+amountRoundsStatistic;
                 statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
                 db.updateStatistics(statistics);
-            }else if (j == 32){
+            }else if (j == 2){
                 zwischenspeicher=zwischenspeicher+amountRoundsWon;
                 statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
                 db.updateStatistics(statistics);
-            }else if (j == 33){
+            }else if (j == 3){
                 int winPercentage = Integer.parseInt(statistics.getStatisticNumber());
-                Statistic help= db.getStatistic(31);
+                Statistic help= db.getStatistic(1);
                 int helpAmountTurns = Integer.parseInt(help.getStatisticNumber());
-                Statistic help2= db.getStatistic(32);
+                Statistic help2= db.getStatistic(2);
                 int helpWonTurns = Integer.parseInt(help.getStatisticNumber());
                 if(helpAmountTurns == 0){
                     helpAmountTurns = 1;
@@ -710,11 +710,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 statistics.setStatisticNumber(String.valueOf(winPercentage));
                 db.updateStatistics(statistics);
-            }else if (j == 34){
+            }else if (j == 4){
                 zwischenspeicher=zwischenspeicher+amountTurnsPlayed;
                 statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
                 db.updateStatistics(statistics);
-            }else if (j == 35){
+            }else if (j == 5){
                 zwischenspeicher=zwischenspeicher+amountGamesLost;
                 statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
                 db.updateStatistics(statistics);
@@ -722,6 +722,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+
 
 
 

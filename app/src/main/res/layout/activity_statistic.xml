@@ -5,9 +5,16 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="100"
+    android:weightSum="150"
     tools:context= ".StatisticActivity"
     >
+    <TextView
+        android:id="@+id/textView0"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="50"
+        android:gravity="center"
+        android:text="id" />
 
 
     <TextView
