@@ -1,5 +1,6 @@
 package com.example.arschloch;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -473,6 +474,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             switch (a){
                 case 1:
                     humanPlayer.setArschloch(true);
+                    Toast.makeText(this,"Du bist Arschloch!!",Toast.LENGTH_LONG).show();
+                    MediaPlayer player = MediaPlayer.create(this,R.raw.arschloch);
+                    player.start();
+                    while (player.isPlaying()) {
+                    }
+                    player.release();
+
                     break;
                 case 2:
                     opponentPlayer1.setArschloch(true);

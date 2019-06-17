@@ -18,9 +18,15 @@ public class OpponentPlayer extends Player
         if (GameActivity.amountCardsPlayed == 0){
             //List<Card> combination = new ArrayList<Card>();
             Card_value cv = this.getCards().get(0).getValue();
-            while (this.getCards().get(0).getValue() == cv){
-                combination.add(this.getCards().get(0));
-                this.getCards().remove(0);
+            int i = 0;
+            while (this.getCards().get(i).getValue() == cv){
+                combination.add(this.getCards().get(i));
+                if(i<this.getCards().size()-1) {
+                    i++;
+                }
+                else
+                    break;
+                //this.getCards().remove(0);
             }
             if(this.check_combination(combination)){
                 move_cards_to_middle();
