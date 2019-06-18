@@ -6,10 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 public class Statistic extends AppCompatActivity {
 
     //Generieren des Objektes mit Namen und Nummer, welches in einer Liste gespeichert wird um es in den Statistiken auf zu rufen
-
+    //region Variablen
+    private int statisticId;
   private String statisticNumber;
   private String statisticName;
-  private int statisticId;
+    //endregion.
 
 
 

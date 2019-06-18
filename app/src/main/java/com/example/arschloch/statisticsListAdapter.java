@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class statisticsListAdapter extends ArrayAdapter <Statistic>{
@@ -31,16 +29,16 @@ public class statisticsListAdapter extends ArrayAdapter <Statistic>{
         String text = getItem(position).getStatisticName();
         String zahl = getItem(position).getStatisticNumber();
         int id = getItem(position).getStatisticId();
-        Statistic statistic = new Statistic(id,zahl,text);
-        String idHelper = String.valueOf(id);
+        //Statistic statistic = new Statistic(id,zahl,text);
+       // String idHelper = String.valueOf(id);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mRessource,parent,false);
 
-        TextView tvId = (TextView) convertView.findViewById(R.id.textView0);
-        TextView tvText = (TextView) convertView.findViewById(R.id.textView2);
-        TextView tvZahl = (TextView) convertView.findViewById(R.id.textView1);
+       // TextView tvId = (TextView) convertView.findViewById(R.id.textView0);
+        TextView tvText = (TextView) convertView.findViewById(R.id.statisticName);
+        TextView tvZahl = (TextView) convertView.findViewById(R.id.statisticNumber);
 
-        tvId.setText(idHelper);
+     //   tvId.setText(idHelper);
         tvText.setText(text);
         tvZahl.setText(zahl);
 

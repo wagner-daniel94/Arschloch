@@ -139,6 +139,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         if (humanPlayer.play_card()) {
                             TVCardsPlayedBy.setText("You played:");
                             amountSkipped = 0;
+                            amountTurnsPlayed++;
                         }
                         else
                             //Der Spieler kann durch drücken auf Play nicht skippen
@@ -492,7 +493,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     opponentPlayer3.setArschloch(true);
                     break;
             }
-            amountTurnsPlayed++;
+
             resetRound();
         }
     }

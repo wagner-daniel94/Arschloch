@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.665" />
 
     <LinearLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/handCardLayout"
 
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -197,7 +197,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/middleCardLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
 
@@ -378,8 +378,8 @@
         android:text="text"
         android:textColor="#FFFFFF"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
-        app:layout_constraintStart_toStartOf="@+id/relativeLayout2" />
+        app:layout_constraintBottom_toTopOf="@+id/middleCardLayout"
+        app:layout_constraintStart_toStartOf="@+id/middleCardLayout" />
 
 
 </android.support.constraint.ConstraintLayout>
