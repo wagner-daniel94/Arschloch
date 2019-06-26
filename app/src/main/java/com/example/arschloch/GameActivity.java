@@ -94,7 +94,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         handCardsImageViews = new ArrayList<>();
         middleCardsImageViews = new ArrayList<>();
 
-
+        //Zuweisung der Karten-IDs
         int[] array = new int[]{R.id.card1, R.id.card2, R.id.card3, R.id.card4, R.id.card5, R.id.card6, R.id.card7, R.id.card8, R.id.card9, R.id.card10, R.id.card11, R.id.card12, R.id.card13};
 
         for (int i = 0; i < array.length; i++) {
