@@ -7,7 +7,7 @@ import java.util.Collections;
 public class HumanPlayer extends Player
 {
 
-
+    @Override
     public void markCard(View v){
         for(Card c: this.getCards()){
             if(c.getResourceId() == (int)v.getTag() && !c.isMarked()){

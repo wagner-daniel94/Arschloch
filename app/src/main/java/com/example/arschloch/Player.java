@@ -20,6 +20,9 @@ public abstract class Player {
         this.combination = new ArrayList<>();
     }
 
+    public void markCard(View v){
+
+    }
 
     public abstract boolean play_card() throws Exception;
 

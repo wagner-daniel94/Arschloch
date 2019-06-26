@@ -27,17 +27,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     //region Variablen
     //Spielerobjkte
-    HumanPlayer humanPlayer;
-    Player opponentPlayer1;
-    Player opponentPlayer2;
-    Player opponentPlayer3;
+    List<Player> allPlayer;
+
     //Kartenstapelobjekte der ImageViews
     static List<ImageView> handCardsImageViews;
     static List<ImageView> middleCardsImageViews;
     //Textviews für Kartenanzhal Anzeige
-    TextView TVacop3;
-    TextView TVacop1;
-    TextView TVacop2;
+    List<TextView> TVacop;
+
 
     TextView TVCardsPlayedBy;
     //Kartenstapel mit allen Karten
@@ -62,6 +59,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int amountTurnsPlayed = 0;
     //Anzahl verlorener Spiele
     int amountGamesLost = 0;
+
+    MediaPlayer mp;
     //endregion.
 
 
@@ -71,31 +70,37 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
 
-
         Button playBtn = (Button) findViewById(R.id.playBtn);
         Button passBtn = (Button) findViewById(R.id.passBtn);
         card_deck = new CardDeck();
-
-        humanPlayer = new HumanPlayer();
-        opponentPlayer1 = new OpponentPlayer();
-        opponentPlayer2 = new OpponentPlayer();
-        opponentPlayer3 = new OpponentPlayer();
-
-
-        TVacop3 = (TextView)findViewById(R.id.TVacop3) ;
-        TVacop1 = (TextView)findViewById(R.id.TVacop1) ;
-        TVacop2 = (TextView)findViewById(R.id.TVacop2) ;
+        allPlayer = new ArrayList<>();
+        TVacop = new ArrayList<>();
+        int[] array = new int[]{R.id.TVacop1,R.id.TVacop2,R.id.TVacop3};
+        allPlayer.add(new HumanPlayer());
+        for (int i = 0; i < 3; i++) {
+            allPlayer.add(new OpponentPlayer());
+            TVacop.add((TextView)findViewById(array[i]));
+        }
 
         TVCardsPlayedBy = (TextView)findViewById(R.id.TVCardsPlayedBy);
 
         playBtn.setOnClickListener(this);
         passBtn.setOnClickListener(this);
 
-        handCardsImageViews = new ArrayList<>();
+        mp = MediaPlayer.create(this,R.raw.arschloch);
+
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                       @Override
+                                       public void onCompletion(MediaPlayer mediaPlayer) {
+                                           mp.reset();
+                                       }
+                                   });
+
+                handCardsImageViews = new ArrayList<>();
         middleCardsImageViews = new ArrayList<>();
 
         //Zuweisung der Karten-IDs
-        int[] array = new int[]{R.id.card1, R.id.card2, R.id.card3, R.id.card4, R.id.card5, R.id.card6, R.id.card7, R.id.card8, R.id.card9, R.id.card10, R.id.card11, R.id.card12, R.id.card13};
+        array = new int[]{R.id.card1, R.id.card2, R.id.card3, R.id.card4, R.id.card5, R.id.card6, R.id.card7, R.id.card8, R.id.card9, R.id.card10, R.id.card11, R.id.card12, R.id.card13};
 
         for (int i = 0; i < array.length; i++) {
             handCardsImageViews.add((ImageView)findViewById(array[i]));
@@ -119,11 +124,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 //PlayHumanCards
                 try {
 
+
+
                     if(checkSkipAmount(getAmountPlayersInGame()))
                         return;
                     //play_card gibt einen boolean zurück ob Karten gespielt wurden
-                    if(humanPlayer.getCards().size() != 0) {
-                        if (humanPlayer.play_card()) {
+                    if(allPlayer.get(0).getCards().size() != 0) {
+                        if (allPlayer.get(0).play_card()) {
                             TVCardsPlayedBy.setText("You played:");
                             amountSkipped = 0;
                             amountTurnsPlayed++;
@@ -136,39 +143,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     set_card_imageView();
                     Thread.sleep(500);
 
-                    if(checkSkipAmount(getAmountPlayersInGame()))
-                        return;
-                    if(opponentPlayer1.getCards().size() != 0) {
-                        if (opponentPlayer1.play_card()) {
-                            amountSkipped = 0;
-                            TVCardsPlayedBy.setText("OpponentPlayer1 played:");
-                            TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
-                        } else
-                            amountSkipped++;
-                    }
-                    //Thread.sleep(500);
-                    if(checkSkipAmount(getAmountPlayersInGame()))
-                        return;
-                    if(opponentPlayer2.getCards().size() != 0) {
-                        if (opponentPlayer2.play_card()) {
-                            TVCardsPlayedBy.setText("OpponentPlayer2 played:");
-                            amountSkipped = 0;
-                            TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
-                        } else
-                            amountSkipped++;
-                    }
-                    //Thread.sleep(500);
+                    for(int i = 1;i<allPlayer.size();i++){
+                        if(checkSkipAmount(getAmountPlayersInGame()))
+                            return;
 
-                    if(checkSkipAmount(getAmountPlayersInGame()))
-                        return;
-                    if(opponentPlayer3.getCards().size() != 0) {
-                        if (opponentPlayer3.play_card()) {
-                            TVCardsPlayedBy.setText("OpponentPlayer3 played:");
-                            amountSkipped = 0;
-                            TVacop3.setText(String.valueOf(opponentPlayer2.getCards().size()));
-                        } else
-                            amountSkipped++;
+                        if(allPlayer.get(i).getCards().size() != 0) {
+                            if (allPlayer.get(i).play_card()) {
+                                amountSkipped = 0;
+                                TVCardsPlayedBy.setText("OpponentPlayer " + i + " played:");
+                                TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
+                            } else
+                                amountSkipped++;
+                        }
+
                     }
+
 
                 } catch (Exception e) {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -186,40 +175,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 //Player hat geskippt
                 amountSkipped++;
 
-                    if(checkSkipAmount(getAmountPlayersInGame()))
-                        return;
-                if(opponentPlayer1.getCards().size() != 0) {
-                    if (opponentPlayer1.play_card()) {
-                        TVCardsPlayedBy.setText("OpponentPlayer1 played:");
-                        amountSkipped = 0;
-                        TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
-                    } else
-                        amountSkipped++;
-                }
+                    for(int i = 1;i<allPlayer.size();i++){
+                        if(checkSkipAmount(getAmountPlayersInGame()))
+                            return;
 
-                //Thread.sleep(5000);
-                    if(checkSkipAmount(getAmountPlayersInGame()))
-                        return;
-                if(opponentPlayer2.getCards().size() !=0) {
-                    if (opponentPlayer2.play_card()) {
-                        TVCardsPlayedBy.setText("OpponentPlayer2 played:");
-                        amountSkipped = 0;
-                        TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
-                    } else
-                        amountSkipped++;
-                }
+                        if(allPlayer.get(i).getCards().size() != 0) {
+                            if (allPlayer.get(i).play_card()) {
+                                amountSkipped = 0;
+                                TVCardsPlayedBy.setText("OpponentPlayer " + i + " played:");
+                                TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
+                            } else
+                                amountSkipped++;
+                        }
 
-                //Thread.sleep(5000);
-                    if(checkSkipAmount(getAmountPlayersInGame()))
-                        return;
-                if(opponentPlayer3.getCards().size() !=0) {
-                    if (opponentPlayer3.play_card()) {
-                        TVCardsPlayedBy.setText("OpponentPlayer3 played:");
-                        amountSkipped = 0;
-                        TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
-                    } else
-                        amountSkipped++;
-                }
+                    }
+
         }
                 catch (Exception e){
                 Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
@@ -229,7 +199,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         System.out.println("Log: Before Game Loop");
-        if(humanPlayer.getCards().size() == 0) {
+        if(allPlayer.get(0).getCards().size() == 0) {
             finishing_Gameloop();
             resetRound();
         }
@@ -239,22 +209,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private int getAmountPlayersInGame(){
 
         int playersInGame = 0;
-        if(humanPlayer.getCards().size() > 0)
-            playersInGame++;
-        if(opponentPlayer1.getCards().size() > 0)
-            playersInGame++;
-        if(opponentPlayer2.getCards().size() > 0)
-            playersInGame++;
-        if(opponentPlayer3.getCards().size() > 0)
-            playersInGame++;
-
-        return playersInGame;
+        for(int i = 0;i < allPlayer.size();i++) {
+            if (allPlayer.get(i).getCards().size() > 0)
+                playersInGame++;
+        }
+         return playersInGame;
     }
 
     //check, ob viermal geskippt wurde. setzt dann die Variablen zurück
     private boolean checkSkipAmount(int i){
         // -1 da immer "Anzahl Spieler - 1" Skips notwendig sind um eine Runde zu beenden
-        if (amountSkipped == i - 1) {
+        if (amountSkipped >= i - 1) {
             amountCardsPlayed = 0;
             cardValuePlayed = null;
             amountSkipped = 0;
@@ -268,53 +233,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 * */
     private void cards_distributing(){
         //Zähler für Spieler 1-4 (0-3)
-        int i = 0;
+        int s = 0;
         //Zähler für ausgeteilte Karten
         int c = 0;
         //Variable um eine Karte zu erstellen
 
-
-        humanPlayer.getCards().clear();
-        opponentPlayer1.getCards().clear();
-        opponentPlayer2.getCards().clear();
-        opponentPlayer3.getCards().clear();
+        for(int i = 0;i<allPlayer.size();i++)
+            allPlayer.get(i).getCards().clear();
 
         Collections.shuffle(card_deck.getCards());
 
-
         while(c <= card_deck.getCards().size()-1)
         {
-                switch (i) {
-                    case 0:
-                        humanPlayer.getCards().add(card_deck.getCards().get(c));
-                        break;
-                    case 1:
-                        opponentPlayer1.getCards().add(card_deck.getCards().get(c));
-                        break;
-                    case 2:
-                        opponentPlayer2.getCards().add(card_deck.getCards().get(c));
-                        break;
-                    case 3:
-                        opponentPlayer3.getCards().add(card_deck.getCards().get(c));
-                       break;
-                }
-
+                allPlayer.get(s).getCards().add(card_deck.getCards().get(c));
                 //Zähler hochzählen
                 c++;
-
-
                 //Auswahl des nächsten Spielers, der eine Karte erhält. Nach Spieler4(i==3) ist Spieler1 wieder an der Reihe
-                if(i==3)
-                    i=0;
+                if(s==3)
+                    s=0;
                 else
-                    i++;
+                    s++;
             }
 
         //Sortieren der Kartendecks
-        Collections.sort(humanPlayer.getCards());
-        Collections.sort(opponentPlayer1.getCards());
-        Collections.sort(opponentPlayer2.getCards());
-        Collections.sort(opponentPlayer3.getCards());
+        for(int i = 0;i<allPlayer.size();i++)
+        Collections.sort(allPlayer.get(i).getCards());
+
         set_card_imageView();
 
     }
@@ -325,12 +269,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void set_card_imageView(){
 
         for(int i = 0; i < handCardsImageViews.size();i++){
-            if(i<= humanPlayer.getCards().size()-1) {
+            if(i<= allPlayer.get(0).getCards().size()-1) {
 
                 handCardsImageViews.get(i).setVisibility(View.VISIBLE);
-                handCardsImageViews.get(i).setImageResource(humanPlayer.getCards().get(i).getResourceId());
-                handCardsImageViews.get(i).setTag(humanPlayer.getCards().get(i).getResourceId());
-                if (humanPlayer.getCards().get(i).isMarked())
+                handCardsImageViews.get(i).setImageResource(allPlayer.get(0).getCards().get(i).getResourceId());
+                handCardsImageViews.get(i).setTag(allPlayer.get(0).getCards().get(i).getResourceId());
+                if (allPlayer.get(0).getCards().get(i).isMarked())
                 {
                     handCardsImageViews.get(i).setForeground(getDrawable(R.drawable.marked));
                 }
@@ -374,7 +318,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     //wird bei Klick auf eine Karte ausgelöst: triggert die Methode markCard in humanPlayer
     public void markCard(View v){
-        humanPlayer.markCard(v);
+        allPlayer.get(0).markCard(v);
         set_card_imageView();
     }
 /*
@@ -382,127 +326,51 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 * */
     private int set_firstPlayer(){
         //Wenn Spieler Arschloch in der Runde zuvor war beginnt er das Spiel. Wenn es die erste Runde ist entscheidet der Zufall
-        if(humanPlayer.isArschloch()){
-            return 1;}
-        else if(opponentPlayer1.isArschloch())
-            return  2;
-        else if(opponentPlayer2.isArschloch())
-            return  3;
-        else if(opponentPlayer3.isArschloch())
-            return  4;
-        else
-            return (int)(Math.random()*4)+1;
+        for(int i = 0;i<allPlayer.size();i++) {
+            if (allPlayer.get(i).isArschloch()) {
+                return i+1;
+            }
+        }
+
+        return (int)(Math.random()*4)+1;
     }
 
 
     private boolean checkRoundOver(){
-        int i = 0;
+        int s = 0;
         int a = 0;
-        if(humanPlayer.getCards().size() == 0){
-            i++;
-            if(!checkSomeoneIsWinner())
-                humanPlayer.setWinner(true);
-        }
-        else{
-            a=1;
-        }
-        if(opponentPlayer1.getCards().size() == 0){
-            i++;
-            if(!checkSomeoneIsWinner())
-                opponentPlayer1.setWinner(true);
-        }
-        else{
-            a=2;
-        }
-        if(opponentPlayer2.getCards().size() == 0){
-            i++;
-            if(!checkSomeoneIsWinner())
-                opponentPlayer2.setWinner(true);
-        }
-        else{
-            a=3;
-        }
-        if(opponentPlayer3.getCards().size() == 0){
-            i++;
-            if(!checkSomeoneIsWinner())
-                opponentPlayer3.setWinner(true);
-        }
-        else{
-            a=4;
-        }
-
-        if(i>=3){
-            //Runde vorbei
-            switch (a){
-                case 1:
-                    humanPlayer.setArschloch(true);
-                    Toast.makeText(this,"Du bist Arschloch!!",Toast.LENGTH_LONG).show();
-                    MediaPlayer player = MediaPlayer.create(this,R.raw.arschloch);
-                    player.start();
-                    player.reset();
-                    player.release();
-
-                    break;
-                case 2:
-                    opponentPlayer1.setArschloch(true);
-                    break;
-                case 3:
-                    opponentPlayer2.setArschloch(true);
-                    break;
-                case 4:
-                    opponentPlayer3.setArschloch(true);
-                    break;
+        for (int i = 0;i<allPlayer.size();i++) {
+            if (allPlayer.get(i).getCards().size() == 0) {
+                s++;
+                if (!checkSomeoneIsWinner())
+                    allPlayer.get(i).setWinner(true);
+            } else {
+                a = i;
             }
+        }
 
+        if(s>=3){
+            //Runde vorbei
+            if(a==0){
+                //Spieler ist Arschloch
+                Toast.makeText(this,"Du bist Arschloch!!",Toast.LENGTH_LONG).show();
+                mp.start();
+            }
+            allPlayer.get(a).setArschloch(true);
             resetRound();
             return true;
         }
         return false;
     }
 
-    private Player getWinner(){
-        if(humanPlayer.isWinner()){
-            amountRoundsWon++;
-            amountRoundsStatistic++;
-            return humanPlayer;}
-        else if(opponentPlayer1.isWinner()){
-            amountRoundsStatistic++;
-            return opponentPlayer1;}
-        else if(opponentPlayer2.isWinner()){
-            amountRoundsStatistic++;
-            return opponentPlayer2;}
-        else if(opponentPlayer3.isWinner()){
-            amountRoundsStatistic++;
-            return opponentPlayer3;}
-        else
-            return null;
-    }
 
-    private Player getArschloch(){
-        if(humanPlayer.isArschloch()){
-            amountGamesLost++;
-            return humanPlayer;}
-        else if(opponentPlayer1.isArschloch())
-            return opponentPlayer1;
-        else if(opponentPlayer2.isArschloch())
-            return opponentPlayer2;
-        else if(opponentPlayer3.isArschloch())
-            return opponentPlayer3;
-        else
-            return null;
-    }
 
     private boolean checkSomeoneIsWinner(){
-        if(humanPlayer.isWinner())
-            return true;
-        else if(opponentPlayer1.isWinner())
-            return true;
-        else if(opponentPlayer2.isWinner())
-            return true;
-        else if(opponentPlayer3.isWinner())
-            return true;
-        else
-            return false;
+        for (int i = 0;i<allPlayer.size();i++) {
+            if (allPlayer.get(i).isWinner())
+                return true;
+        }
+        return false;
     }
 
     //Nach Ende der Runde wird alles zurückgesetzt. Wird auch vor der 1. Runde aufgerufen
@@ -518,98 +386,33 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if(amountRounds != 1){
             //Drücken
-            if(getWinner() == humanPlayer){
 
-            }
 
         }
+        for (int i = 0;i<allPlayer.size();i++){
+            allPlayer.get(i).setArschloch(false);
+            allPlayer.get(i).setWinner(false);
+        }
 
-        humanPlayer.setArschloch(false);
-        humanPlayer.setWinner(false);
-        opponentPlayer1.setArschloch(false);
-        opponentPlayer1.setWinner(false);
-        opponentPlayer2.setArschloch(false);
-        opponentPlayer2.setWinner(false);
-        opponentPlayer3.setArschloch(false);
-        opponentPlayer3.setWinner(false);
-        TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
-        TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
-        TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
+        for (int i = 1; i < allPlayer.size(); i++) {
+            TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
+        }
+
         TVCardsPlayedBy.setText("");
 
         //Je nachdem wer zuerst dran ist
 
-        //Wenn Opponent Player 1 zuerst dran ist
-        if(playersTurn == 2) {
-            Toast.makeText(this,"Opponent Player 1 begins",Toast.LENGTH_LONG).show();
-            try {
-                if (opponentPlayer1.play_card()) {
-                    TVCardsPlayedBy.setText("OpponentPlayer1 played:");
-                    amountSkipped = 0;
-                    TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
-                } else
-                    amountSkipped++;
-                //Thread.sleep(5000);
-                if (opponentPlayer2.play_card()) {
-                    TVCardsPlayedBy.setText("OpponentPlayer2 played:");
-                    amountSkipped = 0;
-                    TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
-                } else
-                    amountSkipped++;
-                //Thread.sleep(500);
-                if (opponentPlayer3.play_card()) {
-                    TVCardsPlayedBy.setText("OpponentPlayer3 played:");
-                    amountSkipped = 0;
-                    TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
-                } else
-                    amountSkipped++;
-            }
-            catch (Exception e){
-                Toast.makeText(this,e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+        Toast.makeText(this,"Opponent Player "+ (playersTurn) +" begins",Toast.LENGTH_LONG).show();
+        try {
+            opponentPlayerPlayCard(playersTurn-1);
 
         }
-
-        //Wenn Opponent Player 2 zuerst dran ist
-        else if(playersTurn == 3){
-            Toast.makeText(this,"Opponent Player 2 begins",Toast.LENGTH_LONG).show();
-            try {
-                if (opponentPlayer2.play_card()) {
-                    TVCardsPlayedBy.setText("OpponentPlayer2 played:");
-                    amountSkipped = 0;
-                    TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
-                } else
-                    amountSkipped++;
-                //Thread.sleep(500);
-                if (opponentPlayer3.play_card()) {
-                    TVCardsPlayedBy.setText("OpponentPlayer3 played:");
-                    amountSkipped = 0;
-                    TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
-                } else
-                    amountSkipped++;
-            }
-            catch (Exception e){
-                Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        //Wenn Opponent Player 3 zuerst dran ist
-        else if(playersTurn == 4){
-            Toast.makeText(this,"Opponent Player 3 begins",Toast.LENGTH_LONG).show();
-            try {
-                if (opponentPlayer3.play_card()) {
-                    TVCardsPlayedBy.setText("OpponentPlayer3 played:");
-                    amountSkipped = 0;
-                    TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
-                } else
-                    amountSkipped++;
-            }
-            catch (Exception e){
-                Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
-            }
+        catch (Exception e){
+            Toast.makeText(this,e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }
+
 
     //Methode die dafür sorgt, dass die Runde zuende gespielt wird wenn humanPlayer keine Karten mehr hat
     public void finishing_Gameloop(){
@@ -619,38 +422,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 System.out.println("Log: Finishing Game Loop Initiated");
                 checkSkipAmount(getAmountPlayersInGame());
                 try {
-                    if (opponentPlayer1.getCards().size() > 0) {
-                        if (opponentPlayer1.play_card()) {
-                            amountSkipped = 0;
-                            TVacop1.setText(String.valueOf(opponentPlayer1.getCards().size()));
-                            System.out.println("Log: Player 1 played Card");
-                        } else
-                            amountSkipped++;
-                    }
-
-                    checkSkipAmount(getAmountPlayersInGame());
-                    if (opponentPlayer2.getCards().size() > 0) {
-                        if (opponentPlayer2.play_card()) {
-                            amountSkipped = 0;
-                            TVacop2.setText(String.valueOf(opponentPlayer2.getCards().size()));
-                            System.out.println("Log: Player 2 played Card");
-                        } else
-                            amountSkipped++;
-                    }
-                    checkSkipAmount(getAmountPlayersInGame());
-                    if (opponentPlayer3.getCards().size() > 0) {
-                        if (opponentPlayer3.play_card()) {
-                            amountSkipped = 0;
-                            TVacop3.setText(String.valueOf(opponentPlayer3.getCards().size()));
-                            System.out.println("Log: Player 3 played Card");
-                        } else
-                            amountSkipped++;
-                    }
+                    opponentPlayerPlayCard(1);
                 }catch (Exception e){
                 Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
 
+    }
+
+    private void opponentPlayerPlayCard(int startPlayer) throws Exception{
+        for (int i = startPlayer; i < allPlayer.size(); i++) {
+            if (allPlayer.get(i).getCards().size() != 0) {
+                if (allPlayer.get(i).play_card()) {
+                    TVCardsPlayedBy.setText("OpponentPlayer" + i + " played:");
+                    amountSkipped = 0;
+                    TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
+                } else
+                    amountSkipped++;
+            }
+        }
     }
 
     public void updateStatistics(){
