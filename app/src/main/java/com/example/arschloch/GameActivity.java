@@ -64,10 +64,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int amountGamesLost = 0;
     //endregion.
 
-    //Implementation mit Handler
-    //Handler handler;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +74,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Button playBtn = (Button) findViewById(R.id.playBtn);
         Button passBtn = (Button) findViewById(R.id.passBtn);
-
+        card_deck = new CardDeck();
 
         humanPlayer = new HumanPlayer();
         opponentPlayer1 = new OpponentPlayer();
@@ -99,28 +95,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         middleCardsImageViews = new ArrayList<>();
 
 
-        handCardsImageViews.add((ImageView)findViewById(R.id.card1));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card2));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card3));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card4));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card5));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card6));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card7));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card8));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card9));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card10));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card11));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card12));
-        handCardsImageViews.add((ImageView)findViewById(R.id.card13));
+        int[] array = new int[]{R.id.card1, R.id.card2, R.id.card3, R.id.card4, R.id.card5, R.id.card6, R.id.card7, R.id.card8, R.id.card9, R.id.card10, R.id.card11, R.id.card12, R.id.card13};
 
-        middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard1));
-        middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard2));
-        middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard3));
-        middleCardsImageViews.add((ImageView)findViewById(R.id.middlecard4));
+        for (int i = 0; i < array.length; i++) {
+            handCardsImageViews.add((ImageView)findViewById(array[i]));
+        }
+        array = new int[]{R.id.middlecard1,R.id.middlecard2,R.id.middlecard3,R.id.middlecard4};
+
+        for (int i = 0; i < array.length; i++) {
+            middleCardsImageViews.add((ImageView)findViewById(array[i]));
+        }
+
         resetRound();
-
-        //Implementation mit Handler
-        //handler = new Handler();
 
 
     }
@@ -145,20 +131,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             //Der Spieler kann durch drücken auf Play nicht skippen
                             throw new Exception("Invalid move!");
                     }
-                    //Implementation mit Handler
-/*
-                    handler.post(new Runnable() {
-                        public void run() {
 
-                            set_card_imageView();
-                            try {
-                                Thread.sleep(500);
-                            }
-                            catch (InterruptedException e){
-
-                            }
-                        }
-                    });*/
                     set_card_imageView();
                     Thread.sleep(500);
 
@@ -205,20 +178,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     checkSkipAmount(getAmountPlayersInGame());
 
-
+                //Player hat geskippt
                 amountSkipped++;
-                //Implementation mit runOnUiThread
-                /*this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        set_card_imageView();
-                        try {
-                            Thread.sleep(5000);
-                        }
-                        catch (InterruptedException e){
-
-                        }
-                    }
-                });*/
 
                     checkSkipAmount(getAmountPlayersInGame());
                 if(opponentPlayer1.getCards().size() != 0) {
@@ -291,7 +252,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             amountSkipped = 0;
             set_card_imageView_middleCards(null);
         }
-        roundOver();
+        checkRoundOver();
     }
 
 /*
@@ -303,7 +264,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         //Zähler für ausgeteilte Karten
         int c = 0;
         //Variable um eine Karte zu erstellen
-        card_deck = new CardDeck();
+
 
         humanPlayer.getCards().clear();
         opponentPlayer1.getCards().clear();
@@ -312,16 +273,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Collections.shuffle(card_deck.getCards());
 
-        /* Karten erzeugen
-        for(int k= 0;k<=12;k++){
-            for(int l = 0;l<=3;l++){
-                create_card = new Card(Card_value.values()[k], Card_symbol.values()[l]);//weil sich der Konstruktor geändert hat
-                card_deck.add(create_card);
-            }
-        }
-        */
 
-        while(true)
+        while(c <= card_deck.getCards().size()-1)
         {
                 switch (i) {
                     case 0:
@@ -337,10 +290,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         opponentPlayer3.getCards().add(card_deck.getCards().get(c));
                        break;
                 }
-                if(c!=card_deck.getCards().size()-1)
+
+                //Zähler hochzählen
                 c++;
-                else
-                    break;
+
 
                 //Auswahl des nächsten Spielers, der eine Karte erhält. Nach Spieler4(i==3) ist Spieler1 wieder an der Reihe
                 if(i==3)
@@ -381,7 +334,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             else {
                 handCardsImageViews.get(i).setVisibility(View.GONE);
             }
-            handCardsImageViews.get(i).invalidate();
+
         }
 
 
@@ -434,7 +387,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void roundOver(){
+    private void checkRoundOver(){
         int i = 0;
         int a = 0;
         if(humanPlayer.getCards().size() == 0){
@@ -478,8 +431,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this,"Du bist Arschloch!!",Toast.LENGTH_LONG).show();
                     MediaPlayer player = MediaPlayer.create(this,R.raw.arschloch);
                     player.start();
-                    while (player.isPlaying()) {
-                    }
+                    player.reset();
                     player.release();
 
                     break;
