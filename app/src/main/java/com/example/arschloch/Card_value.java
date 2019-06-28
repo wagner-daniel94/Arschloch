@@ -19,5 +19,4 @@ public enum Card_value {
     queen,
     king,
     ace
-
 }

@@ -13,7 +13,6 @@ public class Card implements Comparable<Card>{
     private Card_value value;
     private Card_symbol symbol;
     private boolean isMarked;
-
     private int resourceId;
 
 
@@ -22,7 +21,6 @@ public class Card implements Comparable<Card>{
         this.value = value;
         this.symbol = symbol;
         this.resourceId = resourceId;
-
     }
 
     @Override
