@@ -1,5 +1,7 @@
 package com.example.arschloch;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -122,7 +124,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.playBtn:
                 // Methoden die beim Klick auf Play gestartet werden sollen
-                //PlayHumanCards
+                // PlayHumanCards
                 try {
                     resetRound(getAmountPlayersInGame());
                     if(checkGameOver())
@@ -353,7 +355,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         return false;
     }
-
     /*
      * Überprüft ob es bereits einen Gewinner gibt,
      * damit kein weiterer Gewinner gesetzt wird
@@ -378,13 +379,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         cardValuePlayed = null;
         playersTurn = set_firstPlayer();
 
-        if(amountRounds > 1){
+        if(amountRounds > 0){
             //Drücken
+            ConstraintLayout cl = findViewById(R.id.gameLayout);
+            cl.setVisibility(View.INVISIBLE);
         }
 
         //Test
-        ConstraintLayout cl = findViewById(R.id.gameLayout);
-        cl.setVisibility(View.GONE);
+
 
 
 
@@ -411,14 +413,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     //Entfernt alle Markierungen nach einer komplett gespielteen Runde
     public void demarkDeck(){
-        for (Card c: card_deck.getCards()){{
+        for (Card c: card_deck.getCards()){
             c.setMarked(false);
-        }}
+        }
     }
 
     //Methode die dafür sorgt, dass die Runde zuende gespielt wird wenn humanPlayer keine Karten mehr hat
