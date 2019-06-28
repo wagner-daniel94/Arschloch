@@ -1,6 +1,7 @@
 package com.example.arschloch;
 
 import android.media.MediaPlayer;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -380,6 +381,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(amountRounds > 1){
             //Drücken
         }
+
+        //Test
+        ConstraintLayout cl = findViewById(R.id.layout1);
+        cl.setVisibility(View.GONE);
+
+
 
         //Arschloch und Winner zurücksetzen
         for (int i = 0;i<allPlayer.size();i++){

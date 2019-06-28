@@ -2,384 +2,383 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
 
+    android:background="@drawable/background"
     tools:context=".GameActivity">
 
-    <Button
-        android:id="@+id/playBtn"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    </android.support.constraint.ConstraintLayout>
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        android:background="@drawable/buttonborder"
-        android:text="play"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665" />
+        <LinearLayout
+            android:id="@+id/handCardLayout"
 
-    <Button
-        android:id="@+id/passBtn"
-
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
+            android:layout_width="708dp"
+            android:layout_height="95dp"
 
 
-        android:background="@drawable/buttonborder"
-        android:text="pass"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/playBtn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665" />
-
-    <LinearLayout
-        android:id="@+id/handCardLayout"
-
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playBtn">
 
 
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+            <ImageView
+                android:id="@+id/card1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                android:tag="Card1"
+                app:srcCompat="@drawable/back" />
 
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playBtn">
+            <ImageView
+                android:id="@+id/card2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card1"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                android:tag="Card2"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card2"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card3"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card4"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card5"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card7"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card6"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card8"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card7"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card9"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card8"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card9"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card11"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card10"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card11"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/card13"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@id/card12"
+                android:layout_weight="1"
+                android:onClick="markCard"
+                app:srcCompat="@drawable/back" />
 
 
-        <ImageView
-            android:id="@+id/card1"
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/TVop1"
+            android:layout_width="91dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:text="Opponent1"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/middleCardLayout"
+            android:layout_width="392dp"
+            android:layout_height="118dp"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            app:layout_constraintBottom_toTopOf="@+id/playBtn"
+            app:layout_constraintEnd_toStartOf="@+id/TVacop3"
+            app:layout_constraintStart_toEndOf="@+id/IVop1"
+            app:layout_constraintTop_toBottomOf="@+id/IVop2">
+
+            <ImageView
+                android:id="@+id/middlecard1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/middlecard2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@+id/middlecard1"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/middlecard3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@+id/middlecard2"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/middlecard4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@+id/middlecard3"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/back" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/TVCardsPlayedBy"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            android:tag="Card1"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card1"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            android:tag="Card2"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card2"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card3"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card4"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card6"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card5"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card7"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card6"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card8"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card7"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card9"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card8"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card10"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card9"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card11"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card10"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card12"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card11"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-        <ImageView
-            android:id="@+id/card13"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
-            android:layout_toEndOf="@id/card12"
-            android:layout_weight="1"
-            android:onClick="markCard"
-            app:srcCompat="@drawable/back" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/middleCardLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="20dp"
-
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="20dp"
-
-        android:orientation="horizontal"
-        android:weightSum="4"
-        app:layout_constraintBottom_toTopOf="@id/playBtn"
-        app:layout_constraintEnd_toStartOf="@id/IVop3"
-        app:layout_constraintStart_toEndOf="@id/IVop1"
-        app:layout_constraintTop_toBottomOf="@+id/IVop2">
-
-        <ImageView
-            android:id="@+id/middlecard1"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="text"
+            android:textColor="#FFFFFF"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/middleCardLayout"
+            app:layout_constraintStart_toEndOf="@+id/TVop1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/TVop2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="256dp"
+            android:layout_marginTop="12dp"
+            android:text="Opponent2"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/IVop3"
+            android:layout_width="50dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVop3"
+            app:srcCompat="@drawable/back" />
+
+        <Button
+            android:id="@+id/passBtn"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="72dp"
+            android:background="@drawable/buttonborder"
+            android:text="pass"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/middleCardLayout" />
+
+        <TextView
+            android:id="@+id/TVacop3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/IVop3"
+            app:layout_constraintEnd_toEndOf="@+id/IVop3"
+            app:layout_constraintStart_toStartOf="@+id/IVop3"
+            app:layout_constraintTop_toTopOf="@+id/IVop3" />
+
+        <Button
+            android:id="@+id/playBtn"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="240dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/buttonborder"
+            android:text="play"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/passBtn"
+            app:layout_constraintHorizontal_bias="0.643"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/IVop1"
+            android:layout_width="50dp"
+            android:layout_height="84dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVop1"
             app:srcCompat="@drawable/back" />
 
         <ImageView
-            android:id="@+id/middlecard2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_toEndOf="@+id/middlecard1"
-            android:layout_weight="1"
+            android:id="@+id/IVop2"
+            android:layout_width="75dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:rotation="90"
+            app:layout_constraintStart_toEndOf="@+id/TVop2"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/back" />
 
-        <ImageView
-            android:id="@+id/middlecard3"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/TVacop2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_toEndOf="@+id/middlecard2"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/back" />
+            android:text="13"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/IVop2"
+            app:layout_constraintEnd_toEndOf="@+id/IVop2"
+            app:layout_constraintStart_toStartOf="@+id/IVop2"
+            app:layout_constraintTop_toTopOf="@+id/IVop2" />
 
-        <ImageView
-            android:id="@+id/middlecard4"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/TVop3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_toEndOf="@+id/middlecard3"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/back" />
-    </LinearLayout>
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="16dp"
+            android:text="Opponent3"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/IVop1"
-        android:layout_width="50dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.012"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.257"
-        app:srcCompat="@drawable/back" />
-
-    <ImageView
-        android:id="@+id/IVop2"
-        android:layout_width="75dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:rotation="90"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back" />
-
-    <ImageView
-        android:id="@+id/IVop3"
-        android:layout_width="50dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.987"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
-        app:srcCompat="@drawable/back" />
-
-    <TextView
-        android:id="@+id/TVop1"
-        android:layout_width="91dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Opponent1"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/IVop1"
-        app:layout_constraintStart_toStartOf="@+id/IVop1" />
-
-    <TextView
-        android:id="@+id/TVop2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="8dp"
-        android:text="Opponent2"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/IVop2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/TVop3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Opponent3"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/IVop3"
-        app:layout_constraintEnd_toEndOf="@+id/IVop3" />
-
-    <TextView
-        android:id="@+id/TVacop1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="13"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/IVop1"
-        app:layout_constraintEnd_toEndOf="@+id/IVop1"
-        app:layout_constraintStart_toStartOf="@+id/IVop1"
-        app:layout_constraintTop_toBottomOf="@+id/TVop1" />
-
-    <TextView
-        android:id="@+id/TVacop2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="13"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/IVop2"
-        app:layout_constraintEnd_toEndOf="@+id/IVop2"
-        app:layout_constraintStart_toStartOf="@+id/IVop2"
-        app:layout_constraintTop_toTopOf="@+id/IVop2" />
-
-    <TextView
-        android:id="@+id/TVacop3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="13"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/IVop3"
-        app:layout_constraintEnd_toEndOf="@+id/IVop3"
-        app:layout_constraintStart_toStartOf="@+id/IVop3"
-        app:layout_constraintTop_toTopOf="@+id/IVop3" />
-
-    <TextView
-        android:id="@+id/TVCardsPlayedBy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="5dp"
-        android:text="text"
-        android:textColor="#FFFFFF"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/middleCardLayout"
-        app:layout_constraintStart_toStartOf="@+id/middleCardLayout" />
+        <TextView
+            android:id="@+id/TVacop1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/IVop1"
+            app:layout_constraintEnd_toEndOf="@+id/IVop1"
+            app:layout_constraintStart_toStartOf="@+id/IVop1"
+            app:layout_constraintTop_toTopOf="@+id/IVop1" />
+    </android.support.constraint.ConstraintLayout>
 
 
 </android.support.constraint.ConstraintLayout>
