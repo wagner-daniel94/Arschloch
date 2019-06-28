@@ -457,6 +457,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private Player getWinner(){
+
+        for (int i = 0; i < allPlayer.size(); i++) {
+            if(allPlayer.get(i).isWinner())
+                return allPlayer.get(i);
+        }
+        return null;
+    }
+
+    private Player getArschloch(){
+        for (int i = 0; i < allPlayer.size(); i++) {
+            if(allPlayer.get(i).isArschloch())
+                return allPlayer.get(i);
+        }
+        return null;
+    }
+
     public void updateStatistics(){
 
         MyDatabaseHelper db = new MyDatabaseHelper(this);
