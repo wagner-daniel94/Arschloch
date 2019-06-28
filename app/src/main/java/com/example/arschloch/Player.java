@@ -47,11 +47,6 @@ public abstract class Player {
             return true;
     }
 
-    public abstract void wuenschen(Player arschloch, Player winner, Card wishCard);
-
-    public abstract void tauschen(Player arschloch, Player winner);
-
-
     //region Getter & Setter
 
     public List<Card> getCombination() {
@@ -76,11 +71,12 @@ public abstract class Player {
     public int getPoints() {
         return points;
     }
-
+    //evntuell Player markieren, wenn er Arschloch ist
+    //handCardsImageViews.get(i).setForeground(getDrawable(R.drawable.marked));
     public void setArschloch(boolean arschloch) {
         this.arschloch = arschloch;
     }
-
+    //eventuell Player markieren, wenn er Winner ist
     public void setWinner(boolean winner) {
         this.winner = winner;
     }

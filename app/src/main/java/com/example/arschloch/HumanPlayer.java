@@ -69,35 +69,19 @@ public class HumanPlayer extends Player
             return false;
     }
 
-    @Override
     public void wuenschen(Player arschloch, Player winner, Card wishCard){
-        //winner wählt Karte aus
+        //winner hat gewünschte Karte aus allen Kartenwerten ausgewählt
 
-        if(arschloch.getCards().contains(wishCard) ){
-            winner.getCards().add(wishCard);
-            arschloch.getCards().remove(wishCard);
-            Collections.sort(arschloch.getCards());
-            Collections.sort(winner.getCards());
+        Card_value wishCardValue = wishCard.getValue();
+
+        //durchsuchen der Karten des Arschlochs nach dem gewünschten Wertes
+        for(int i = arschloch.getCards().size()-1; i>= 0;i--){
+            if(wishCardValue.compareTo(arschloch.getCards().get(i).getValue()) == 0){
+                winner.getCards().add(arschloch.getCards().get(i));
+                arschloch.getCards().remove(i);
+            }
         }
-    }
-
-    @Override
-    public void tauschen(Player arschloch, Player winner){
-        /*
-        Card choosenCard1;
-
-        // winner kann 1 Karten auswählen
-
-        arschloch.getCards().add(choosenCard1);
-        winner.getCards().remove(choosenCard1);
         Collections.sort(arschloch.getCards());
         Collections.sort(winner.getCards());
-
-        //Karten neu anzeigen
-
-        //Bildschirm updaten
-        //invalidate() bei UI Thread
-        //postInvalidate() bei non UI Thread
-         */
     }
 }

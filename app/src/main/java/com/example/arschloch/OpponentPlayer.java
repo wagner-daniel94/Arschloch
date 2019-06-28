@@ -67,64 +67,39 @@ public class OpponentPlayer extends Player
             return false;
     }
 
-    @Override
-    public void wuenschen (Player arschloch, Player winner, Card wishCard) {
+    public void wuenschen (Player arschloch, Player winner) {
         //erst ab 2.Runde
-        if(wishCard != null && arschloch.getCards().contains(wishCard) ){
-            winner.getCards().add(wishCard);
-            arschloch.getCards().remove(wishCard);
-            Collections.sort(arschloch.getCards());
-            Collections.sort(winner.getCards());
+
+        Card_value wishCardValue;
+
+        double probability = Math.random();
+        //Wahrscheinlichkeiten mit denen die Kartenwerte gewünscht werden
+        if(probability <  0.6){
+            wishCardValue = Card_value.ace;
+        }else if (probability < 0.8){
+            wishCardValue = Card_value.king;
+        }else if (probability < 0.9){
+            wishCardValue = Card_value.queen;
+        }else{
+            //höchste Karte die der Gewinner hat wird standarmäßig von ihm gewünscht
+            wishCardValue = winner.getCards().get(winner.getCards().size()-1).getValue();
+
+            //wenn die höchste Karte vom Gewinner kleiner als Bube ist, wird ein Ass gewünscht
+            if(wishCardValue.compareTo(Card_value.jack)<0){
+                wishCardValue = Card_value.ace;
+            }
         }
-    }
 
-    @Override
-    public void tauschen (Player arschloch, Player winner){
-        //erst ab 2.Runde
-
-            Card lowestCard1 = winner.getCards().get(0);
-            Card highestCard1 = arschloch.getCards().get(arschloch.getCards().size()-1);
-        /*
-        Wenn level2 aktiviert
-        und die Karte in einer Kombination vorhanden ist,
-        wird diese nicht weggegben
-        Boy diese Code ist hässlich
-        */
-
-            if(level2){
-                Card otherCard = winner.getCards().get(0);
-
-                //wenn die Karte i nicht mehrfach vorhanden ist wird sie, gedrückt
-                boolean containsCardValue = false;
-                for( int i = 0; i<winner.getCards().size();i++){
-                    otherCard = winner.getCards().get(i);
-                    winner.getCards().remove(otherCard);
-                    for(int j = 1; i<winner.getCards().size();j++){
-                        if(otherCard.getValue() == winner.getCards().get(j).getValue()){
-                            containsCardValue = true;
-                            break;
-                        }
-                    }
-                    if(!containsCardValue){
-                        break;
-                    }
-                    winner.getCards().add(otherCard);
-                }
-                //wenn die Karte mehrfach vorkommt und höher als 10 ist, wird die niedrigste karte gedrückt
-                if(otherCard.getValue().compareTo(Card_value.ten)>0){
-                    otherCard = winner.getCards().get(0);
-                }
-                lowestCard1 = otherCard;
-            }//Ende Level 2
-
-            //Karten Tausch und Sortieren der Handkarten
-            arschloch.getCards().remove(highestCard1);
-            winner.getCards().add(highestCard1);
-            arschloch.getCards().add(lowestCard1);
-            winner.getCards().remove(lowestCard1);
-
-
+        //durchsuchen der Karten des Arschlochs nach dem gewünschten Wertes
+        for(int i = arschloch.getCards().size()-1; i>= 0;i--){
+            if(wishCardValue.compareTo(arschloch.getCards().get(i).getValue()) == 0){
+                winner.getCards().add(arschloch.getCards().get(i));
+                arschloch.getCards().remove(i);
+            }
+        }
         Collections.sort(arschloch.getCards());
         Collections.sort(winner.getCards());
     }
+
+
 }
