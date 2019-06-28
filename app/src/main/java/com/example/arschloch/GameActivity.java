@@ -123,9 +123,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 // Methoden die beim Klick auf Play gestartet werden sollen
                 //PlayHumanCards
                 try {
-
-
-
                     if(checkSkipAmount(getAmountPlayersInGame()))
                         return;
                     //play_card gibt einen boolean zurück ob Karten gespielt wurden
@@ -157,8 +154,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                     }
-
-
                 } catch (Exception e) {
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     System.out.println(e.getMessage());
@@ -189,19 +184,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                     }
-
-        }
+                 }
                 catch (Exception e){
                 Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 System.out.println(e.getMessage());
-            }
+                }
                 break;
         }
 
         System.out.println("Log: Before Game Loop");
         if(allPlayer.get(0).getCards().size() == 0) {
             finishing_Gameloop();
-            resetRound();
         }
     }
 
@@ -286,10 +279,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             else {
                 handCardsImageViews.get(i).setVisibility(View.GONE);
             }
-
         }
-
-
     }
 
     //belegt die ImageViews in der Mitte mit Karten
@@ -335,7 +325,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return (int)(Math.random()*4)+1;
     }
 
-
     private boolean checkRoundOver(){
         int s = 0;
         int a = 0;
@@ -363,8 +352,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-
-
     private boolean checkSomeoneIsWinner(){
         for (int i = 0;i<allPlayer.size();i++) {
             if (allPlayer.get(i).isWinner())
@@ -387,7 +374,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(amountRounds != 1){
             //Drücken
 
-
         }
         for (int i = 0;i<allPlayer.size();i++){
             allPlayer.get(i).setArschloch(false);
@@ -401,18 +387,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         TVCardsPlayedBy.setText("");
 
         //Je nachdem wer zuerst dran ist
+        if(playersTurn != 1) {
+            Toast.makeText(this, "OpponentPlayer" + (playersTurn - 1) + " begins", Toast.LENGTH_LONG).show();
+            try {
+                opponentPlayerPlayCard(playersTurn - 1);
 
-        Toast.makeText(this,"Opponent Player "+ (playersTurn) +" begins",Toast.LENGTH_LONG).show();
-        try {
-            opponentPlayerPlayCard(playersTurn-1);
-
-        }
-        catch (Exception e){
-            Toast.makeText(this,e.getMessage(), Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
-
 
     //Methode die dafür sorgt, dass die Runde zuende gespielt wird wenn humanPlayer keine Karten mehr hat
     public void finishing_Gameloop(){
@@ -483,8 +468,5 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-
-
-
 
 }

@@ -36,11 +36,11 @@ public abstract class Player {
         combination.clear();
     }
 
-    public static boolean check_combination(List<Card> choosen_cards) {
+    public static boolean check_combination(List<Card> chosen_cards) {
 
-        for (int i = 0; i < choosen_cards.size() - 1; i++) {
+        for (int i = 0; i < chosen_cards.size() - 1; i++) {
             //Die ausgewählten Karten dürfen nur den gleichen Wert besitzen
-            if (choosen_cards.get(i).getValue() != choosen_cards.get(i + 1).getValue())
+            if (chosen_cards.get(i).getValue() != chosen_cards.get(i + 1).getValue())
                 return false;
         }
 
