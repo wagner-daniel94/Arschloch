@@ -96,7 +96,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                        }
                                    });
 
-                handCardsImageViews = new ArrayList<>();
+        handCardsImageViews = new ArrayList<>();
         middleCardsImageViews = new ArrayList<>();
 
         //Zuweisung der Karten-IDs
@@ -111,7 +111,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             middleCardsImageViews.add((ImageView)findViewById(array[i]));
         }
 
-        resetRound();
+        resetGame();
 
 
     }
@@ -123,7 +123,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 // Methoden die beim Klick auf Play gestartet werden sollen
                 //PlayHumanCards
                 try {
-                    if(checkSkipAmount(getAmountPlayersInGame()))
+                    resetRound(getAmountPlayersInGame());
+                    if(checkGameOver())
                         return;
                     //play_card gibt einen boolean zurück ob Karten gespielt wurden
                     if(allPlayer.get(0).getCards().size() != 0) {
@@ -137,11 +138,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             throw new Exception("Invalid move!");
                     }
 
-                    set_card_imageView();
+                    showPlayersCards();
                     Thread.sleep(500);
 
                     for(int i = 1;i<allPlayer.size();i++){
-                        if(checkSkipAmount(getAmountPlayersInGame()))
+                        resetRound(getAmountPlayersInGame());
+                        if(checkGameOver())
                             return;
 
                         if(allPlayer.get(i).getCards().size() != 0) {
@@ -164,14 +166,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 // Methoden die beim Klick auf Pass gestartet werden sollen
                 //PlayAICards
                 try {
-                    if(checkSkipAmount(getAmountPlayersInGame()))
+                    resetRound(getAmountPlayersInGame());
+                    if(checkGameOver())
                         return;
 
                 //Player hat geskippt
                 amountSkipped++;
 
                     for(int i = 1;i<allPlayer.size();i++){
-                        if(checkSkipAmount(getAmountPlayersInGame()))
+                        resetRound(getAmountPlayersInGame());
+                        if(checkGameOver())
                             return;
 
                         if(allPlayer.get(i).getCards().size() != 0) {
@@ -182,7 +186,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             } else
                                 amountSkipped++;
                         }
-
                     }
                  }
                 catch (Exception e){
@@ -210,15 +213,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //check, ob viermal geskippt wurde. setzt dann die Variablen zurück
-    private boolean checkSkipAmount(int i){
+    private void resetRound(int i){
         // -1 da immer "Anzahl Spieler - 1" Skips notwendig sind um eine Runde zu beenden
         if (amountSkipped >= i - 1) {
             amountCardsPlayed = 0;
             cardValuePlayed = null;
             amountSkipped = 0;
-            set_card_imageView_middleCards(null);
+            resetMiddleCard();
         }
-        return checkRoundOver();
     }
 
 /*
@@ -236,7 +238,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Collections.shuffle(card_deck.getCards());
 
-        while(c <= card_deck.getCards().size()-1)
+        while(c < card_deck.getCards().size())
         {
                 allPlayer.get(s).getCards().add(card_deck.getCards().get(c));
                 //Zähler hochzählen
@@ -252,14 +254,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         for(int i = 0;i<allPlayer.size();i++)
         Collections.sort(allPlayer.get(i).getCards());
 
-        set_card_imageView();
+        showPlayersCards();
 
     }
 
     /*
     Karte einem ImageView zur Laufzeit zuweisen
      */
-    public void set_card_imageView(){
+    public void showPlayersCards(){
 
         for(int i = 0; i < handCardsImageViews.size();i++){
             if(i<= allPlayer.get(0).getCards().size()-1) {
@@ -282,40 +284,36 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
+    //Setzt alle ImageViews in der Mitte zurück
+    public void resetMiddleCard(){
+        for (ImageView iv:middleCardsImageViews)
+            iv.setVisibility(View.GONE);
+    }
+
     //belegt die ImageViews in der Mitte mit Karten
-    public static void set_card_imageView_middleCards(List<Card> combination){
-
-        if(combination == null){
-            for (ImageView iv:middleCardsImageViews){
-                iv.setVisibility(View.GONE);
+    public static void showMiddleCards(List<Card> combination){
+            for(int i = 0;i < middleCardsImageViews.size();i++) {
+                if (i <= combination.size() - 1) {
+                    middleCardsImageViews.get(i).setImageResource(combination.get(i).getResourceId());
+                    middleCardsImageViews.get(i).setVisibility(View.VISIBLE);
+                } else
+                    middleCardsImageViews.get(i).setVisibility(View.GONE);
             }
-            return;
-        }
-
-        for(int i = 0;i < middleCardsImageViews.size();i++){
-
-            if(i <= combination.size()-1){
-                middleCardsImageViews.get(i).setImageResource(combination.get(i).getResourceId());
-                middleCardsImageViews.get(i).setVisibility(View.VISIBLE);
-
-            }
-            else
-                middleCardsImageViews.get(i).setVisibility(View.GONE);
-
-
-        }
     }
 
     //wird bei Klick auf eine Karte ausgelöst: triggert die Methode markCard in humanPlayer
     public void markCard(View v){
         allPlayer.get(0).markCard(v);
-        set_card_imageView();
+        showPlayersCards();
     }
-/*
-* Festlegung des ersten Spielers
-* */
+
+    /*
+    * Festlegung des ersten Spielers
+    * Wenn Spieler Arschloch in der Runde zuvor war beginnt er das Spiel. Wenn es die erste Runde ist entscheidet der Zufall
+    */
     private int set_firstPlayer(){
-        //Wenn Spieler Arschloch in der Runde zuvor war beginnt er das Spiel. Wenn es die erste Runde ist entscheidet der Zufall
+
         for(int i = 0;i<allPlayer.size();i++) {
             if (allPlayer.get(i).isArschloch()) {
                 return i+1;
@@ -325,7 +323,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return (int)(Math.random()*4)+1;
     }
 
-    private boolean checkRoundOver(){
+    /*
+     *Überprüft ob das Spiel vorbei ist und setzt Gewinner & Arschloch
+     */
+    private boolean checkGameOver(){
         int s = 0;
         int a = 0;
         for (int i = 0;i<allPlayer.size();i++) {
@@ -346,12 +347,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 mp.start();
             }
             allPlayer.get(a).setArschloch(true);
-            resetRound();
+            resetGame();
             return true;
         }
         return false;
     }
 
+    /*
+     * Überprüft ob es bereits einen Gewinner gibt,
+     * damit kein weiterer Gewinner gesetzt wird
+     */
     private boolean checkSomeoneIsWinner(){
         for (int i = 0;i<allPlayer.size();i++) {
             if (allPlayer.get(i).isWinner())
@@ -361,25 +366,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //Nach Ende der Runde wird alles zurückgesetzt. Wird auch vor der 1. Runde aufgerufen
-    private void resetRound(){
+    private void resetGame(){
         updateStatistics();
+        demarkDeck();
         cards_distributing();
-        set_card_imageView();
-        set_card_imageView_middleCards(null);
+        showPlayersCards();
+        resetMiddleCard();
         amountSkipped = 0;
         amountCardsPlayed = 0;
         cardValuePlayed = null;
         playersTurn = set_firstPlayer();
 
-        if(amountRounds != 1){
+        if(amountRounds > 1){
             //Drücken
-
         }
+
+        //Arschloch und Winner zurücksetzen
         for (int i = 0;i<allPlayer.size();i++){
             allPlayer.get(i).setArschloch(false);
             allPlayer.get(i).setWinner(false);
         }
 
+        //TextView für die Anzahl der Karten wird zurückgesetzt
         for (int i = 1; i < allPlayer.size(); i++) {
             TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
         }
@@ -399,22 +407,35 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //Entfernt alle Markierungen nach einer komplett gespielteen Runde
+    public void demarkDeck(){
+        for (Card c: card_deck.getCards()){{
+            c.setMarked(false);
+        }}
+    }
+
     //Methode die dafür sorgt, dass die Runde zuende gespielt wird wenn humanPlayer keine Karten mehr hat
     public void finishing_Gameloop(){
 
             while(getAmountPlayersInGame() > 1){
 
                 System.out.println("Log: Finishing Game Loop Initiated");
-                checkSkipAmount(getAmountPlayersInGame());
                 try {
                     opponentPlayerPlayCard(1);
                 }catch (Exception e){
                 Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
+                resetRound(getAmountPlayersInGame());
             }
-
+            resetGame();
     }
 
+    /*
+     * Wird aufgerufen wenn:
+     *  1. Wenn ein Gegner das Spiel beginnt
+     *  2. Wenn nurnoch Gegner im Spiel sind
+     *  -> Nur Gegner spielen Karten
+     */
     private void opponentPlayerPlayCard(int startPlayer) throws Exception{
         for (int i = startPlayer; i < allPlayer.size(); i++) {
             if (allPlayer.get(i).getCards().size() != 0) {

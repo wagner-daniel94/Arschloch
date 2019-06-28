@@ -28,7 +28,7 @@ public abstract class Player {
 
     public void move_cards_to_middle(){
         //Karten spielen
-        GameActivity.set_card_imageView_middleCards(combination);
+        GameActivity.showMiddleCards(combination);
         this.cards.removeAll(combination);
 
         GameActivity.amountCardsPlayed =combination.size();
