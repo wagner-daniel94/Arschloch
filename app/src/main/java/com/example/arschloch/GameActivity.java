@@ -383,7 +383,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         //Test
-        ConstraintLayout cl = findViewById(R.id.layout1);
+        ConstraintLayout cl = findViewById(R.id.gameLayout);
         cl.setVisibility(View.GONE);
 
 
