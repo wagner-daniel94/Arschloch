@@ -38,14 +38,15 @@
         <LinearLayout
             android:id="@+id/handCardLayout"
 
-            android:layout_width="671dp"
-            android:layout_height="119dp"
+            android:layout_width="737dp"
+            android:layout_height="0dp"
 
 
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
+            android:maxWidth="50dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
