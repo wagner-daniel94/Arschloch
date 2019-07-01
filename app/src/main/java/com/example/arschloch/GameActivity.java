@@ -53,7 +53,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     //Kartenwert der zuvor gespielten KArten
     static Card_value cardValuePlayed;
     //Rundenanzahl
-    int amountRounds = 1;
+    int amountRounds = 0;
     //Rundenanzahl für die Statistik
     int amountRoundsStatistic = 0;
     //gewonnene Runden
@@ -369,6 +369,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     //Nach Ende der Runde wird alles zurückgesetzt. Wird auch vor der 1. Runde aufgerufen
     private void resetGame(){
+        amountRounds++;
         updateStatistics();
         demarkDeck();
         cards_distributing();
@@ -379,7 +380,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         cardValuePlayed = null;
         playersTurn = set_firstPlayer();
 
-        if(amountRounds > 0){
+        if(amountRounds > 1){
             //Drücken
             ConstraintLayout cl = findViewById(R.id.gameLayout);
             cl.setVisibility(View.INVISIBLE);
