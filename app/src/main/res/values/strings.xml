@@ -8,4 +8,20 @@
     <string name="TVamountcards1">13</string>
     <string name="TVamountcards2">13</string>
     <string name="TVamountcards3">13</string>
+
+    <string-array name="card_values">
+        <item>ace</item>
+        <item>king</item>
+        <item>queen</item>
+        <item>jack</item>
+        <item>ten</item>
+        <item>nine</item>
+        <item>eight</item>
+        <item>seven</item>
+        <item>six</item>
+        <item>five</item>
+        <item>four</item>
+        <item>three</item>
+        <item>two</item>
+    </string-array>
 </resources>

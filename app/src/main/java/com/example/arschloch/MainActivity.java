@@ -21,9 +21,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button startGameBtn = (Button) findViewById(R.id.startGameBtn);
         Button openStatsBtn = (Button) findViewById(R.id.openStatsBtn);
+        Button openIntroductionBtn = (Button) findViewById(R.id.openIntroductionBtn);
 
         startGameBtn.setOnClickListener(this);
         openStatsBtn.setOnClickListener(this);
+        openIntroductionBtn.setOnClickListener(this);
         MyDatabaseHelper db = new MyDatabaseHelper(this);
         db.createDefaultStatisticsIfNeed();
     }
@@ -32,22 +34,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.openStatsBtn:
-                    openActivityStats();
-                    break;
+                openActivity(StatisticActivity.class);
+                break;
             case R.id.startGameBtn:
-                    openActivityGame();
-                    break;
+                openActivity(GameActivity.class);
+                break;
+            case R.id.openIntroductionBtn:
+                openActivity(IntroductionActivity.class);
+                break;
         }
     }
 
-    public void openActivityStats(){
-        Intent intent = new Intent (this, StatisticActivity.class);
+    public void openActivity(Class c){
+        Intent intent = new Intent (this, c);
         startActivity(intent);
     }
-    public void openActivityGame(){
-        Intent intent = new Intent (this, GameActivity.class);
-        startActivity(intent);
-    }
-
-
 }

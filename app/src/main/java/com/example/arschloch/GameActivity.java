@@ -7,8 +7,10 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -382,9 +384,34 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if(amountRounds > 1){
             //Drücken
-            ConstraintLayout cl = findViewById(R.id.gameLayout);
-            cl.setVisibility(View.INVISIBLE);
-        }
+           if(getWinner() instanceof HumanPlayer) {
+               final ConstraintLayout gameLayout = findViewById(R.id.gameLayout);
+               final ConstraintLayout wishLayout = findViewById(R.id.wishLayout);
+               final Spinner spinner = findViewById(R.id.spinner);
+               gameLayout.setVisibility(View.GONE);
+               wishLayout.setVisibility(View.VISIBLE);
+               Button IwantCardBtn = findViewById(R.id.IwantCardBtn);
+               Button IwantNoCardBtn = findViewById(R.id.IwantNoCardBtn);
+
+               IwantCardBtn.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+                       String item = (String) spinner.getSelectedItem();
+                       Card_value cv = Card_value.valueOf(item);
+
+                   }
+               });
+               IwantNoCardBtn.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+                       gameLayout.setVisibility(View.VISIBLE);
+                       wishLayout.setVisibility(View.GONE);
+                   }
+               });
+
+
+            }
+           }
 
         //Test
 

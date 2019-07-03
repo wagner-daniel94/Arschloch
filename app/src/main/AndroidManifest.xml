@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WishListActivity"></activity>
+        <activity android:name=".IntroductionActivity"></activity>
+        <activity android:name=".WishListActivity" />
         <activity
             android:name=".StatisticActivity"
             android:screenOrientation="userLandscape" />
