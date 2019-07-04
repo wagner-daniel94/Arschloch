@@ -191,6 +191,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             if (allPlayer.get(i).play_card()) {
                                 amountSkipped = 0;
                                 TVCardsPlayedBy.setText("OpponentPlayer " + i + " played:");
+                                if (allPlayer.get(i) == allPlayer.get(1)){
+                                    ImageView animCard = findViewById(IVop1);
+                                    enemyAnimation(animCard);
+                                }else if(allPlayer.get(i)==allPlayer.get(2)){
+                                    ImageView animCard = findViewById(IVop2);
+                                    enemyAnimation(animCard);
+                                }else if(allPlayer.get(i)==allPlayer.get(3)){
+                                    ImageView animCard = findViewById(IVop3);
+                                    enemyAnimation(animCard);
+                                }
 
                                 TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
                             } else
