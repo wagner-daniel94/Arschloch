@@ -1,5 +1,11 @@
 package com.example.arschloch;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -18,6 +24,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.example.arschloch.R.id.IVop1;
+import static com.example.arschloch.R.id.IVop2;
+import static com.example.arschloch.R.id.IVop3;
+import static com.example.arschloch.R.id.card1;
+import static com.example.arschloch.R.id.handCardLayout;
 
 
 /*
@@ -64,7 +76,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int amountTurnsPlayed = 0;
     //Anzahl verlorener Spiele
     int amountGamesLost = 0;
-
+    ObjectAnimator animY,animX;
     MediaPlayer mp;
     //endregion.
 
@@ -73,6 +85,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
 
 
         Button playBtn = (Button) findViewById(R.id.playBtn);
@@ -105,7 +118,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         middleCardsImageViews = new ArrayList<>();
 
         //Zuweisung der Karten-IDs
-        array = new int[]{R.id.card1, R.id.card2, R.id.card3, R.id.card4, R.id.card5, R.id.card6, R.id.card7, R.id.card8, R.id.card9, R.id.card10, R.id.card11, R.id.card12, R.id.card13};
+        array = new int[]{card1, R.id.card2, R.id.card3, R.id.card4, R.id.card5, R.id.card6, R.id.card7, R.id.card8, R.id.card9, R.id.card10, R.id.card11, R.id.card12, R.id.card13};
 
         for (int i = 0; i < array.length; i++) {
             handCardsImageViews.add((ImageView)findViewById(array[i]));
@@ -115,6 +128,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < array.length; i++) {
             middleCardsImageViews.add((ImageView)findViewById(array[i]));
         }
+
+        List<Card> combinations = (List<Card>) Player.getHelperCombination();
+
+        //View view = (View) findViewById(R.id.middlecard1);
+       //float x = view.getX();
+        // float y = view.getY();
+       // int peng =combinations.get(0).getResourceId();
+        //ImageView animCard = (ImageView) findViewById(card1) ;
+       // ObjectAnimator translateAnimationX = ObjectAnimator.ofFloat(animCard, View.TRANSLATION_X, 800);
+       // ObjectAnimator translateAnimationY = ObjectAnimator.ofFloat(animCard, View.TRANSLATION_Y, 800);
+
+        //PropertyValuesHolder tax = PropertyValuesHolder.ofFloat(View.TRANSLATION_X,800);
+        //PropertyValuesHolder tay = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y,800);
+
+
+
+      //  moveAnimation.setRepeatCount(1);
+       // moveAnimation.setRepeatMode(ValueAnimator.REVERSE);
+
+//        setupAnimation.playTogether(translateAnimationX,translateAnimationY);
+        //setupAnimation.play(translateAnimationX);
+  //      setupAnimation.setDuration(2000);
+    //    setupAnimation(animCard,translateAnimationX,R.animator.move);
 
         resetGame();
 
@@ -155,6 +191,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             if (allPlayer.get(i).play_card()) {
                                 amountSkipped = 0;
                                 TVCardsPlayedBy.setText("OpponentPlayer " + i + " played:");
+
                                 TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
                             } else
                                 amountSkipped++;
@@ -166,7 +203,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     System.out.println(e.getMessage());
                 }
                 //PlayAICards
-                break;
+              /*
+                Button playBtn = (Button) findViewById(R.id.playBtn);
+                PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.1f);
+                PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.1f);
+                ObjectAnimator scaleAnimation =
+                        ObjectAnimator.ofPropertyValuesHolder(playBtn, pvhX, pvhY);
+                scaleAnimation.setRepeatCount(0);
+                scaleAnimation.setRepeatMode(ValueAnimator.REVERSE);
+
+                AnimatorSet setupAnimation = new AnimatorSet();
+                setupAnimation.play(scaleAnimation);
+                setupAnimation(playBtn,scaleAnimation,R.animator.scale);
+                */
+              break;
             case R.id.passBtn:
                 // Methoden die beim Klick auf Pass gestartet werden sollen
                 //PlayAICards
@@ -177,7 +227,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 //Player hat geskippt
                 amountSkipped++;
-
+                amountTurnsPlayed++;
                     for(int i = 1;i<allPlayer.size();i++){
                         resetRound(getAmountPlayersInGame());
                         if(checkGameOver())
@@ -188,6 +238,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                 amountSkipped = 0;
                                 TVCardsPlayedBy.setText("OpponentPlayer " + i + " played:");
                                 TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
+                                if (allPlayer.get(i) == allPlayer.get(1)){
+                                    ImageView animCard = findViewById(IVop1);
+                                    enemyAnimation(animCard);
+                                }else if(allPlayer.get(i)==allPlayer.get(2)){
+                                    ImageView animCard = findViewById(IVop2);
+                                    enemyAnimation(animCard);
+                                }else if(allPlayer.get(i)==allPlayer.get(3)){
+                                    ImageView animCard = findViewById(IVop3);
+                                    enemyAnimation(animCard);
+                                }
+
                             } else
                                 amountSkipped++;
                         }
@@ -301,6 +362,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             for(int i = 0;i < middleCardsImageViews.size();i++) {
                 if (i <= combination.size() - 1) {
                     middleCardsImageViews.get(i).setImageResource(combination.get(i).getResourceId());
+                    //move(middleCardsImageViews.get(i));
                     middleCardsImageViews.get(i).setVisibility(View.VISIBLE);
                 } else
                     middleCardsImageViews.get(i).setVisibility(View.GONE);
@@ -339,6 +401,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 s++;
                 if (!checkSomeoneIsWinner())
                     allPlayer.get(i).setWinner(true);
+                    if(allPlayer.get(0).isWinner()){
+                        amountRoundsWon++;
+                    }
             } else {
                 a = i;
             }
@@ -349,6 +414,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             if(a==0){
                 //Spieler ist Arschloch
                 Toast.makeText(this,"Du bist Arschloch!!",Toast.LENGTH_LONG).show();
+                amountGamesLost++;
                 mp.start();
             }
             allPlayer.get(a).setArschloch(true);
@@ -373,6 +439,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void resetGame(){
         amountRounds++;
         updateStatistics();
+        amountRoundsStatistic++;
         demarkDeck();
         cards_distributing();
         showPlayersCards();
@@ -542,5 +609,59 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+    public void move(View view){
+        ObjectAnimator animX,animY;
+        View helper = (View) findViewById(R.id.middlecard1);
+        float x = helper.getX();
+        float y = helper.getY();
+
+        animX = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, x);
+        animY = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, y);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(animX,animY);
+        animatorSet.setDuration(2000);
+        animatorSet.start();
+    }
+
+    private void setupAnimation(View view, final Animator animation, final int animationID) {
+        view.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                    Animator anim = AnimatorInflater.loadAnimator(GameActivity.this, animationID);
+                    anim.setTarget(v);
+                    anim.start();
+                    animation.start();
+
+
+           }
+        });
+    }
+    public void enemyAnimation (View view){
+
+        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.1f);
+        PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.1f);
+        ObjectAnimator scaleAnimation =
+                ObjectAnimator.ofPropertyValuesHolder(view, pvhX, pvhY);
+        scaleAnimation.setRepeatCount(1);
+        scaleAnimation.setRepeatMode(ValueAnimator.REVERSE);
+
+        int animationID = R.animator.scale;
+
+        AnimatorSet setupAnimation = new AnimatorSet();
+        setupAnimation.play(scaleAnimation);
+        setupAnimation(view,scaleAnimation,R.animator.scale);
+        Animator anim = (Animator) AnimatorInflater.loadAnimator(GameActivity.this,animationID);
+        anim.setTarget(view);
+        anim.start();
+        scaleAnimation.start();
+    }
+
+
+    //Animation muss in ONCreate kreiert werden
+    //xml files müssen noch erweitert werden bzw die Animation irgendwie Fix - evtl hardcoded Abstand zwischen hand Cards und Middlecards
+    //Testen ob das mit der combination Liste funktioniert
+    //Umbenennen von Anzahl Züge zu anzahl Züge letztes spiel
+    //Scheiß auf bewegungs animation. Skalliere es einfach statt die Karte zu markieren, dann ist das schöner und die gleiche Animation kann genutzt werden um den gegnern beim SPielen einer karte eine Animation zu zu weisen.
+
 
 }

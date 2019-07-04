@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player {
+    private static List<Card> combinatores;
     protected boolean arschloch;
     protected boolean winner;
     protected List<Card> cards;
     protected int points;
     protected List<Card> combination;
+
+
 
     public Player() {
         this.arschloch = false;
@@ -30,7 +33,7 @@ public abstract class Player {
         //Karten spielen
         GameActivity.showMiddleCards(combination);
         this.cards.removeAll(combination);
-
+        setHelperCombination(combination);
         GameActivity.amountCardsPlayed =combination.size();
         GameActivity.cardValuePlayed = combination.get(0).getValue();
         combination.clear();
@@ -49,8 +52,18 @@ public abstract class Player {
 
     //region Getter & Setter
 
-    public List<Card> getCombination() {
+    public  List<Card> getCombination() {
+        setHelperCombination(combination);
         return combination;
+    }
+
+
+    public void setHelperCombination(List<Card> combinatores){
+        this.combinatores =  combinatores;
+           }
+
+    public static List<Card> getHelperCombination(){
+        return combinatores;
     }
 
     public void setCombination(List<Card> combination) {
