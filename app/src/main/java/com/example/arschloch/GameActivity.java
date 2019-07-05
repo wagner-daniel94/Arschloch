@@ -619,7 +619,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-    public void move(View view){
+  /*  public void move(View view){
         ObjectAnimator animX,animY;
         View helper = (View) findViewById(R.id.middlecard1);
         float x = helper.getX();
@@ -632,7 +632,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         animatorSet.setDuration(2000);
         animatorSet.start();
     }
-
+*/
     private void setupAnimation(View view, final Animator animation, final int animationID) {
         view.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
