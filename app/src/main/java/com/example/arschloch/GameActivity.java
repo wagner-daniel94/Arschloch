@@ -250,15 +250,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 String item = (String) spinner.getSelectedItem();
                 Card_value cv = Card_value.valueOf(item);
                 allPlayer.get(0).wuenschen(getArschloch(),cv);
+                showPlayersCards();
                 reset_arschloch_winner();
                 gameLayout.setVisibility(View.VISIBLE);
                 wishLayout.setVisibility(View.GONE);
+                play_First_Opponent_Round();
                 break;
             case R.id.IwantNoCardBtn:
                 //Button vom wishLayout
                 gameLayout.setVisibility(View.VISIBLE);
                 wishLayout.setVisibility(View.GONE);
                 reset_arschloch_winner();
+                play_First_Opponent_Round();
                 break;
         }
 
@@ -462,6 +465,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
            else {
                getWinner().wuenschen(getArschloch(), null);
+               showPlayersCards();
                reset_arschloch_winner();
            }
            }
@@ -482,7 +486,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         TVCardsPlayedBy.setText("");
 
         //Je nachdem wer zuerst dran ist
-        if(playersTurn != 1) {
+        if(!allPlayer.get(0).isWinner()) {
           play_First_Opponent_Round();
         }
     }
@@ -496,13 +500,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void play_First_Opponent_Round(){
-        Toast.makeText(this, "OpponentPlayer" + (playersTurn - 1) + " begins", Toast.LENGTH_LONG).show();
-        try {
-            opponentPlayerPlayCard(playersTurn - 1);
+        if(playersTurn != 1) {
+            Toast.makeText(this, "OpponentPlayer" + (playersTurn - 1) + " begins", Toast.LENGTH_LONG).show();
+            try {
+                opponentPlayerPlayCard(playersTurn - 1);
 
-        } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
+        else
+            Toast.makeText(this, "You begin!", Toast.LENGTH_LONG).show();
     }
 
 
