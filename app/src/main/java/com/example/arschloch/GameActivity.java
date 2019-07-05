@@ -563,7 +563,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 resetRound(getAmountPlayersInGame());
             }
-            resetGame();
+            checkGameOver();
     }
 
     /*
