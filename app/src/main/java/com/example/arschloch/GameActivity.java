@@ -286,6 +286,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 String item = (String) spinner.getSelectedItem();
                 Card_value cv = Card_value.valueOf(item);
                 allPlayer.get(0).wuenschen(getArschloch(),cv);
+                reset_arschloch_winner();
                 gameLayout.setVisibility(View.VISIBLE);
                 wishLayout.setVisibility(View.GONE);
                 break;
@@ -293,6 +294,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 //Button vom wishLayout
                 gameLayout.setVisibility(View.VISIBLE);
                 wishLayout.setVisibility(View.GONE);
+                reset_arschloch_winner();
                 break;
         }
 
@@ -496,6 +498,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
            else {
                getWinner().wuenschen(getArschloch(), null);
+               reset_arschloch_winner();
            }
            }
 
@@ -505,10 +508,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         //Arschloch und Winner zurücksetzen
-        for (int i = 0;i<allPlayer.size();i++){
-            allPlayer.get(i).setArschloch(false);
-            allPlayer.get(i).setWinner(false);
-        }
+
 
         //TextView für die Anzahl der Karten wird zurückgesetzt
         for (int i = 1; i < allPlayer.size(); i++) {
@@ -520,6 +520,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         //Je nachdem wer zuerst dran ist
         if(playersTurn != 1) {
           play_First_Opponent_Round();
+        }
+    }
+
+    private void reset_arschloch_winner(){
+        //Arschloch und Winner zurücksetzen
+        for (int i = 0;i<allPlayer.size();i++){
+            allPlayer.get(i).setArschloch(false);
+            allPlayer.get(i).setWinner(false);
         }
     }
 

@@ -93,8 +93,16 @@ public class OpponentPlayer extends Player
         //durchsuchen der Karten des Arschlochs nach dem gewünschten Wertes
         for(int i = arschloch.getCards().size()-1; i>= 0;i--){
             if(wishCardValue.compareTo(arschloch.getCards().get(i).getValue()) == 0){
-                this.getCards().add(arschloch.getCards().get(i));
-                arschloch.getCards().remove(i);
+                //gewünschte Karte tauschen
+                Card c = arschloch.getCards().get(i);
+                this.getCards().add(c);
+                arschloch.getCards().remove(c);
+                //niedrigste Karte tauschen
+                c = this.getCards().get(0);
+                this.getCards().remove(c);
+                arschloch.getCards().add(c);
+                break;
+
             }
         }
         Collections.sort(arschloch.getCards());
