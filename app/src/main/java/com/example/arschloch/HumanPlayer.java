@@ -69,19 +69,19 @@ public class HumanPlayer extends Player
             return false;
     }
 
-    public void wuenschen(Player arschloch, Player winner, Card wishCard){
+    public void wuenschen(Player arschloch, Card_value wishCardValue){
         //winner hat gewünschte Karte aus allen Kartenwerten ausgewählt
 
-        Card_value wishCardValue = wishCard.getValue();
+
 
         //durchsuchen der Karten des Arschlochs nach dem gewünschten Wertes
         for(int i = arschloch.getCards().size()-1; i>= 0;i--){
             if(wishCardValue.compareTo(arschloch.getCards().get(i).getValue()) == 0){
-                winner.getCards().add(arschloch.getCards().get(i));
+                this.getCards().add(arschloch.getCards().get(i));
                 arschloch.getCards().remove(i);
             }
         }
         Collections.sort(arschloch.getCards());
-        Collections.sort(winner.getCards());
+        Collections.sort(this.getCards());
     }
 }

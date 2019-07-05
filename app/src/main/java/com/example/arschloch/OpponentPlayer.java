@@ -67,10 +67,10 @@ public class OpponentPlayer extends Player
             return false;
     }
 
-    public void wuenschen (Player arschloch, Player winner) {
+    public void wuenschen (Player arschloch, Card_value wishCardValue) {
         //erst ab 2.Runde
 
-        Card_value wishCardValue;
+
 
         double probability = Math.random();
         //Wahrscheinlichkeiten mit denen die Kartenwerte gewünscht werden
@@ -82,7 +82,7 @@ public class OpponentPlayer extends Player
             wishCardValue = Card_value.queen;
         }else{
             //höchste Karte die der Gewinner hat wird standarmäßig von ihm gewünscht
-            wishCardValue = winner.getCards().get(winner.getCards().size()-1).getValue();
+            wishCardValue = this.getCards().get(this.getCards().size()-1).getValue();
 
             //wenn die höchste Karte vom Gewinner kleiner als Bube ist, wird ein Ass gewünscht
             if(wishCardValue.compareTo(Card_value.jack)<0){
@@ -93,12 +93,12 @@ public class OpponentPlayer extends Player
         //durchsuchen der Karten des Arschlochs nach dem gewünschten Wertes
         for(int i = arschloch.getCards().size()-1; i>= 0;i--){
             if(wishCardValue.compareTo(arschloch.getCards().get(i).getValue()) == 0){
-                winner.getCards().add(arschloch.getCards().get(i));
+                this.getCards().add(arschloch.getCards().get(i));
                 arschloch.getCards().remove(i);
             }
         }
         Collections.sort(arschloch.getCards());
-        Collections.sort(winner.getCards());
+        Collections.sort(this.getCards());
     }
 
 

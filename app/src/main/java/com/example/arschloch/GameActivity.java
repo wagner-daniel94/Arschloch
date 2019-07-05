@@ -79,6 +79,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int amountGamesLost = 0;
     ObjectAnimator animY,animX;
     MediaPlayer mp;
+    ConstraintLayout gameLayout;
+    ConstraintLayout wishLayout;
+    Spinner spinner;
+    Button IwantCardBtn;
+    Button IwantNoCardBtn;
     //endregion.
 
 
@@ -91,6 +96,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Button playBtn = (Button) findViewById(R.id.playBtn);
         Button passBtn = (Button) findViewById(R.id.passBtn);
+        gameLayout =findViewById(R.id.gameLayout);
+        wishLayout =findViewById(R.id.wishLayout);
+        spinner = findViewById(R.id.spinner);
+        IwantCardBtn = findViewById(R.id.IwantCardBtn);
+        IwantNoCardBtn = findViewById(R.id.IwantNoCardBtn);
         card_deck = new CardDeck();
         allPlayer = new ArrayList<>();
         TVacop = new ArrayList<>();
@@ -270,6 +280,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 System.out.println(e.getMessage());
                 }
+                break;
+            case R.id.IwantCardBtn:
+                 //Button vom wishLayout
+                String item = (String) spinner.getSelectedItem();
+                Card_value cv = Card_value.valueOf(item);
+                allPlayer.get(0).wuenschen(getArschloch(),cv);
+                gameLayout.setVisibility(View.VISIBLE);
+                wishLayout.setVisibility(View.GONE);
+                break;
+            case R.id.IwantNoCardBtn:
+                //Button vom wishLayout
+                gameLayout.setVisibility(View.VISIBLE);
+                wishLayout.setVisibility(View.GONE);
                 break;
         }
 
@@ -464,32 +487,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(amountRounds > 1){
             //Drücken
            if(getWinner() instanceof HumanPlayer) {
-               final ConstraintLayout gameLayout = findViewById(R.id.gameLayout);
-               final ConstraintLayout wishLayout = findViewById(R.id.wishLayout);
-               final Spinner spinner = findViewById(R.id.spinner);
                gameLayout.setVisibility(View.GONE);
                wishLayout.setVisibility(View.VISIBLE);
-               Button IwantCardBtn = findViewById(R.id.IwantCardBtn);
-               Button IwantNoCardBtn = findViewById(R.id.IwantNoCardBtn);
 
-               IwantCardBtn.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View view) {
-                       String item = (String) spinner.getSelectedItem();
-                       Card_value cv = Card_value.valueOf(item);
-
-                   }
-               });
-               IwantNoCardBtn.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View view) {
-                       gameLayout.setVisibility(View.VISIBLE);
-                       wishLayout.setVisibility(View.GONE);
-                   }
-               });
-
+               IwantCardBtn.setOnClickListener(this);
+               IwantNoCardBtn.setOnClickListener(this);
 
             }
+           else {
+               getWinner().wuenschen(getArschloch(), null);
+           }
            }
 
         //Test
@@ -512,25 +519,31 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         //Je nachdem wer zuerst dran ist
         if(playersTurn != 1) {
-            Toast.makeText(this, "OpponentPlayer" + (playersTurn - 1) + " begins", Toast.LENGTH_LONG).show();
-            try {
-                opponentPlayerPlayCard(playersTurn - 1);
-
-            } catch (Exception e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+          play_First_Opponent_Round();
         }
     }
 
+    private void play_First_Opponent_Round(){
+        Toast.makeText(this, "OpponentPlayer" + (playersTurn - 1) + " begins", Toast.LENGTH_LONG).show();
+        try {
+            opponentPlayerPlayCard(playersTurn - 1);
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
     //Entfernt alle Markierungen nach einer komplett gespielteen Runde
-    public void demarkDeck(){
+    private void demarkDeck(){
         for (Card c: card_deck.getCards()){
             c.setMarked(false);
         }
     }
 
     //Methode die dafür sorgt, dass die Runde zuende gespielt wird wenn humanPlayer keine Karten mehr hat
-    public void finishing_Gameloop(){
+    private void finishing_Gameloop(){
 
             while(getAmountPlayersInGame() > 1){
 
@@ -581,7 +594,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return null;
     }
 
-    public void updateStatistics(){
+    private void updateStatistics(){
 
         MyDatabaseHelper db = new MyDatabaseHelper(this);
         for (int j = 1; j<6;j++) {
@@ -648,7 +661,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
            }
         });
     }
-    public void enemyAnimation (View view){
+    private void enemyAnimation (View view){
 
         PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.1f);
         PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.1f);

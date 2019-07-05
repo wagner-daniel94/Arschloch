@@ -28,6 +28,7 @@ public abstract class Player {
     }
 
     public abstract boolean play_card() throws Exception;
+    public abstract void wuenschen(Player arschloch, Card_value wishCardValue);
 
     public void move_cards_to_middle(){
         //Karten spielen
