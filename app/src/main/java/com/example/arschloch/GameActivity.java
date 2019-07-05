@@ -8,6 +8,7 @@ import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaDataSource;
 import android.media.MediaPlayer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -111,6 +112,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                        @Override
                                        public void onCompletion(MediaPlayer mediaPlayer) {
                                            mp.reset();
+                                           mp =MediaPlayer.create(GameActivity.this,R.raw.arschloch);
                                        }
                                    });
 
