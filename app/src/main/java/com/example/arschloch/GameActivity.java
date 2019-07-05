@@ -77,7 +77,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     int amountTurnsPlayed = 0;
     //Anzahl verlorener Spiele
     int amountGamesLost = 0;
-    ObjectAnimator animY,animX;
     MediaPlayer mp;
     ConstraintLayout gameLayout;
     ConstraintLayout wishLayout;
@@ -141,29 +140,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             middleCardsImageViews.add((ImageView)findViewById(array[i]));
         }
 
-        List<Card> combinations = (List<Card>) Player.getHelperCombination();
-
-        //View view = (View) findViewById(R.id.middlecard1);
-       //float x = view.getX();
-        // float y = view.getY();
-       // int peng =combinations.get(0).getResourceId();
-        //ImageView animCard = (ImageView) findViewById(card1) ;
-       // ObjectAnimator translateAnimationX = ObjectAnimator.ofFloat(animCard, View.TRANSLATION_X, 800);
-       // ObjectAnimator translateAnimationY = ObjectAnimator.ofFloat(animCard, View.TRANSLATION_Y, 800);
-
-        //PropertyValuesHolder tax = PropertyValuesHolder.ofFloat(View.TRANSLATION_X,800);
-        //PropertyValuesHolder tay = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y,800);
-
-
-
-      //  moveAnimation.setRepeatCount(1);
-       // moveAnimation.setRepeatMode(ValueAnimator.REVERSE);
-
-//        setupAnimation.playTogether(translateAnimationX,translateAnimationY);
-        //setupAnimation.play(translateAnimationX);
-  //      setupAnimation.setDuration(2000);
-    //    setupAnimation(animCard,translateAnimationX,R.animator.move);
-
         resetGame();
 
 
@@ -225,19 +201,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     System.out.println(e.getMessage());
                 }
                 //PlayAICards
-              /*
-                Button playBtn = (Button) findViewById(R.id.playBtn);
-                PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.1f);
-                PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1.1f);
-                ObjectAnimator scaleAnimation =
-                        ObjectAnimator.ofPropertyValuesHolder(playBtn, pvhX, pvhY);
-                scaleAnimation.setRepeatCount(0);
-                scaleAnimation.setRepeatMode(ValueAnimator.REVERSE);
 
-                AnimatorSet setupAnimation = new AnimatorSet();
-                setupAnimation.play(scaleAnimation);
-                setupAnimation(playBtn,scaleAnimation,R.animator.scale);
-                */
               break;
             case R.id.passBtn:
                 // Methoden die beim Klick auf Pass gestartet werden sollen
@@ -642,20 +606,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-  /*  public void move(View view){
-        ObjectAnimator animX,animY;
-        View helper = (View) findViewById(R.id.middlecard1);
-        float x = helper.getX();
-        float y = helper.getY();
 
-        animX = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, x);
-        animY = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, y);
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(animX,animY);
-        animatorSet.setDuration(2000);
-        animatorSet.start();
-    }
-*/
     private void setupAnimation(View view, final Animator animation, final int animationID) {
         view.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -688,13 +639,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         anim.start();
         scaleAnimation.start();
     }
-
-
-    //Animation muss in ONCreate kreiert werden
-    //xml files müssen noch erweitert werden bzw die Animation irgendwie Fix - evtl hardcoded Abstand zwischen hand Cards und Middlecards
-    //Testen ob das mit der combination Liste funktioniert
-    //Umbenennen von Anzahl Züge zu anzahl Züge letztes spiel
-    //Scheiß auf bewegungs animation. Skalliere es einfach statt die Karte zu markieren, dann ist das schöner und die gleiche Animation kann genutzt werden um den gegnern beim SPielen einer karte eine Animation zu zu weisen.
 
 
 }
