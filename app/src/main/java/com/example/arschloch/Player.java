@@ -51,15 +51,9 @@ public abstract class Player {
 
     //region Getter & Setter
 
-    public  List<Card> getCombination() {
-
-        return combination;
-    }
 
 
-    public void setCombination(List<Card> combination) {
-        this.combination = combination;
-    }
+
     public boolean isArschloch() {
         return arschloch;
     }
@@ -72,9 +66,9 @@ public abstract class Player {
         return cards;
     }
 
-    public int getPoints() {
+    /*public int getPoints() {
         return points;
-    }
+    }*/
     //evntuell Player markieren, wenn er Arschloch ist
     //handCardsImageViews.get(i).setForeground(getDrawable(R.drawable.marked));
     public void setArschloch(boolean arschloch) {
@@ -84,13 +78,13 @@ public abstract class Player {
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
-
+/*
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
 
     public void setPoints(int punkte) {
         this.points = punkte;
-    }
+    }*/
     //endregion
 }

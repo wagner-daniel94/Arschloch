@@ -7,8 +7,23 @@ public class CardDeck {
     private List<Card> cards;
 
     public CardDeck(){
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
         //region Hearts cards
+
+        int array[] = new int[]{R.drawable.heartstwo,R.drawable.heartsthree,R.drawable.heartsfour,R.drawable.heartsfive,R.drawable.heartssix,R.drawable.heartsseven,R.drawable.heartseight,R.drawable.heartsnine,R.drawable.heartsten,R.drawable.heartsjack,R.drawable.heartsqueen,R.drawable.heartsking,R.drawable.heartsace,
+                                R.drawable.diamondstwo,R.drawable.diamondsthree,R.drawable.diamondsfour,R.drawable.diamondsfive,R.drawable.diamondssix,R.drawable.diamondsseven,R.drawable.diamondseight,R.drawable.diamondsnine,R.drawable.diamondsten,R.drawable.diamondsjack,R.drawable.diamondsqueen,R.drawable.diamondsking,R.drawable.diamondsace,
+                                R.drawable.spadestwo,R.drawable.spadesthree,R.drawable.spadesfour,R.drawable.spadesfive,R.drawable.spadessix,R.drawable.spadesseven,R.drawable.spadeseight,R.drawable.spadesnine,R.drawable.spadesten,R.drawable.spadesjack,R.drawable.spadesqueen,R.drawable.spadesking,R.drawable.spadesace,
+                                R.drawable.clubstwo,R.drawable.clubsthree,R.drawable.clubsfour,R.drawable.clubsfive,R.drawable.clubssix,R.drawable.clubsseven,R.drawable.clubseight,R.drawable.clubsnine,R.drawable.clubsten,R.drawable.clubsjack,R.drawable.clubsqueen,R.drawable.clubsking,R.drawable.clubsace};
+
+        int index = 0;
+        for(Card_symbol cs:Card_symbol.values()){
+            for (Card_value cv:Card_value.values()) {
+                cards.add(new Card(cv,cs,array[index]));
+                index++;
+            }
+        }
+
+        /*
         cards.add(new Card(Card_value.two,Card_symbol.hearts,R.drawable.heartstwo));
         cards.add(new Card(Card_value.three,Card_symbol.hearts,R.drawable.heartsthree));
         cards.add(new Card(Card_value.four,Card_symbol.hearts,R.drawable.heartsfour));
@@ -70,6 +85,7 @@ public class CardDeck {
         cards.add(new Card(Card_value.queen,Card_symbol.spades,R.drawable.spadesqueen));
         cards.add(new Card(Card_value.king,Card_symbol.spades,R.drawable.spadesking));
         cards.add(new Card(Card_value.ace,Card_symbol.spades,R.drawable.spadesace));
+        */
         //endregion
     }
 
@@ -77,7 +93,4 @@ public class CardDeck {
         return cards;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
 }

@@ -1,6 +1,8 @@
 package com.example.arschloch;
 
+
 import android.view.View;
+
 
 import java.util.Collections;
 
@@ -9,14 +11,12 @@ public class HumanPlayer extends Player
 
     @Override
     public void markCard(View v){
-        for(Card c: this.getCards()){
+        for(Card c: this.getCards())
             if(c.getResourceId() == (int)v.getTag() && !c.isMarked()){
 
 
                 combination.add(c);
-                if(check_combination(combination)) {
-                    c.setMarked(true);
-                }
+                if(check_combination(combination)) c.setMarked(true);
                 else
                     combination.remove(c);
 
@@ -25,7 +25,7 @@ public class HumanPlayer extends Player
                 c.setMarked(false);
                 combination.remove(c);
             }
-        }
+
 
 
     }
@@ -40,7 +40,7 @@ public class HumanPlayer extends Player
             throw new Exception("Player has no cards left!!");
         }
 
-        boolean move =true;
+        boolean move;
 
         //check ob Karten markiert wurden
         if (combination.size() == 0)
@@ -75,19 +75,19 @@ public class HumanPlayer extends Player
 
 
         //durchsuchen der Karten des Arschlochs nach dem gewünschten Wertes
-        for(int i = arschloch.getCards().size()-1; i>= 0;i--){
+        for(int i = arschloch.getCards().size()-1; i>= 0;i--)
             if(wishCardValue.compareTo(arschloch.getCards().get(i).getValue()) == 0){
                 //gewünschte Karte tauschen
-                Card c = arschloch.getCards().get(i);
-                this.getCards().add(c);
-                arschloch.getCards().remove(c);
+                Card c1 = arschloch.getCards().get(i);
+                this.getCards().add(c1);
+                arschloch.getCards().remove(c1);
                 //niedrigste Karte tauschen
-                c = this.getCards().get(0);
-                this.getCards().remove(c);
-                arschloch.getCards().add(c);
+                Card c2 = this.getCards().get(0);
+                this.getCards().remove(c2);
+                arschloch.getCards().add(c2);
                 break;
             }
-        }
+
         Collections.sort(arschloch.getCards());
         Collections.sort(this.getCards());
     }
