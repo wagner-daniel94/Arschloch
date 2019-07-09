@@ -87,8 +87,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         //Buttons
-        Button playBtn = (Button) findViewById(R.id.playBtn);
-        Button passBtn = (Button) findViewById(R.id.passBtn);
+        Button playBtn = findViewById(R.id.playBtn);
+        Button passBtn = findViewById(R.id.passBtn);
         playBtn.setOnClickListener(this);
         passBtn.setOnClickListener(this);
 
@@ -633,7 +633,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         AnimatorSet setupAnimation = new AnimatorSet();
         setupAnimation.play(scaleAnimation);
         setupAnimation(view,scaleAnimation,R.animator.scale);
-        Animator anim = (Animator) AnimatorInflater.loadAnimator(GameActivity.this,animationID);
+        Animator anim = AnimatorInflater.loadAnimator(GameActivity.this,animationID);
         anim.setTarget(view);
         anim.start();
         scaleAnimation.start();
