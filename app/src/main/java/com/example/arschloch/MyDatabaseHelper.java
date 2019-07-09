@@ -65,14 +65,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         if(count ==0 ) {
             Statistic statistics  = new Statistic(1,"0","Anzahl Spiele");
             Statistic statistics1 = new Statistic(2,"0","Anzahl gewonnene Spiele");
-            Statistic statistics2 = new Statistic(3,"0","Gewinnrate");
-            Statistic statistics3 = new Statistic(4,"0","Anzahl der Züge");
-            Statistic statistics4 = new Statistic(5,"0","Anzahl verlorener Spiele");
+            Statistic statistics2 = new Statistic(3,"0","Anzahl der Züge");
+            Statistic statistics3 = new Statistic(4,"0","Anzahl verlorener Spiele");
             this.addStatistic(statistics);
             this.addStatistic(statistics1);
             this.addStatistic(statistics2);
             this.addStatistic(statistics3);
-            this.addStatistic(statistics4);
         }
     }
 

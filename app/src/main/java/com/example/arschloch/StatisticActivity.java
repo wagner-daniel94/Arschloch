@@ -12,12 +12,10 @@ public class StatisticActivity extends AppCompatActivity {
 
     ArrayList<Statistic> statisticsList = new ArrayList<>();
 
-    //  private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statisticmain);
-        //Log.d(TAG, "onCreate: Started. ");
        ListView mListView = (ListView) findViewById(R.id.statisticsList);
         //erstellen der Statistik Instanzen. noch abändern zu nicht hardcoded Zahlen.
 
