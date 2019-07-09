@@ -6,15 +6,11 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
-import android.app.Activity;
-import android.content.Intent;
-import android.media.MediaDataSource;
 import android.media.MediaPlayer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -30,8 +26,6 @@ import static com.example.arschloch.R.id.IVop1;
 import static com.example.arschloch.R.id.IVop2;
 import static com.example.arschloch.R.id.IVop3;
 import static com.example.arschloch.R.id.card1;
-import static com.example.arschloch.R.id.handCardLayout;
-
 
 /*
 Änderung: Austeilalgorithmus
@@ -92,14 +86,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
 
-
+        //Buttons
         Button playBtn = (Button) findViewById(R.id.playBtn);
         Button passBtn = (Button) findViewById(R.id.passBtn);
+        playBtn.setOnClickListener(this);
+        passBtn.setOnClickListener(this);
+
+        //Layouts
         gameLayout =findViewById(R.id.gameLayout);
         wishLayout =findViewById(R.id.wishLayout);
+
+        //Wishlayout
         spinner = findViewById(R.id.spinner);
         IwantCardBtn = findViewById(R.id.IwantCardBtn);
         IwantNoCardBtn = findViewById(R.id.IwantNoCardBtn);
+
+        //Karten und Spieler
         card_deck = new CardDeck();
         allPlayer = new ArrayList<>();
         TVacop = new ArrayList<>();
@@ -109,12 +111,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             allPlayer.add(new OpponentPlayer());
             TVacop.add((TextView)findViewById(array[i]));
         }
-
         TVCardsPlayedBy = (TextView)findViewById(R.id.TVCardsPlayedBy);
+        handCardsImageViews = new ArrayList<>();
+        middleCardsImageViews = new ArrayList<>();
 
-        playBtn.setOnClickListener(this);
-        passBtn.setOnClickListener(this);
-
+        //Mediaplayer für siegessound
         mp = MediaPlayer.create(this,R.raw.arschloch);
 
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -124,9 +125,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                            mp =MediaPlayer.create(GameActivity.this,R.raw.arschloch);
                                        }
                                    });
-
-        handCardsImageViews = new ArrayList<>();
-        middleCardsImageViews = new ArrayList<>();
 
         //Zuweisung der Karten-IDs
         array = new int[]{card1, R.id.card2, R.id.card3, R.id.card4, R.id.card5, R.id.card6, R.id.card7, R.id.card8, R.id.card9, R.id.card10, R.id.card11, R.id.card12, R.id.card13};
@@ -179,6 +177,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             if (allPlayer.get(i).play_card()) {
                                 amountSkipped = 0;
                                 TVCardsPlayedBy.setText("OpponentPlayer " + i + " played:");
+                                //Scaliert die Karten aller gegner die eine Karte spielen
                                 if (allPlayer.get(i) == allPlayer.get(1)){
                                     ImageView animCard = findViewById(IVop1);
                                     enemyAnimation(animCard);
@@ -200,8 +199,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     System.out.println(e.getMessage());
                 }
-                //PlayAICards
-
               break;
             case R.id.passBtn:
                 // Methoden die beim Klick auf Pass gestartet werden sollen
@@ -223,6 +220,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             if (allPlayer.get(i).play_card()) {
                                 amountSkipped = 0;
                                 TVCardsPlayedBy.setText("OpponentPlayer " + i + " played:");
+                                //Skallieren der gegnerischen Karten fals sie eine Karte spielen
                                 TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
                                 if (allPlayer.get(i) == allPlayer.get(1)){
                                     ImageView animCard = findViewById(IVop1);
@@ -236,6 +234,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                 }
 
                             } else
+                                //Wie oft der pass Button gedrückt wird
                                 amountSkipped++;
                         }
                     }
@@ -366,7 +365,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             for(int i = 0;i < middleCardsImageViews.size();i++) {
                 if (i <= combination.size() - 1) {
                     middleCardsImageViews.get(i).setImageResource(combination.get(i).getResourceId());
-                    //move(middleCardsImageViews.get(i));
                     middleCardsImageViews.get(i).setVisibility(View.VISIBLE);
                 } else
                     middleCardsImageViews.get(i).setVisibility(View.GONE);
@@ -405,6 +403,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 s++;
                 if (!checkSomeoneIsWinner())
                     allPlayer.get(i).setWinner(true);
+                    //Anzahl der Siege wird hochgezählt
                     if(allPlayer.get(0).isWinner()){
                         if(amountRoundsWon == 0)
                         amountRoundsWon++;
@@ -574,35 +573,38 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         return null;
     }
-
+    //Statistiken werden aktualisiert via der localen Variablen
     private void updateStatistics(){
+        try {
+            MyDatabaseHelper db = new MyDatabaseHelper(this);
+            for (int j = 1; j < 5; j++) {
+                Statistic statistics = db.getStatistic(j);
+                int zwischenspeicher = Integer.parseInt(statistics.getStatisticNumber());
 
-        MyDatabaseHelper db = new MyDatabaseHelper(this);
-        for (int j = 1; j<5;j++) {
-            Statistic statistics = db.getStatistic(j);
-            int zwischenspeicher = Integer.parseInt(statistics.getStatisticNumber());
+                if (j == 1) {
+                    zwischenspeicher = zwischenspeicher + amountRoundsStatistic;
+                    statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
+                    db.updateStatistics(statistics);
+                } else if (j == 2) {
+                    zwischenspeicher = zwischenspeicher + amountRoundsWon;
+                    statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
+                    db.updateStatistics(statistics);
+                } else if (j == 3) {
+                    zwischenspeicher = zwischenspeicher + amountTurnsPlayed;
+                    statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
+                    db.updateStatistics(statistics);
+                } else if (j == 4) {
+                    zwischenspeicher = zwischenspeicher + amountGamesLost;
+                    statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
+                    db.updateStatistics(statistics);
+                }
 
-            if (j == 1){
-                zwischenspeicher=zwischenspeicher+amountRoundsStatistic;
-                statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
-                db.updateStatistics(statistics);
-            }else if (j == 2){
-                zwischenspeicher=zwischenspeicher+amountRoundsWon;
-                statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
-                db.updateStatistics(statistics);
-            }else if (j == 3){
-                zwischenspeicher=zwischenspeicher+amountTurnsPlayed;
-                statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
-                db.updateStatistics(statistics);
-            }else if (j == 4){
-                zwischenspeicher=zwischenspeicher+amountGamesLost;
-                statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
-                db.updateStatistics(statistics);
             }
-
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
         }
     }
-
+    //Grundlegende Animation
     private void setupAnimation(View view, final Animator animation, final int animationID) {
         view.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -616,6 +618,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
            }
         });
     }
+    //Parameter für die Animation
     private void enemyAnimation (View view){
 
         PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1.1f);
