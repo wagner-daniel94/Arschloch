@@ -6,8 +6,6 @@ Autor: Wagner
 
 package com.example.arschloch;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 
 public class Card implements Comparable<Card>{
     private Card_value value;
@@ -30,18 +28,6 @@ public class Card implements Comparable<Card>{
 
     public Card_value getValue() {
         return value;
-    }
-
-    public void setValue(Card_value value) {
-        this.value = value;
-    }
-
-    public Card_symbol getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(Card_symbol symbol) {
-        this.symbol = symbol;
     }
 
     public int getResourceId(){ return this.resourceId; }

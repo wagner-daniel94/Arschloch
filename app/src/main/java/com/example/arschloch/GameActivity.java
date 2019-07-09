@@ -6,15 +6,11 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
-import android.app.Activity;
-import android.content.Intent;
-import android.media.MediaDataSource;
 import android.media.MediaPlayer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -30,7 +26,6 @@ import static com.example.arschloch.R.id.IVop1;
 import static com.example.arschloch.R.id.IVop2;
 import static com.example.arschloch.R.id.IVop3;
 import static com.example.arschloch.R.id.card1;
-import static com.example.arschloch.R.id.handCardLayout;
 
 
 /*
@@ -60,7 +55,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     //Spieler an der Reihe
     int playersTurn;
     //Anzahl Spielzüge
-    int turnCount = 1;
+    //int turnCount = 1;
     //Anzahl an hintereinander folgenden Skips
     int amountSkipped = 0;
     //Anzahl der Karten die zuvor gespielt wurden
@@ -93,8 +88,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        Button playBtn = (Button) findViewById(R.id.playBtn);
-        Button passBtn = (Button) findViewById(R.id.passBtn);
+        Button playBtn = findViewById(R.id.playBtn);
+        Button passBtn = findViewById(R.id.passBtn);
         gameLayout =findViewById(R.id.gameLayout);
         wishLayout =findViewById(R.id.wishLayout);
         spinner = findViewById(R.id.spinner);
@@ -110,7 +105,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             TVacop.add((TextView)findViewById(array[i]));
         }
 
-        TVCardsPlayedBy = (TextView)findViewById(R.id.TVCardsPlayedBy);
+        TVCardsPlayedBy = findViewById(R.id.TVCardsPlayedBy);
 
         playBtn.setOnClickListener(this);
         passBtn.setOnClickListener(this);
@@ -453,7 +448,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         cardValuePlayed = null;
         playersTurn = set_firstPlayer();
 
-        if(amountRounds > 1){
+        if(amountRounds > 1)
             //Drücken
            if(getWinner() instanceof HumanPlayer) {
                gameLayout.setVisibility(View.GONE);
@@ -468,14 +463,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                showPlayersCards();
                reset_arschloch_winner();
            }
-           }
-
-        //Test
-
-
-
-
-        //Arschloch und Winner zurücksetzen
 
 
         //TextView für die Anzahl der Karten wird zurückgesetzt
@@ -593,7 +580,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 int winPercentage = Integer.parseInt(statistics.getStatisticNumber());
                 Statistic help= db.getStatistic(1);
                 int helpAmountTurns = Integer.parseInt(help.getStatisticNumber());
-                Statistic help2= db.getStatistic(2);
+                //Statistic help2= db.getStatistic(2);
                 int helpWonTurns = Integer.parseInt(help.getStatisticNumber());
                 if(helpAmountTurns == 0){
                     helpAmountTurns = 1;

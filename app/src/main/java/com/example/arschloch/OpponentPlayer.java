@@ -7,8 +7,6 @@ import java.util.List;
 public class OpponentPlayer extends Player
 {
 
-    boolean level2 =  false;
-
     @Override
     public boolean play_card() throws Exception
     {
