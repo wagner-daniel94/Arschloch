@@ -266,7 +266,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         System.out.println("Log: Before Game Loop");
         if(allPlayer.get(0).getCards().size() == 0) {
-            finishing_Gameloop();
+            finishingGameloop();
         }
     }
 
@@ -453,30 +453,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         cardValuePlayed = null;
         playersTurn = set_firstPlayer();
 
+        //Drücken
         if(amountRounds > 1){
-            //Drücken
-           if(getWinner() instanceof HumanPlayer) {
-               gameLayout.setVisibility(View.GONE);
-               wishLayout.setVisibility(View.VISIBLE);
-
-               IwantCardBtn.setOnClickListener(this);
-               IwantNoCardBtn.setOnClickListener(this);
-
-            }
-           else {
-               getWinner().wuenschen(getArschloch(), null);
-               showPlayersCards();
-               reset_arschloch_winner();
-           }
+            wishACard();
            }
 
         //Test
 
-
-
-
         //Arschloch und Winner zurücksetzen
-
 
         //TextView für die Anzahl der Karten wird zurückgesetzt
         for (int i = 1; i < allPlayer.size(); i++) {
@@ -489,6 +473,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(!allPlayer.get(0).isWinner()) {
           play_First_Opponent_Round();
         }
+    }
+
+    private void wishACard(){
+        if(getWinner() instanceof HumanPlayer) {
+            gameLayout.setVisibility(View.GONE);
+            wishLayout.setVisibility(View.VISIBLE);
+
+            IwantCardBtn.setOnClickListener(this);
+            IwantNoCardBtn.setOnClickListener(this);
+
+        }
+        else {
+            getWinner().wuenschen(getArschloch(), null);
+            showPlayersCards();
+            reset_arschloch_winner();
+        }
+
     }
 
     private void reset_arschloch_winner(){
@@ -523,7 +524,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //Methode die dafür sorgt, dass die Runde zuende gespielt wird wenn humanPlayer keine Karten mehr hat
-    private void finishing_Gameloop(){
+    private void finishingGameloop(){
 
             while(getAmountPlayersInGame() > 1){
 
