@@ -583,19 +583,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 int zwischenspeicher = Integer.parseInt(statistics.getStatisticNumber());
 
                 if (j == 1) {
-                    zwischenspeicher = zwischenspeicher + amountRoundsStatistic;
+                    zwischenspeicher += amountRoundsStatistic;
                     statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
                     db.updateStatistics(statistics);
                 } else if (j == 2) {
-                    zwischenspeicher = zwischenspeicher + amountRoundsWon;
+                    zwischenspeicher += amountRoundsWon;
                     statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
                     db.updateStatistics(statistics);
                 } else if (j == 3) {
-                    zwischenspeicher = zwischenspeicher + amountTurnsPlayed;
+                    zwischenspeicher += amountTurnsPlayed;
                     statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
                     db.updateStatistics(statistics);
                 } else if (j == 4) {
-                    zwischenspeicher = zwischenspeicher + amountGamesLost;
+                    zwischenspeicher += amountGamesLost;
                     statistics.setStatisticNumber(String.valueOf(zwischenspeicher));
                     db.updateStatistics(statistics);
                 }

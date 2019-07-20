@@ -24,9 +24,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "Statistic";
 
-    // Table name: Note.
+    // Table name
     private static final String TABLE_STATISTICS = "Statistic";
 
+    // Column names
     private static final String COLUMN_STATISTIC_ID ="EntityId";
     private static final String COLUMN_STATISTIC_NAME ="StatisticName";
     private static final String COLUMN_STATISTIC_NUMBER = "StatisticNumber";
@@ -58,8 +59,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // If Statistics table has no data
-    // default, Insert 2 records.
+    // If Statistic table has no data
     public void createDefaultStatisticsIfNeed()  {
         int count = this.getStatisticsCount();
         if(count ==0 ) {
