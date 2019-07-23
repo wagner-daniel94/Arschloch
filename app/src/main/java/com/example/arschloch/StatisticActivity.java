@@ -16,7 +16,7 @@ public class StatisticActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statisticmain);
-       ListView mListView = (ListView) findViewById(R.id.statisticsList);
+       ListView mListView =  findViewById(R.id.statisticsList);
         //erstellen der Statistik Instanzen. noch abändern zu nicht hardcoded Zahlen.
 
        MyDatabaseHelper db = new MyDatabaseHelper(this);
@@ -29,7 +29,7 @@ public class StatisticActivity extends AppCompatActivity {
 
 
 
-        statisticsListAdapter adapter = new statisticsListAdapter (this, R.layout.activity_statistic, statisticsList);
+        StatisticsListAdapter adapter = new StatisticsListAdapter(this, R.layout.activity_statistic, statisticsList);
         mListView.setAdapter(adapter);
 
 

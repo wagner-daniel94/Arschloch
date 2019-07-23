@@ -48,7 +48,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(script);
     }
 
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -57,7 +56,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         onCreate(db);
     }
-
 
     // If Statistic table has no data
     public void createDefaultStatisticsIfNeed()  {
@@ -74,7 +72,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
+    // Statistic add
     public void addStatistic(Statistic statistic) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -90,28 +88,31 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
+    // retrieve Information
     public Statistic getStatistic(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Statistic statistic = new Statistic();
+        Statistic statistic = null;
         Cursor cursor = db.query(TABLE_STATISTICS, new String[] {COLUMN_STATISTIC_ID,
                         COLUMN_STATISTIC_NUMBER, COLUMN_STATISTIC_NAME}, COLUMN_STATISTIC_ID + "=?",
                 new String[] { String.valueOf(id) }, COLUMN_STATISTIC_ID, COLUMN_STATISTIC_ID, null, null);
         if(cursor !=null )
             cursor.moveToFirst();
 
+            try {
+                statistic = new Statistic(Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1), cursor.getString(2));
+            }catch (NullPointerException e){
 
-             statistic = new Statistic(Integer.parseInt(cursor.getString(0)),
-                    cursor.getString(1), cursor.getString(2));
-
+            }
+             cursor.close();
              return statistic;
 
 
     }
 
-
+    // retrieve all information
     public List<Statistic> getAllStatistics() {
-        List<Statistic> statistics = new ArrayList<Statistic>();
+        List<Statistic> statistics = new ArrayList<>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_STATISTICS;
 
@@ -129,11 +130,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 statistics.add(statistic);
             } while (cursor.moveToNext());
         }
-
-        // return note list
+        cursor.close();
+        // return list
         return statistics;
     }
 
+    // get amount of Statistics
     public int getStatisticsCount() {
 
         String countQuery = "SELECT  * FROM " + TABLE_STATISTICS;
@@ -148,7 +150,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-
+    // update the Information
     public int updateStatistics (Statistic statistic) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -162,6 +164,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(statistic.getStatisticId())});
     }
 
+    // delete Table
     public void deleteStatistics (Statistic statistic) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_STATISTICS, COLUMN_STATISTIC_ID + " = ?",
@@ -169,6 +172,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    // delete Database
     public void deleteDatabase(String DATABASE_NAME){
         SQLiteDatabase db = this.getWritableDatabase();
         String clearDBQuery = " DELETE FROM " + DATABASE_NAME;

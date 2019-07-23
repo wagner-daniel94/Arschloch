@@ -633,7 +633,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         AnimatorSet setupAnimation = new AnimatorSet();
         setupAnimation.play(scaleAnimation);
-        setupAnimation(view,scaleAnimation,R.animator.scale);
+        setupAnimation(view,scaleAnimation,animationID);
         Animator anim = AnimatorInflater.loadAnimator(GameActivity.this,animationID);
         anim.setTarget(view);
         anim.start();
