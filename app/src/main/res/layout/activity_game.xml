@@ -176,7 +176,7 @@
             android:layout_height="18dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="64dp"
-            android:text="Opponent1"
+            android:text="Manfred"
             android:textColor="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -253,7 +253,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="260dp"
             android:layout_marginTop="16dp"
-            android:text="Opponent2"
+            android:text="Anne-Marie"
             android:textColor="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -353,7 +353,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
             android:layout_marginEnd="16dp"
-            android:text="Opponent3"
+            android:text="Carlo"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

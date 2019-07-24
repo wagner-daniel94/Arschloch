@@ -15,7 +15,7 @@ public class StatisticsListAdapter extends ArrayAdapter <Statistic>{
     private Context mContext;
     private int mRessource;
 
-  // einsetzten des Objektes Statistic um es in die Liustview ein zu fügen
+  // einsetzten des Objektes Statistic um es in die Listview ein zu fügen
 
     public StatisticsListAdapter(Context context, int resource, ArrayList<Statistic> objects) {
         super(context, resource, objects);
@@ -46,9 +46,5 @@ public class StatisticsListAdapter extends ArrayAdapter <Statistic>{
             tvZahl.setText(zahl);
 
             return convertView;
-
-
-
-
     }
 }
