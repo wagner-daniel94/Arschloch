@@ -176,7 +176,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         if(allPlayer.get(i).getCards().size() != 0) {
                             if (allPlayer.get(i).play_card()) {
                                 amountSkipped = 0;
-                                TVCardsPlayedBy.setText("OpponentPlayer " + i + " played:");
+                                if(i==1){
+                                    TVCardsPlayedBy.setText("Manfred played: ");
+                                }else if(i==2){
+                                    TVCardsPlayedBy.setText("Anne-Marie played: ");
+                                }else{
+                                    TVCardsPlayedBy.setText("Carlo played: ");
+                                }
                                 //Scaliert die Karten aller gegner die eine Karte spielen
                                 if (allPlayer.get(i) == allPlayer.get(1)){
                                     ImageView animCard = findViewById(IVop1);
@@ -219,7 +225,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         if(allPlayer.get(i).getCards().size() != 0) {
                             if (allPlayer.get(i).play_card()) {
                                 amountSkipped = 0;
-                                TVCardsPlayedBy.setText("OpponentPlayer " + i + " played:");
+                                if(i==1){
+                                    TVCardsPlayedBy.setText("Manfred played: ");
+                                }else if(i==2){
+                                    TVCardsPlayedBy.setText("Anne-Marie played: ");
+                                }else{
+                                    TVCardsPlayedBy.setText("Carlo played: ");
+                                }
                                 //Skallieren der gegnerischen Karten fals sie eine Karte spielen
                                 TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
                                 if (allPlayer.get(i) == allPlayer.get(1)){
@@ -502,7 +514,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void play_First_Opponent_Round(){
         if(playersTurn != 1) {
-            Toast.makeText(this, "OpponentPlayer" + (playersTurn - 1) + " begins", Toast.LENGTH_LONG).show();
+            if(playersTurn==2){
+                Toast.makeText(this, "Manfred begins", Toast.LENGTH_SHORT).show();
+            }else if(playersTurn==3){
+                Toast.makeText(this, "Anne-Marie begins", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Carlo begins", Toast.LENGTH_SHORT).show();
+            }
             try {
                 opponentPlayerPlayCard(playersTurn - 1);
 
@@ -554,7 +572,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     }else if(i==2){
                         TVCardsPlayedBy.setText("Anne-Marie played: ");
                     }else{
-                        TVCardsPlayedBy.setText("Carlos played: ");
+                        TVCardsPlayedBy.setText("Carlo played: ");
                     }
                     amountSkipped = 0;
                     TVacop.get(i-1).setText(String.valueOf(allPlayer.get(i).getCards().size()));
